@@ -30,28 +30,6 @@ class Bridge:
 
 
     def loop(self):
-        last_time = time.time()
-
-        while (True):
-            ts = time.time()
-            if ts - last_time > 0.2:
-                feedname = 'elab'
-                headers = {'X-AIO-Key': ADAFRUIT_IO_KEY}
-                url = 'https://io.adafruit.com/api/v2/{}/feeds/{}/data/last'.format(USER, feedname)
-                my_get = requests.get(url, headers=headers)
-                resp_json_body = my_get.json()
-                ret_val = resp_json_body.get('value', None)
-                print(ret_val)
-
-                if ret_val == '1':
-                    self.write_msg("ON")
-
-                if ret_val == '0':
-                    self.write_msg("OFF")
-
-                last_time = time.time()
-
-    def loop(self):
         # infinite loop for serial managing
         #
         while (True):
