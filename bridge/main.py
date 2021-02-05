@@ -1,14 +1,15 @@
 from bridge import Bridge
-import requests
+import schedule
+import time
 
+def job(bridge):
+    bridge.write_msg('1')
 
 def main():
     bridge = Bridge()
     bridge.setup_serial()
     #bridge.loop()
-    while(True):
-        val = input('Inserisci valore: ')
-        bridge.write_msg(val)
+
 
 
 if __name__ == '__main__':

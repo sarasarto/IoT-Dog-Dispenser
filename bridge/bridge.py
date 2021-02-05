@@ -30,13 +30,11 @@ class Bridge:
 
 
     def loop(self):
-        # infinite loop for serial managing
-        #
         while (True):
             #look for a byte from serial
             if not self.ser is None:
 
-                if self.ser.in_waiting>0:
+                if self.ser.in_waiting > 0:
                     # data available from the serial port
                     lastchar=self.ser.read(1)
 
@@ -58,7 +56,7 @@ class Bridge:
             return False
 
         numval = int.from_bytes(self.inbuffer[1], byteorder='little')
-        for i in range (numval):
+        for i in range(numval):
             val = int.from_bytes(self.inbuffer[i+2], byteorder='little')
             strval = "Sensor %d: %d " % (i, val)
             print(strval)
