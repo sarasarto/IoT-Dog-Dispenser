@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "598179475315",
+    "project_id": "dogx-9703b",
+    "storage_bucket": "dogx-9703b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598179475315:android:0c4bf0518a6e28f0191f06",
+        "android_client_info": {
+          "package_name": "com.application.dogx_a_smart_dispenser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "598179475315-0j13j660ioq4n4anb5v2hb0kbqfklkhs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.application.dogx_a_smart_dispenser",
+            "certificate_hash": "f76a5d90c2e1f859a3d44794c5afb0cd75b791fb"
+          }
+        },
+        {
+          "client_id": "598179475315-8f3if2s1pnpstjrjum3mn92g00m9dkv9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7yNSSq_67O_UspjHtFhnLAD2IBSDH0vs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "598179475315-8f3if2s1pnpstjrjum3mn92g00m9dkv9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
