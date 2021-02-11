@@ -13,6 +13,8 @@ class _RegistrationState extends State<Registration> {
   final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
 
+  String name = '';
+  String surname = '';
   String email = '';
   String password = '';
   String error = '';
@@ -33,6 +35,18 @@ class _RegistrationState extends State<Registration> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: 20),
+                TextFormField(
+                  validator: (val) => val.isEmpty ? 'Enter a name' : null,
+                  onChanged: (val) {
+                    setState(() => name = val);
+                  },
+                ),
+                TextFormField(
+                  validator: (val) => val.isEmpty ? 'Enter a surname' : null,
+                  onChanged: (val) {
+                    setState(() => surname = val);
+                  },
+                ),
                 TextFormField(
                   validator: (val) => val.isEmpty ? 'Enter an email' : null,
                   onChanged: (val) {
@@ -57,19 +71,15 @@ class _RegistrationState extends State<Registration> {
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       dynamic result = await _authService
-                          .registerWithEmailAndPassword(email, password);
+                          .registerWithEmailAndPassword(name, surname, email, password);
                       if (result == null) {
                         setState(() => error = 'please supply a valid email');
                       }
-
-                      print('i tuoi dati sono stati aggiunti al db!');
-                      widget.toggleView();
+                      //widget.toggleView();
                     }
                   },
                 ),
-                SizedBox(
-                  height: 12,
-                ),
+                SizedBox(height: 12),
                 Text(
                   error,
                   style: TextStyle(color: Colors.red, fontSize: 14),

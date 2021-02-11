@@ -2,14 +2,15 @@ import 'package:dogx_a_smart_dispenser/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
-  final AuthService _auth = AuthService();
+  final AuthService _authService = AuthService();
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.brown[50],
       appBar: AppBar(
-        title: Text('Applicazione'),
+        title: Text('Benvenuto nella home!'),
         backgroundColor: Colors.brown[400],
         elevation: 0.0,
         actions: <Widget>[
@@ -17,7 +18,7 @@ class Home extends StatelessWidget {
             icon: Icon(Icons.person),
             label: Text('Logout'),
             onPressed: () async {
-              await _auth.signOut();
+              await _authService.signOut();
             },
           )
         ],
