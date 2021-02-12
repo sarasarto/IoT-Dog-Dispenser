@@ -1,24 +1,28 @@
+
+
 import 'package:dogx_a_smart_dispenser/models/User.dart';
-import 'package:dogx_a_smart_dispenser/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import 'database.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Stream<User> get user {
-    return _auth.onAuthStateChanged.map(_convertToCustomUser);
+  Stream<CustomUser> get user {
+    //return _auth.onAuthStateChanged.map(_convertToCustomUser);
+    return _auth.authStateChanges().map(_convertToCustomUser);
   }
 
-  User _convertToCustomUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+  CustomUser _convertToCustomUser(User user) {
+    return user != null ? CustomUser(uid: user.uid) : null;
   }
 
   //sign in with email & pwd.
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
-      AuthResult result = await _auth.signInWithEmailAndPassword(
+      UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      FirebaseUser user = result.user;
+      User user = result.user;
       return _convertToCustomUser(user);
       //return user;
     } catch (e) {
@@ -27,17 +31,17 @@ class AuthService {
     }
   }
 
-  Future getCurrentUser() async {
-    return await _auth.currentUser();
-  }
+  //User getCurrentUser() async {
+    //return await _auth.Current
+  //}
 
   //register with email & pwd
   Future registerWithEmailAndPassword(
       String name, String surname, String email, String password) async {
     try {
-      AuthResult result = await _auth.createUserWithEmailAndPassword(
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      FirebaseUser user = result.user;
+      User user = result.user;
       await DatabaseService(uid: user.uid).updateUserData(name, surname, email);
       return _convertToCustomUser(user);
     } catch (e) {

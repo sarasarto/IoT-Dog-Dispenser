@@ -1,3 +1,4 @@
+import 'package:dogx_a_smart_dispenser/models/Animal.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
@@ -10,17 +11,49 @@ class DatabaseService {
 
   //animal dispenser reference
 
-  //collection reference
+  //user collection reference
+  //-------------GESTIONE UTENTI-----------------
   final CollectionReference userCollection =
-      Firestore.instance.collection('User');
+      FirebaseFirestore.instance.collection('User');
+
+  final CollectionReference animalCollection =
+      FirebaseFirestore.instance.collection('Animal');
 
   Future updateUserData(String name, String surname, String email) async {
     return await userCollection
-        .document(uid)
-        .setData({'name': name, 'surname': surname, 'email': email});
+        .doc(uid)
+        .set({'name': name, 'surname': surname, 'email': email});
   }
-
+/*
   Stream<QuerySnapshot> get users {
     return userCollection.snapshots();
+  }*/
+
+  //-------------GESTIONE ANIMALI-----------------
+
+  Future updateAnimalData(String idCollar, String name, int dailyration,
+      int availableRation, String userId) async {
+    return await animalCollection.doc(uid).set({
+      'idCollar': idCollar,
+      'name': name,
+      'dailyRation': dailyration,
+      'availableRation': availableRation,
+      'userId': userId
+    });
+  }
+
+  List<Animal> _animalListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return Animal(
+          idCollar: doc.data()['idCollar'] ?? '',
+          name: doc.data()['name'] ?? '',
+          dailyRation: doc.data()['dailyRation'] ?? -1,
+          availableRation: doc.data()['availableRation'] ?? -1,
+          userId: doc.data()['userId'] ?? '');
+    }).toList();
+  }
+
+  Stream<List<Animal>> get animals {
+    return animalCollection.snapshots().map(_animalListFromSnapshot);
   }
 }

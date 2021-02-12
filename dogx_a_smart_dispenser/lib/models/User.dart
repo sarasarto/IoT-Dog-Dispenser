@@ -1,10 +1,10 @@
-class User {
+class CustomUser {
   String uid;
   String name;
   String surname;
   String email;
 
-  User({this.uid, this.name, this.surname, this.email});
+  CustomUser({this.uid, this.name, this.surname, this.email});
 
   String getUid() {
     return this.uid;

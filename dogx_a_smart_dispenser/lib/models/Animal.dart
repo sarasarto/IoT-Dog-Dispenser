@@ -1,17 +1,15 @@
 //modello relativo al singolo animale
 //da decidere bene quali sono gli attributi da inserire
 
-import 'User.dart';
-
 class Animal {
   String idCollar;
   String name;
   int dailyRation;
   int availableRation;
-  User user;
+  String userId;
   
   Animal({this.idCollar, this.name, this.dailyRation, 
-          this.availableRation, this.user});
+          this.availableRation, this.userId});
 
   String getIdCollar() {
     return this.idCollar;
@@ -29,12 +27,12 @@ class Animal {
     this.name = name;
   }
 
-  User getUser() {
-    return this.user;
+  String getUserId() {
+    return this.userId;
   }
 
-  void setUser(User user) {
-    this.user = user;
+  void setUserId(String userId) {
+    this.userId = userId;
   }
 
   int getDailyQuantity() {

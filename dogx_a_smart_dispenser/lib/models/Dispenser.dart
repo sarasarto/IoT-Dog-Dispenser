@@ -5,5 +5,5 @@ import 'User.dart';
 
 class Dispenser {
   String id;
-  User user;
+  String userId;
 }
