@@ -4,6 +4,12 @@ class DatabaseService {
   final String uid;
   DatabaseService({this.uid});
 
+  //user collection reference
+
+  //dispenser collection reference
+
+  //animal dispenser reference
+
   //collection reference
   final CollectionReference userCollection =
       Firestore.instance.collection('User');
@@ -18,5 +24,3 @@ class DatabaseService {
     return userCollection.snapshots();
   }
 }
-
-
