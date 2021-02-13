@@ -61,7 +61,7 @@ class Home extends StatelessWidget {
 }
 */
 
-import 'griddashboard.dart';
+import 'dashboard.dart';
 
 void main() => runApp(MaterialApp(home: Home()));
 
@@ -97,42 +97,9 @@ class HomeState extends State<Home> {
       body: Column(
         children: <Widget>[
           SizedBox(
-            height: 110,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 16, right: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Johny s Family",
-                    ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Text(
-                      "Home",
-                    ),
-                  ],
-                ),
-                IconButton(
-                  alignment: Alignment.topCenter,
-                  icon: Image.asset(
-                    "assets/notification.png",
-                    width: 24,
-                  ),
-                  onPressed: () {},
-                )
-              ],
-            ),
-          ),
-          SizedBox(
             height: 40,
           ),
-          GridDashboard()
+          Dashboard()
         ],
       ),
     );

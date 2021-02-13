@@ -23,6 +23,6 @@ class _AnimalListState extends State<AnimalList> {
     itemBuilder: (context, index) {
         return AnimalTile(animal: animals[index]);
       },
-    ); 
+    );
   }
 }
