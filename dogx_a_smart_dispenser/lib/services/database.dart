@@ -24,6 +24,7 @@ class DatabaseService {
         .doc(uid)
         .set({'name': name, 'surname': surname, 'email': email});
   }
+
 /*
   Stream<QuerySnapshot> get users {
     return userCollection.snapshots();

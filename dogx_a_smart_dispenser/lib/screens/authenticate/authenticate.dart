@@ -1,3 +1,5 @@
+
+/*
 import 'package:dogx_a_smart_dispenser/screens/authenticate/registration.dart';
 import 'package:dogx_a_smart_dispenser/screens/authenticate/sign_in.dart';
 import 'package:flutter/material.dart';
@@ -22,4 +24,4 @@ class _AuthenticateState extends State<Authenticate> {
       return Registration(toggleView: toggleView);
     }
   }
-}
+}*/

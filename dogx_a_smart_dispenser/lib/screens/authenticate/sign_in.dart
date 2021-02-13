@@ -1,10 +1,8 @@
+import 'package:dogx_a_smart_dispenser/screens/authenticate/registration.dart';
 import 'package:dogx_a_smart_dispenser/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
-  final Function toggleView;
-  SignIn({this.toggleView});
-
   @override
   _SignInState createState() => _SignInState();
 }
@@ -71,7 +69,10 @@ class _SignInState extends State<SignIn> {
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () async {
-                    widget.toggleView();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Registration())
+                    );
                   },
                 ),
                 SizedBox(height: 12),

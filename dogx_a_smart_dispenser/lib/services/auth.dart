@@ -1,5 +1,3 @@
-
-
 import 'package:dogx_a_smart_dispenser/models/User.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -31,9 +29,10 @@ class AuthService {
     }
   }
 
-  //User getCurrentUser() async {
-    //return await _auth.Current
-  //}
+  String getCurrentUserUid() {
+    User user = FirebaseAuth.instance.currentUser;
+    return user != null ? user.uid : null;
+  }
 
   //register with email & pwd
   Future registerWithEmailAndPassword(

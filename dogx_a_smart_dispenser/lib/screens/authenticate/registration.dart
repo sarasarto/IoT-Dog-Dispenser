@@ -74,8 +74,9 @@ class _RegistrationState extends State<Registration> {
                           .registerWithEmailAndPassword(name, surname, email, password);
                       if (result == null) {
                         setState(() => error = 'please supply a valid email');
-                      }
-                      //widget.toggleView();
+                      } else {
+                        Navigator.pop(context);
+                      }     
                     }
                   },
                 ),
