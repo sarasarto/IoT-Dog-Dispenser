@@ -1,8 +1,11 @@
 import 'package:dogx_a_smart_dispenser/models/Animal.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dogx_a_smart_dispenser/models/Dispenser.dart';
+import 'package:dogx_a_smart_dispenser/services/auth.dart';
 
 class DatabaseService {
   final String uid;
+  final _authService = AuthService();
   DatabaseService({this.uid});
 
   //user collection reference
@@ -19,16 +22,14 @@ class DatabaseService {
   final CollectionReference animalCollection =
       FirebaseFirestore.instance.collection('Animal');
 
+  final CollectionReference dispenserCollection =
+      FirebaseFirestore.instance.collection('Dispenser');
+
   Future updateUserData(String name, String surname, String email) async {
     return await userCollection
         .doc(uid)
         .set({'name': name, 'surname': surname, 'email': email});
   }
-
-/*
-  Stream<QuerySnapshot> get users {
-    return userCollection.snapshots();
-  }*/
 
   //-------------GESTIONE ANIMALI-----------------
 
@@ -55,6 +56,26 @@ class DatabaseService {
   }
 
   Stream<List<Animal>> get animals {
-    return animalCollection.snapshots().map(_animalListFromSnapshot);
+    String uid = _authService.getCurrentUserUid();
+    return animalCollection
+        .where('userId', isEqualTo: uid)
+        .snapshots()
+        .map(_animalListFromSnapshot);
+  }
+
+  //--------------GESTIONE DISPENSER-----------------
+  List<Dispenser> _dispenserListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return Dispenser(
+          id: doc.data()['id'] ?? '', userId: doc.data()['userId'] ?? '');
+    }).toList();
+  }
+
+  Stream<List<Dispenser>> get dispensers {
+    String uid = _authService.getCurrentUserUid();
+    return dispenserCollection
+        .where('userId', isEqualTo: uid)
+        .snapshots()
+        .map(_dispenserListFromSnapshot);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:dogx_a_smart_dispenser/screens/views/animal_view.dart';
+import 'package:dogx_a_smart_dispenser/screens/views/dispenser_view.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatelessWidget {
@@ -6,12 +7,11 @@ class Dashboard extends StatelessWidget {
       title: "Animali", img: "assets/calendar.png", onClickRoute: AnimalView());
 
   Item dispenser = new Item(
-      title: "Dispenser", img: "assets/food.png", onClickRoute: AnimalView());
+      title: "Dispenser", img: "assets/food.png", onClickRoute: DispenserView());
 
   @override
   Widget build(BuildContext context) {
     List<Item> myList = [animals, dispenser];
-    var color = Colors.brown[200];
     return Flexible(
       child: GridView.count(
           childAspectRatio: 1.0,
@@ -20,20 +20,18 @@ class Dashboard extends StatelessWidget {
           crossAxisSpacing: 18,
           mainAxisSpacing: 18,
           children: myList.map((data) {
-            return Container(
-                padding: const EdgeInsets.all(8),
-                color: Colors.brown[100],
-                child: GridTile(
-                  child: InkWell(
-                    //da rivedere il testo xk da problemi--> non appaiono tutte le card
+                return Card(
+                  color: Colors.brown[200],
+                  child: GestureDetector(
                     onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => data.onClickRoute));
                     },
+                    child: Text(data.title),
                   ),
-                ));
+                );
           }).toList()),
     );
   }
