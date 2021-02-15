@@ -4,9 +4,7 @@ import 'package:dogx_a_smart_dispenser/models/Dispenser.dart';
 import 'package:dogx_a_smart_dispenser/services/auth.dart';
 
 class DatabaseService {
-  final String uid;
   final _authService = AuthService();
-  DatabaseService({this.uid});
 
   //user collection reference
 
@@ -25,29 +23,46 @@ class DatabaseService {
   final CollectionReference dispenserCollection =
       FirebaseFirestore.instance.collection('Dispenser');
 
-  Future updateUserData(String name, String surname, String email) async {
+  Future updateUser(
+      String uid, String name, String surname, String email) async {
     return await userCollection
         .doc(uid)
         .set({'name': name, 'surname': surname, 'email': email});
   }
 
   //-------------GESTIONE ANIMALI-----------------
-
-  Future updateAnimalData(String idCollar, String name, int dailyration,
-      int availableRation, String userId) async {
-    return await animalCollection.doc(uid).set({
-      'idCollar': idCollar,
+  Future addAnimal(
+      String name, int dailyRation, int availableRation, String userId) async {
+    DocumentReference docRef = await animalCollection.add({
+      'collarId': null,
       'name': name,
-      'dailyRation': dailyration,
+      'dailyRation': dailyRation,
+      'availableRation': availableRation,
+      'userId': userId
+    });
+
+    docRef.update({'collarId': docRef.id});
+  }
+
+  Future updateAnimal(String collarId, String name, int dailyRation,
+      int availableRation, String userId) async {
+    return await animalCollection.doc(collarId).set({
+      'collarid': collarId,
+      'name': name,
+      'dailyRation': dailyRation,
       'availableRation': availableRation,
       'userId': userId
     });
   }
 
+  void deleteAnimal(String collarId) async {
+    await animalCollection.doc(collarId).delete();
+  }
+
   List<Animal> _animalListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Animal(
-          idCollar: doc.data()['idCollar'] ?? '',
+          collarId: doc.data()['collarId'] ?? '',
           name: doc.data()['name'] ?? '',
           dailyRation: doc.data()['dailyRation'] ?? -1,
           availableRation: doc.data()['availableRation'] ?? -1,

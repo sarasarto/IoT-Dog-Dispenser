@@ -2,21 +2,21 @@
 //da decidere bene quali sono gli attributi da inserire
 
 class Animal {
-  String idCollar;
+  String collarId; //si usa questo per definire il doc id di firebase
   String name;
   int dailyRation;
   int availableRation;
   String userId;
   
-  Animal({this.idCollar, this.name, this.dailyRation, 
+  Animal({this.collarId, this.name, this.dailyRation, 
           this.availableRation, this.userId});
 
   String getIdCollar() {
-    return this.idCollar;
+    return this.collarId;
   }
 
-  void setIdCollar(String idCollar) {
-    this.idCollar = idCollar;
+  void setIdCollar(String collarId) {
+    this.collarId = collarId;
   }
 
   String getName() {

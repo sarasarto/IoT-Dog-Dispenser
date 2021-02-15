@@ -32,12 +32,14 @@ class _SignInState extends State<SignIn> {
               children: <Widget>[
                 SizedBox(height: 20),
                 TextFormField(
+                  decoration: InputDecoration(hintText: 'Email'),
                   validator: (val) => val.isEmpty ? 'Enter an email' : null,
                   onChanged: (val) {
                     setState(() => email = val);
                   },
                 ),
                 TextFormField(
+                  decoration: InputDecoration(hintText: 'Password'),
                   validator: (val) =>
                       val.length < 6 ? 'Enter a password 6+ chars' : null,
                   obscureText: true,

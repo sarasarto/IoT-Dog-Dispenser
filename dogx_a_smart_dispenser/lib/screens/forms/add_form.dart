@@ -1,32 +1,28 @@
-import 'package:dogx_a_smart_dispenser/models/Animal.dart';
 import 'package:dogx_a_smart_dispenser/services/auth.dart';
 import 'package:dogx_a_smart_dispenser/services/database.dart';
 import 'package:flutter/material.dart';
 
-class UpdateForm extends StatefulWidget {
-  Animal animal;
-  UpdateForm({this.animal});
-
+class AddForm extends StatefulWidget {
   @override
-  _UpdateFormState createState() => _UpdateFormState();
+  _AddFormState createState() => _AddFormState();
 }
 
-class _UpdateFormState extends State<UpdateForm> {
+class _AddFormState extends State<AddForm> {
   final _formkey = GlobalKey<FormState>();
   final DatabaseService _dbService = DatabaseService();
   final AuthService _authService = AuthService();
+
+  String name;
+  String dailyRation;
+
   @override
   Widget build(BuildContext context) {
-    String name = widget.animal.name;
-    String dailyRation = widget.animal.dailyRation.toString();
-
     return Form(
       key: _formkey,
       child: Column(
         children: <Widget>[
           SizedBox(height: 20),
           TextFormField(
-            initialValue: widget.animal.name,
             decoration: InputDecoration(hintText: 'Nome'),
             validator: (val) => val.isEmpty ? 'Inserisci un nome' : null,
             onChanged: (val) {
@@ -34,7 +30,6 @@ class _UpdateFormState extends State<UpdateForm> {
             },
           ),
           TextFormField(
-            initialValue: widget.animal.dailyRation.toString(),
             decoration: InputDecoration(hintText: 'Razione'),
             keyboardType: TextInputType.number,
             validator: (val) => val.isEmpty ? 'Inserisci una razione' : null,
@@ -46,16 +41,15 @@ class _UpdateFormState extends State<UpdateForm> {
           RaisedButton(
             color: Colors.pink[400],
             child: Text(
-              'Modifica',
+              'Aggiungi',
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
               if (_formkey.currentState.validate()) {
-                _dbService.updateAnimal(
-                    widget.animal.collarId,
+                _dbService.addAnimal(
                     name,
                     int.parse(dailyRation),
-                    int.parse(dailyRation),
+                    int.parse(dailyRation), //all'inizio è uguale alla dailyRation
                     _authService.getCurrentUserUid());
                 Navigator.pop(context);
               }
