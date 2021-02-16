@@ -41,13 +41,13 @@ class DatabaseService {
       'userId': userId
     });
 
-    docRef.update({'collarId': docRef.id});
+    await docRef.update({'collarId': docRef.id});
   }
 
   Future updateAnimal(String collarId, String name, int dailyRation,
       int availableRation, String userId) async {
     return await animalCollection.doc(collarId).set({
-      'collarid': collarId,
+      'collarId': collarId,
       'name': name,
       'dailyRation': dailyRation,
       'availableRation': availableRation,
@@ -55,7 +55,7 @@ class DatabaseService {
     });
   }
 
-  void deleteAnimal(String collarId) async {
+  Future deleteAnimal(String collarId) async {
     await animalCollection.doc(collarId).delete();
   }
 
@@ -92,5 +92,9 @@ class DatabaseService {
         .where('userId', isEqualTo: uid)
         .snapshots()
         .map(_dispenserListFromSnapshot);
+  }
+
+  Stream<DocumentSnapshot> get animal {
+    return animalCollection.doc().snapshots();
   }
 }
