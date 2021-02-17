@@ -1,7 +1,6 @@
 from serial.tools import list_ports
 import serial
-import requests
-import time
+                                                                                                                                                                             
 
 
 class Bridge:

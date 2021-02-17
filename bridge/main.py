@@ -1,5 +1,4 @@
 from bridge import Bridge
-import schedule
 import time
 
 def main():
