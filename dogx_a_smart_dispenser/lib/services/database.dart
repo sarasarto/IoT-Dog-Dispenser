@@ -1,6 +1,7 @@
 import 'package:dogx_a_smart_dispenser/models/Animal.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dogx_a_smart_dispenser/models/Dispenser.dart';
+import 'package:dogx_a_smart_dispenser/screens/list_views/animal_list.dart';
 import 'package:dogx_a_smart_dispenser/services/auth.dart';
 
 class DatabaseService {
@@ -82,7 +83,11 @@ class DatabaseService {
   List<Dispenser> _dispenserListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Dispenser(
-          id: doc.data()['id'] ?? '', userId: doc.data()['userId'] ?? '');
+          id: doc.data()['id'] ?? '', userId: doc.data()['userId'] ?? ''
+          /*daErogare: doc.data()['daErogare'] ?? '',
+          qtnRation: doc.data()['qtnRation'] ?? '',
+          animals: doc.data()['animals'] ?? '')*/
+          );
     }).toList();
   }
 
@@ -96,5 +101,18 @@ class DatabaseService {
 
   Stream<DocumentSnapshot> get animal {
     return animalCollection.doc().snapshots();
+  }
+
+  Future addDispenser(String id, String userId, bool daErogare, int qtnRation,
+      List<Animal> animals) async {
+    DocumentReference docRef = await dispenserCollection.add({
+      'Id': id,
+      'userId': userId,
+      'daErogare': false,
+      'qtnRation': qtnRation,
+      'animals': animals
+    });
+
+    await docRef.update({'Id': docRef.id});
   }
 }
