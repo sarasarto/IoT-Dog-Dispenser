@@ -1,8 +1,6 @@
 from serial.tools import list_ports
 import serial
                                                                                                                                                                              
-
-
 class Bridge:
     def __init__(self):
         self.ser = None
@@ -14,7 +12,7 @@ class Bridge:
         ports = list_ports.comports()
         for port in ports:
             print('--> ' + port.device + port.description)
-            if 'arduino' in port.description.lower():
+            if 'com' in port.description.lower():
                 self.port_name = port.device
 
         if self.port_name is not None:

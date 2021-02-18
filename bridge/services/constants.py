@@ -1,1 +1,0 @@
-DISPENSER_ID = 'dispenser1'

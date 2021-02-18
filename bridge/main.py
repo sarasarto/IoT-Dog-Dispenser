@@ -1,15 +1,8 @@
-from bridge import Bridge
-import time
+from services.client import Client
+import threading
 
 def main():
-    bridge = Bridge()
-    bridge.setup_serial()
-    #bridge.loop()
-    while(True):
-        val = input('Inserisci valore: ')
-        bridge.write_msg(val)
-
-
+    pass
 
 if __name__ == '__main__':
     main()
