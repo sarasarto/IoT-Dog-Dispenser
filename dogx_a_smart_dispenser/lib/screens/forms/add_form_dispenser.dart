@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddFormDispenser extends StatefulWidget {
+  //final List<Animal> animals;
+  //AddFormDispenser({this.animals});
   @override
   _AddFormDispenserState createState() => _AddFormDispenserState();
 }
@@ -19,13 +21,13 @@ class _AddFormDispenserState extends State<AddFormDispenser> {
 
   String id;
   String userId;
-  bool daErogare;
   int qtnRation;
-  List<Animal> animals;
-
   @override
   Widget build(BuildContext context) {
-    int qnt = 2;
+    int qnt = 0;
+
+    //List<Animal> animals = widget.animals;
+    //print(animals);
     return Form(
       key: _formkey,
       child: Column(
@@ -51,9 +53,8 @@ class _AddFormDispenserState extends State<AddFormDispenser> {
                 _dbService.addDispenser(
                   id, //quello che inserisco --> QRCODE
                   _authService.getCurrentUserUid(),
-                  false, //daErogare = false,
-                  qnt, //razione
-                  _dbService.animals,
+                  qnt,
+                  //widget.animals[0].availableRation, //razione
                 );
 
                 Navigator.pop(context);

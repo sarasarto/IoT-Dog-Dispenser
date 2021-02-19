@@ -1,8 +1,10 @@
+import 'package:dogx_a_smart_dispenser/models/Animal.dart';
 import 'package:dogx_a_smart_dispenser/models/Dispenser.dart';
 import 'package:flutter/material.dart';
 
 class DispenserTile extends StatelessWidget {
   final Dispenser dispenser;
+  //final List<Animal> animals;
   DispenserTile({this.dispenser});
 
   @override
@@ -14,6 +16,7 @@ class DispenserTile extends StatelessWidget {
         child: ListTile(
           title: Text(dispenser.id),
           subtitle: Text(dispenser.userId),
+          
         ),
       ),
     );

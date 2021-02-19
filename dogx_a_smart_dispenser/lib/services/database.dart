@@ -83,10 +83,10 @@ class DatabaseService {
   List<Dispenser> _dispenserListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Dispenser(
-          id: doc.data()['id'] ?? '', userId: doc.data()['userId'] ?? ''
-          /*daErogare: doc.data()['daErogare'] ?? '',
+          id: doc.data()['Id'] ?? '', userId: doc.data()['userId'] ?? ''
+          /*
           qtnRation: doc.data()['qtnRation'] ?? '',
-          animals: doc.data()['animals'] ?? '')*/
+          */
           );
     }).toList();
   }
@@ -103,16 +103,12 @@ class DatabaseService {
     return animalCollection.doc().snapshots();
   }
 
-  Future addDispenser(String id, String userId, bool daErogare, int qtnRation,
-      List<Animal> animals) async {
+  Future addDispenser(String id, String userId, int qtnRation) async {
     DocumentReference docRef = await dispenserCollection.add({
       'Id': id,
       'userId': userId,
-      'daErogare': false,
       'qtnRation': qtnRation,
-      'animals': animals
+   
     });
-
-    await docRef.update({'Id': docRef.id});
   }
 }

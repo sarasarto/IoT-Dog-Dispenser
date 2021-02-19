@@ -7,12 +7,12 @@ import 'package:dogx_a_smart_dispenser/screens/list_views/animal_list.dart';
 class Dispenser {
   String id;
   String userId;
-  bool daErogare;
+  //bool daErogare;
   int qtnRation;
-  List<Animal> animals;
+  //List<Animal> animals;
 
   Dispenser(
-      {this.id, this.userId, this.daErogare, this.qtnRation, this.animals});
+      {this.id, this.userId, this.qtnRation});
 
   String getIdDispenser() {
     return this.id;
@@ -30,14 +30,6 @@ class Dispenser {
     this.userId = userId;
   }
 
-  bool getDaErogare() {
-    return this.daErogare;
-  }
-
-  void setDaErogare(bool daErogare) {
-    this.daErogare = daErogare;
-  }
-
   int getQtnRation() {
     return this.qtnRation;
   }
@@ -46,11 +38,4 @@ class Dispenser {
     this.qtnRation = qtnRation;
   }
 
-  List<Animal> getAnimal() {
-    return this.animals;
-  }
-
-  void setAnimal(List<Animal> animals) {
-    this.animals = animals;
-  }
 }
