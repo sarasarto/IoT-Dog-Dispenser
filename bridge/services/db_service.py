@@ -24,3 +24,8 @@ class DatabaseService:
     def get_doc_ref(self, collection_name, doc_id):
         doc_ref = self.db_ref.collection(collection_name).document(doc_id)
         return doc_ref
+
+    def resetDispenserState(self, dispenser_ref):
+        doc_ref = self.db_ref.collection('Dispenser').document(DISPENSER_ID)
+        dispenser_ref['qtnRation'] = 0
+        doc_ref.set(dispenser_ref)

@@ -16,8 +16,14 @@ class Client:
 
     def _on_snapshot_dispenser(self, doc_snapshot, changes, read_time):
         #NB: DOC_REF E' UNA LISTA CHE CONTIENE SOLO IL DISPENSER DI INTERESSE
-        dispenser_ref = doc_snapshot[0].to_dict()
-        print(dispenser_ref)
-        #DA QUI POI POSSO SFRUTTARE LA CLASSE BRIDGE PER INVIARE 
-        #TUTTI I COMANDI AD ARDUINO
-        self.bridge.write_msg('1')
+        if(len(doc_snapshot) > 0):
+            dispenser_ref = doc_snapshot[0].to_dict()
+            qtnRation = dispenser_ref['qtnRation']
+
+            if(qtnRation != 0):
+                print('erogati')
+                #da qui andrò ad erogare verso arduino
+                #successivamente resetto a zero la variabile qtnRation
+                self.db_service.resetDispenserState(dispenser_ref)
+        
+       
