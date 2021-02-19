@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import 'dispenser_tile.dart';
 
 class DispenserList extends StatefulWidget {
+  final List<Animal> animals;
+  DispenserList({this.animals});
   @override
   _DispenserListState createState() => _DispenserListState();
 }
@@ -21,7 +23,7 @@ class _DispenserListState extends State<DispenserList> {
     return ListView.builder(
       itemCount: dispensers != null ? dispensers.length : 0,
       itemBuilder: (context, index) {
-        return DispenserTile(dispenser: dispensers[index]);
+        return DispenserTile(dispenser: dispensers[index], animals:widget.animals);
       },
     );
   }

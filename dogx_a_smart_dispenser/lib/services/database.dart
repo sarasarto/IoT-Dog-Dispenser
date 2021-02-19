@@ -104,11 +104,13 @@ class DatabaseService {
   }
 
   Future addDispenser(String id, String userId, int qtnRation) async {
-    DocumentReference docRef = await dispenserCollection.add({
+    //DocumentReference docRef = await dispenserCollection
+    return await dispenserCollection.doc(id).set({
       'Id': id,
       'userId': userId,
       'qtnRation': qtnRation,
-   
     });
+
+    // await docRef.update({'Id': docRef.id});
   }
 }

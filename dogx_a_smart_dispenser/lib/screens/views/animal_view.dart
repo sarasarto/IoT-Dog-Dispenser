@@ -6,6 +6,7 @@ import 'package:dogx_a_smart_dispenser/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
 class AnimalView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -31,10 +32,9 @@ class AnimalView extends StatelessWidget {
         ),
         body: AnimalList(),
         floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          backgroundColor: Colors.brown[400],
-          onPressed: () => _showAddPanel()
-        ),
+            child: Icon(Icons.add),
+            backgroundColor: Colors.brown[400],
+            onPressed: () => _showAddPanel()),
       ),
     );
   }
