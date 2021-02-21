@@ -13,18 +13,6 @@ class DispenserView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*
-      void _showAddPanel(/*List<Animal> animals*/) {
-        showModalBottomSheet(
-            context: context,
-            builder: (context) {
-              return Container(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-                child: AddFormDispenser(/*animals: animals*/),
-              );
-            });
-      }*/
-
     return MultiProvider(
       providers: [
         StreamProvider<List<Dispenser>>.value(
@@ -56,7 +44,8 @@ class DispenserView extends StatelessWidget {
   Future _scannerDispenser(BuildContext context) async {
     final result = await Navigator.push(
         context, MaterialPageRoute(builder: (c) => Scanner()));
-    _dbService.addDispenser(result.code, _authService.getCurrentUserUid(), 0);
+    if (result != null) {
+      _dbService.addDispenser(result.code, _authService.getCurrentUserUid(), 0);
+    }
   }
-  
 }
