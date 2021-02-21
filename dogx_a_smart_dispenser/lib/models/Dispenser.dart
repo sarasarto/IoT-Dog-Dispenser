@@ -1,9 +1,6 @@
 //modello relativo al dispenser
 //rimane da decidere bene gli attributi da inserire.
 
-import 'package:dogx_a_smart_dispenser/models/Animal.dart';
-import 'package:dogx_a_smart_dispenser/screens/list_views/animal_list.dart';
-
 class Dispenser {
   String id;
   String userId;

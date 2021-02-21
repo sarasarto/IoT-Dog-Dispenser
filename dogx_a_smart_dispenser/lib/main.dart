@@ -1,4 +1,4 @@
-import 'package:dogx_a_smart_dispenser/models/User.dart';
+import 'package:dogx_a_smart_dispenser/models/CustomUser.dart';
 import 'package:dogx_a_smart_dispenser/screens/wrapper.dart';
 import 'package:dogx_a_smart_dispenser/services/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -16,10 +16,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<CustomUser>.value(
-        value: AuthService().user,
-        child: MaterialApp(
+      value: AuthService().user,
+      child: MaterialApp(
         home: Wrapper(),
       ),
-    );     
-  }     
+    );
+  }
 }

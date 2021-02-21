@@ -1,6 +1,5 @@
-import 'package:dogx_a_smart_dispenser/models/User.dart';
+import 'package:dogx_a_smart_dispenser/models/CustomUser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'database.dart';
 
 class AuthService {
