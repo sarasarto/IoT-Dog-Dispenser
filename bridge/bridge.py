@@ -5,6 +5,7 @@ class Bridge:
     def __init__(self):
         self.ser = None
         self.port_name = None
+        self.inbuffer = []
 
     def setup_serial(self):
         print('List of available ports: ')
@@ -27,6 +28,7 @@ class Bridge:
 
 
     def loop(self):
+        print('bridge_thread')
         while (True):
             #look for a byte from serial
             if not self.ser is None:
@@ -39,7 +41,7 @@ class Bridge:
                     if lastchar==b'\xfe': #EOL
                         print("\nValue received")
                         self.useData()
-                        self.inbuffer =[]
+                        self.inbuffer = []
                     else:
                         # append
                         self.inbuffer.append (lastchar)
@@ -57,4 +59,3 @@ class Bridge:
             val = int.from_bytes(self.inbuffer[i+2], byteorder='little')
             strval = "Sensor %d: %d " % (i, val)
             print(strval)
-            self.clientMQTT.publish('sensor/{:d}'.format(i),'{:d}'.format(val))

@@ -14,13 +14,11 @@ Stepper stepper(nStep, pinOne, pinTwo, pinThree, pinFour);
 void setup() {
   Serial.begin(9600);
   stepper.setSpeed(motor_speed);
-
 }
 
 int command;
 
 void loop() {
-
   if (Serial.available()>0){
     command = Serial.read();
 
@@ -28,5 +26,4 @@ void loop() {
       stepper.step(2048);
     }
   } // if (Serial.available()>0)
-
 }
