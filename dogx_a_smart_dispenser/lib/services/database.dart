@@ -113,4 +113,8 @@ class DatabaseService {
 
     // await docRef.update({'Id': docRef.id});
   }
+
+    Future deleteDispenser(String id) async {
+    await dispenserCollection.doc(id).delete();
+  }
 }
