@@ -1,2 +1,2 @@
-DISPENSER_ID = 'dispenser1'
+DISPENSER_ID = 'dispenser2'
 SERVICES_PATH = 'dogx-9703b-firebase-adminsdk-30k5j-b74bd82c2c.json'

@@ -25,6 +25,9 @@ class DatabaseService:
         doc_ref = self.db_ref.collection(collection_name).document(doc_id)
         return doc_ref
 
+
+#TODO: RIMETTERE A NULL L'ANIMALE INTERESSATO!
+
     def resetDispenserState(self, dispenser_ref):
         doc_ref = self.db_ref.collection('Dispenser').document(DISPENSER_ID)
         dispenser_ref['qtnRation'] = 0

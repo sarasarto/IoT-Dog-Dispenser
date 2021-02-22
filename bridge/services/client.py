@@ -20,10 +20,21 @@ class Client:
             dispenser_ref = doc_snapshot[0].to_dict()
             qtnRation = dispenser_ref['qtnRation']
 
+            #ci sarà da leggere anche l'id animale interessato
+
             if(qtnRation != 0):
                 print('erogati')
                 #da qui andrò ad erogare verso arduino
-                #successivamente resetto a zero la variabile qtnRation
+                self.bridge.write_msg('1') #erogo!!!!!!!
+
+                #LEGGO ACK DA ARDUINO
+                #IF OK --> SOTTRAGGO LA QTNRATION DALLA AVAILABLE RATION
+                #IF NOT OK --> NON FACCIO NULLA MA RESETTO COMUNQUE LO STATO DEL DISPENSER
+                #RIMETTENDO A ZERO LA QTNRATION E RESETTANDO IL RELATIVO ANIMALE A NULL
+
+                #PROBLEMA: COME MI METTO IN COMUNICAZIONE CON IL BRIDGE PER CAPIRE SE E' ANDATO TUTTO
+                #OK OPPURE NO????
+
                 self.db_service.resetDispenserState(dispenser_ref)
         
        
