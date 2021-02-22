@@ -114,7 +114,16 @@ class DatabaseService {
     // await docRef.update({'Id': docRef.id});
   }
 
-    Future deleteDispenser(String id) async {
+  Future deleteDispenser(String id) async {
     await dispenserCollection.doc(id).delete();
+  }
+
+  Future updateDispenser(String id, String userId, int qtnRation) async {
+    //DocumentReference docRef = await dispenserCollection
+    return await dispenserCollection.doc(id).set({
+      'Id': id,
+      'userId': userId,
+      'qtnRation': qtnRation,
+    });
   }
 }
