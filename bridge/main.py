@@ -13,6 +13,7 @@ def main():
     client.connect_to_database()
     client.listen_dispenser_updates()
 
+    """
     bridge_thread = threading.Thread(target=bridge.loop)
     client_thread = threading.Thread(target=client.loop)
 
@@ -21,9 +22,14 @@ def main():
 
     bridge_thread.start()
     client_thread.start()
+    """
 
-    while(True):
-        pass
+
+
+    #while(True):
+        #pass
+
+    client.update_animal_ration('mio animale', 10)
 
 if __name__ == '__main__':
     main()

@@ -21,14 +21,20 @@ class Client:
             qtnRation = dispenser_ref['qtnRation']
 
             #ci sarà da leggere anche l'id animale interessato
+            #lo leggo in questo modo
+            #si suppone di inserire nella tabella dispenser
+            #oltre a qtn ration id collare dell'animale interessato
+            animal_id = dispenser_ref['collarId']
 
-            if(qtnRation != 0):
+            if(qtnRation != 0 and animal_id is not None):
                 print('erogati')
                 #da qui andrò ad erogare verso arduino
                 self.bridge.write_msg('1') #erogo!!!!!!!
 
                 #LEGGO ACK DA ARDUINO
                 #IF OK --> SOTTRAGGO LA QTNRATION DALLA AVAILABLE RATION
+                if(...):
+                    self.update_animal_ration(animal_id, qtnRation)
                 #IF NOT OK --> NON FACCIO NULLA MA RESETTO COMUNQUE LO STATO DEL DISPENSER
                 #RIMETTENDO A ZERO LA QTNRATION E RESETTANDO IL RELATIVO ANIMALE A NULL
 
@@ -36,7 +42,16 @@ class Client:
                 #OK OPPURE NO????
 
                 self.db_service.resetDispenserState(dispenser_ref)
-        
+
+    
+    #funziona che viene eseguita una volta ricevuto 
+    #ACK dal microcontrollore
+    #OSSERVAZIONE: IN QUESTO CASO NON SERVE CONTROLLARE
+    #SE ANIMALE HA ABBASTANZA QUANTITA' XK VIENE GIà
+    #FATTO DALL' APP---> e' giusta questa osservazione??
+    def update_animal_ration(self, collar_id, ration):
+        self.db_service.update_animal_ration(collar_id, ration)
+
        
     def loop(self):
         #il client rimane attivo per eventuali modifiche al db
