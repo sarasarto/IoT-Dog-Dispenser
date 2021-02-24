@@ -1,4 +1,3 @@
-import threading
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -30,23 +29,18 @@ class DatabaseService:
 #TODO: RIMETTERE A NULL L'ANIMALE INTERESSATO!
 
     def update_animal_ration(self, collar_id, ration):
-        animal_ref = self.db_ref.collection('Animal').document(collar_id)
-        animal = animal_ref.get().to_dict()
-        available_ration = animal['availableRation']
+        animal_ref = self.get_doc_ref('Animal', collar_id)
+        available_ration = self.get_animal_ration(collar_id)
         available_ration -= ration
-
         #aggiorno la quantità
         animal_ref.update({'availableRation':available_ration})
 
 
-
+    def get_animal_ration(self, collar_id):
+        animal_ref = self.get_doc_ref('Animal', collar_id)
+        animal = animal_ref.get().to_dict()
+        return animal['availableRation']
         
-
-        
-        
-
-
-
     def resetDispenserState(self, dispenser_ref):
         doc_ref = self.db_ref.collection('Dispenser').document(DISPENSER_ID)
         dispenser_ref['qtnRation'] = 0

@@ -44,6 +44,12 @@ class Client:
                 self.db_service.resetDispenserState(dispenser_ref)
 
     
+
+    #funzione che viene invocata quando animale si avvicina al dispenser
+    #e di conseguenza bisogna verificare che abbia ancora razione disponibile
+    def get_animal_ration(self, collar_id):
+        self.db_service.get_animal_ration(collar_id)
+
     #funziona che viene eseguita una volta ricevuto 
     #ACK dal microcontrollore
     #OSSERVAZIONE: IN QUESTO CASO NON SERVE CONTROLLARE
