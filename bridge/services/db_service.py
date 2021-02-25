@@ -11,7 +11,7 @@ class DatabaseService:
     
     def __init__(self):
         self.services_path = SERVICES_PATH
-        self.cred = credentials.Certificate('services/' + self.services_path)
+        self.cred = credentials.Certificate('bridge/services/' + self.services_path)
         self.db_ref = None
 
     def initialize_connection(self):
@@ -28,7 +28,7 @@ class DatabaseService:
 
 #TODO: RIMETTERE A NULL L'ANIMALE INTERESSATO!
 
-    def update_animal_ration(self, collar_id, ration):
+    def update_available_ration(self, collar_id, ration):
         animal_ref = self.get_doc_ref('Animal', collar_id)
         available_ration = self.get_animal_ration(collar_id)
         available_ration -= ration
@@ -36,7 +36,7 @@ class DatabaseService:
         animal_ref.update({'availableRation':available_ration})
 
 
-    def get_animal_ration(self, collar_id):
+    def get_available_ration(self, collar_id):
         animal_ref = self.get_doc_ref('Animal', collar_id)
         animal = animal_ref.get().to_dict()
         return animal['availableRation']
