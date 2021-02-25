@@ -31,7 +31,11 @@ class DatabaseService:
     def update_available_ration(self, collar_id, ration):
         animal_ref = self.get_doc_ref('Animal', collar_id)
         available_ration = self.get_available_ration(collar_id)
-        available_ration -= ration
+        if(ration >= available_ration):
+            available_ration = 0
+        else:
+            available_ration -= ration
+            
         #aggiorno la quantità
         #todo: se la available diventa negativa allora la settiamo a 0
         #questo si verifica quando dall'app diamo la possibilità

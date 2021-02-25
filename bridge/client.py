@@ -27,12 +27,9 @@ class Client:
             #lo leggo in questo modo
             #si suppone di inserire nella tabella dispenser
             #oltre a qtn ration id collare dell'animale interessato
+    
+            collar_id = dispenser_ref['collarId']
 
-            #todo: da scommentare
-            #collar_id = dispenser_ref['collarId']
-            collar_id = 'ASE9RnI2PcnmwDzkNgKO'
-
-            #todo: ricordarsi di mettere anche l'and
             if qtnRation != 0 and collar_id != None:
                 print('erogati')
                 #da qui andrò ad inviare il comando ad arduino
