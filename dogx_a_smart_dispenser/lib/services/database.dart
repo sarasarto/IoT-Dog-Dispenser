@@ -103,12 +103,13 @@ class DatabaseService {
     return animalCollection.doc().snapshots();
   }
 
-  Future addDispenser(String id, String userId, int qtnRation) async {
+  Future addDispenser(String id, String userId, int qtnRation, String collarId) async {
     //DocumentReference docRef = await dispenserCollection
     return await dispenserCollection.doc(id).set({
       'Id': id,
       'userId': userId,
       'qtnRation': qtnRation,
+      'collarId': collarId,
     });
 
     // await docRef.update({'Id': docRef.id});
@@ -118,12 +119,13 @@ class DatabaseService {
     await dispenserCollection.doc(id).delete();
   }
 
-  Future updateDispenser(String id, String userId, int qtnRation) async {
+  Future updateDispenser(String id, String userId, int qtnRation, String collarId) async {
     //DocumentReference docRef = await dispenserCollection
     return await dispenserCollection.doc(id).set({
       'Id': id,
       'userId': userId,
       'qtnRation': qtnRation,
+      'collarId': collarId,
     });
   }
 }

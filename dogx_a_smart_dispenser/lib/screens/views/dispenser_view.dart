@@ -41,11 +41,11 @@ class DispenserView extends StatelessWidget {
     );
   }
 
-  Future _scannerDispenser(BuildContext context) async {
+  Future _scannerDispenser(BuildContext context) async {   
     final result = await Navigator.push(
         context, MaterialPageRoute(builder: (c) => Scanner()));
     if (result != null) {
-      _dbService.addDispenser(result.code, _authService.getCurrentUserUid(), 0);
+      _dbService.addDispenser(result.code, _authService.getCurrentUserUid(), 0, null );
     }
   }
 }

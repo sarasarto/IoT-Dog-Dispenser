@@ -6,10 +6,11 @@ class Dispenser {
   String userId;
   //bool daErogare;
   int qtnRation;
+  String collarId;
   //List<Animal> animals;
 
   Dispenser(
-      {this.id, this.userId, this.qtnRation});
+      {this.id, this.userId, this.qtnRation, this.collarId});
 
   String getIdDispenser() {
     return this.id;
@@ -35,4 +36,11 @@ class Dispenser {
     this.qtnRation = qtnRation;
   }
 
+  String getCollarId() {
+    return this.collarId;
+  }
+
+  void setCollarId(String collarId) {
+    this.collarId = collarId;
+  }
 }

@@ -87,7 +87,8 @@ class _ErogaViewState extends State<ErogaView> {
                     _dbService.updateDispenser(
                         dispenser.id,
                         _authService.getCurrentUserUid(),
-                        int.parse(_currentQnt));
+                        int.parse(_currentQnt),
+                        _currentAnimal.collarId);
                     showDialog(
                         context: context,
                         barrierDismissible:
@@ -136,14 +137,8 @@ class _ErogaViewState extends State<ErogaView> {
                                   _dbService.updateDispenser(
                                       dispenser.id,
                                       _authService.getCurrentUserUid(),
-                                      int.parse(_currentQnt));
-                                  //metto available ratio a zero per l'animale
-                                  /*_dbService.updateAnimal(
-                                      _currentAnimal.collarId,
-                                      _currentAnimal.name,
-                                      _currentAnimal.dailyRation,
-                                      0,
-                                      _currentAnimal.userId);*/
+                                      int.parse(_currentQnt),
+                                      _currentAnimal.collarId);
                                 }, //closes popup
                               ),
                             ],
