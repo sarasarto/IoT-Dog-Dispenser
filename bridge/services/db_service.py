@@ -30,18 +30,24 @@ class DatabaseService:
 
     def update_available_ration(self, collar_id, ration):
         animal_ref = self.get_doc_ref('Animal', collar_id)
-        available_ration = self.get_animal_ration(collar_id)
+        available_ration = self.get_available_ration(collar_id)
         available_ration -= ration
         #aggiorno la quantità
+        #todo: se la available diventa negativa allora la settiamo a 0
+        #questo si verifica quando dall'app diamo la possibilità
+        #di erogare più di quello a disposizione
+
         animal_ref.update({'availableRation':available_ration})
 
 
     def get_available_ration(self, collar_id):
         animal_ref = self.get_doc_ref('Animal', collar_id)
         animal = animal_ref.get().to_dict()
+        print(animal)
         return animal['availableRation']
         
     def resetDispenserState(self, dispenser_ref):
         doc_ref = self.db_ref.collection('Dispenser').document(DISPENSER_ID)
         dispenser_ref['qtnRation'] = 0
+        #dispenser_ref['collarId'] = None
         doc_ref.set(dispenser_ref)

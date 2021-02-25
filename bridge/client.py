@@ -29,17 +29,19 @@ class Client:
             #oltre a qtn ration id collare dell'animale interessato
 
             #todo: da scommentare
-            #animal_id = dispenser_ref['collarId']
+            #collar_id = dispenser_ref['collarId']
+            collar_id = 'mio animale'
 
-            if(qtnRation != 0 and animal_id is not None):
+            #todo: ricordarsi di mettere anche l'and
+            if qtnRation != 0 and collar_id != None:
                 print('erogati')
-                #da qui andrò ad erogare verso arduino
-                self.bridge.write_msg('1') #erogo!!!!!!!
+                #da qui andrò ad inviare il comando ad arduino
+                self.bridge.write_msg('1') 
 
-                #LEGGO ACK DA ARDUINO
-                #IF OK --> SOTTRAGGO LA QTNRATION DALLA AVAILABLE RATION
-                if(...):
-                    self.update_animal_ration(animal_id, qtnRation)
+                #LEGGO ACK DA ARDUINO ---> come lo implemento???
+                #IF arduino ha ricevuto --> SOTTRAGGO LA QTNRATION DALLA AVAILABLE RATION
+                #if(...):
+                self.update_available_ration(collar_id, qtnRation)
                 #IF NOT OK --> NON FACCIO NULLA MA RESETTO COMUNQUE LO STATO DEL DISPENSER
                 #RIMETTENDO A ZERO LA QTNRATION E RESETTANDO IL RELATIVO ANIMALE A NULL
 

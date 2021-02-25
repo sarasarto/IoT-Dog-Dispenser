@@ -76,6 +76,9 @@ class Bridge:
             if is_available:
                 print('erogazione in corso')
                 self.write_msg('1')
+                #a questo punto tolgo 30 dalla razione dell'animale
+                self.client.update_available_ration('mio animale', 30)
+
                 return True
             else:
                 print('quantità non disponibile')
