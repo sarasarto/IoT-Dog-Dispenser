@@ -33,6 +33,7 @@ class _ErogaViewState extends State<ErogaView> {
     final AuthService _authService = AuthService();
     final DatabaseService _dbService = DatabaseService();
     print('*************prima-->' + dispenser.qtnRation.toString());
+    
     return Scaffold(
       backgroundColor: Colors.brown[50],
       appBar: AppBar(
@@ -49,14 +50,15 @@ class _ErogaViewState extends State<ErogaView> {
             ),
             SizedBox(height: 40.0),
             Text(
-              'Scegli il tuo animale',
+              'Seleziona il tuo animale',
               style: TextStyle(fontSize: 18.0),
             ),
             SizedBox(height: 20.0),
             //dropdown
             DropdownButtonFormField(
-                value: _currentAnimal ?? animals[0],
+                //value: _currentAnimal ?? animals[0],
                 items: animals.map((animal) {
+                  print("quaaaa");
                   //print(animal.name);
                   return DropdownMenuItem(
                     value:
@@ -80,6 +82,11 @@ class _ErogaViewState extends State<ErogaView> {
                 color: Colors.pink[400],
                 child: Text('Eroga', style: TextStyle(color: Colors.white)),
                 onPressed: () async {
+
+                  // DA METTERE CONTROLLO CHE UTENTE SELEZIONI SIA ANIMALE CHE QUANITTA
+                  // ALTRIMENTI DIALOG CHE DICE DI METTERLI
+
+                  // QUANITA NEGATIVA (?) 
                   print(_currentQnt);
                   print(_currentAnimal.name);
                   if (_currentAnimal.availableRation >=

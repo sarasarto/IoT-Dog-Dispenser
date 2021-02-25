@@ -18,10 +18,15 @@ class DispenserTile extends StatelessWidget {
           title: Text(dispenser.id),
           subtitle: Text(dispenser.userId),
           onTap: () {
+            print(dispenser.id);
+            print("collare: " + dispenser.collarId.toString());
+            print("qnt : " + dispenser.qtnRation.toString());
+            print(dispenser.userId);
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => ErogaView(dispenser: dispenser, animals:animals)));
+                    builder: (context) =>
+                        ErogaView(dispenser: dispenser, animals: animals)));
           },
         ),
       ),

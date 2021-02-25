@@ -83,10 +83,10 @@ class DatabaseService {
   List<Dispenser> _dispenserListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Dispenser(
-          id: doc.data()['Id'] ?? '', userId: doc.data()['userId'] ?? ''
-          /*
+          id: doc.data()['Id'] ?? '', 
+          userId: doc.data()['userId'] ?? '',
           qtnRation: doc.data()['qtnRation'] ?? '',
-          */
+          collarId: doc.data()['collarId'] ?? null,
           );
     }).toList();
   }
