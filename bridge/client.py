@@ -30,7 +30,7 @@ class Client:
 
             #todo: da scommentare
             #collar_id = dispenser_ref['collarId']
-            collar_id = 'mio animale'
+            collar_id = '7zLH4JdPLeOB5QMxqV5x'
 
             #todo: ricordarsi di mettere anche l'and
             if qtnRation != 0 and collar_id != None:
