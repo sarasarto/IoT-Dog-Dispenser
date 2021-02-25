@@ -83,9 +83,12 @@ class _ErogaViewState extends State<ErogaView> {
                   print(_currentQnt);
                   print(_currentAnimal.name);
                   if (_currentAnimal.availableRation >=
-                      int.parse(_currentQnt)) {                    
-                    _dbService.updateDispenser(dispenser.id, _authService.getCurrentUserUid(), int.parse(_currentQnt));
-                        showDialog(
+                      int.parse(_currentQnt)) {
+                    _dbService.updateDispenser(
+                        dispenser.id,
+                        _authService.getCurrentUserUid(),
+                        int.parse(_currentQnt));
+                    showDialog(
                         context: context,
                         barrierDismissible:
                             false, // disables popup to close if tapped outside popup (need a button to close)
@@ -94,7 +97,7 @@ class _ErogaViewState extends State<ErogaView> {
                             title: Text(
                               "Hai erogato correttamente",
                             ),
-                           
+
                             //buttons METTIAMO LA POSSIBILIà DI DARGLI PIU CIBO?????
                             actions: <Widget>[
                               FlatButton(
@@ -114,15 +117,33 @@ class _ErogaViewState extends State<ErogaView> {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             title: Text(
-                              "La quantità super la razione disponibile",
+                              "La quantità selezionata supera la razione giornaliera disponibile",
                             ),
-                            content: Text("Sei sicuro?"),
+                            content: Text("Eroga comunque?"),
                             //buttons METTIAMO LA POSSIBILIà DI DARGLI PIU CIBO?????
                             actions: <Widget>[
                               FlatButton(
-                                child: Text("Close"),
+                                child: Text("Indietro"),
                                 onPressed: () {
                                   Navigator.of(context).pop();
+                                }, //closes popup
+                              ),
+                              FlatButton(
+                                child: Text("Eroga"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  //cambio qntRation cosi bridge se ne accorge
+                                  _dbService.updateDispenser(
+                                      dispenser.id,
+                                      _authService.getCurrentUserUid(),
+                                      int.parse(_currentQnt));
+                                  //metto available ratio a zero per l'animale
+                                  /*_dbService.updateAnimal(
+                                      _currentAnimal.collarId,
+                                      _currentAnimal.name,
+                                      _currentAnimal.dailyRation,
+                                      0,
+                                      _currentAnimal.userId);*/
                                 }, //closes popup
                               ),
                             ],
