@@ -49,5 +49,5 @@ class DatabaseService:
     def resetDispenserState(self, dispenser_ref):
         doc_ref = self.db_ref.collection('Dispenser').document(DISPENSER_ID)
         dispenser_ref['qtnRation'] = 0
-        #dispenser_ref['collarId'] = None
+        dispenser_ref['collarId'] = None
         doc_ref.set(dispenser_ref)

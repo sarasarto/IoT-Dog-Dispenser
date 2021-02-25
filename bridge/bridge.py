@@ -72,12 +72,12 @@ class Bridge:
         else:
             print('faccio verifica tramite il client')
             #faccio tutte le verfiche del caso tramite il client
-            is_available = self.client.is_available('7zLH4JdPLeOB5QMxqV5x')
+            is_available = self.client.is_available('ASE9RnI2PcnmwDzkNgKO')
             if is_available:
                 print('erogazione in corso')
                 self.write_msg('1')
                 #a questo punto tolgo 30 dalla razione dell'animale
-                self.client.update_available_ration('7zLH4JdPLeOB5QMxqV5x', 30)
+                self.client.update_available_ration('ASE9RnI2PcnmwDzkNgKO', 30)
 
                 return True
             else:
