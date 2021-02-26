@@ -1,18 +1,33 @@
 from db_scheduler import DatabaseService
-#from constants import  DISPENSER_ID, DEFAULT_RATION
-#from bridge import Bridge
+import schedule
+import time
 
 class Scheduler:
     def __init__(self, db_service):
         self.db_service = db_service
-        #self.bridge = None
+    
+    def connect_to_database(self):
+        self.db_service.initialize_connection()
 
-    def reset_midnight():
-       animal_ref = self.getAllCollection('Animal')
+    def reset_midnight(self):       
+       animal_ref = self.db_service.db_ref.collection('Animal').stream()
+       #print("Entro midnight")
        for animal in animal_ref:
-           curr = animal.get().to_dict()
-           cur['availableRation'] = cur['dailyRation']
-           animal_ref.set(cur)
+           print(animal.to_dict()['name'])
+           cur = animal.to_dict()
+           #animal.update({'availableRation':cur['dailyRation']})
+           self.db_service.db_ref.collection('Animal').document(cur['collarId']).update({'availableRation': cur['dailyRation']})
 
-    def prova_caso():
-         print("Ciao")
+    #def prova_caso(self):
+    #     print("Ciao ciao uei")
+
+    def change(self):
+        #print("sono in change")
+        #questo per prova
+        #schedule.every(15).seconds.do(self.reset_midnight)
+        schedule.every().day.at("00:00").do(self.reset_midnight)
+
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
+    

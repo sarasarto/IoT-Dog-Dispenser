@@ -11,7 +11,7 @@ class DatabaseService:
     
     def __init__(self):
         self.services_path = SERVICES_PATH
-        self.cred = credentials.Certificate(self.services_path)
+        self.cred = credentials.Certificate('bridge/services/' + self.services_path)
         self.db_ref = None
 
     def initialize_connection(self):
@@ -19,6 +19,9 @@ class DatabaseService:
         self.db_ref = firestore.client()
         print('Collegamento con il database avvenuto con successo!')
 
-    def getAllCollection(self):
-        doc_coll = self.db_ref.collection(collection_name)
+    def getAllCollection(self, collection_name):
+        doc_coll = self.db_ref.collection(collection_name).stream()
+        print("qua sono in db")
+        for doc in doc_coll:
+            print(doc.to_dict())
         return doc_coll

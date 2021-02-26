@@ -1,26 +1,23 @@
 from db_scheduler import DatabaseService
 from scheduler import Scheduler
+import schedule
+import time
+
 
 def main():
     #inizializzo il collegamento con firestore
     db_service = DatabaseService()
-    scheduler = Scheduler(db_service)
-    scheduler.connect_to_database()
-
-    #client_thread = threading.Thread(target=client.loop)
-    #client_thread.daemon = True
-    #client_thread.start()
-
-    #schedule.every().day.at("00:00").do(reset_midnight)
-    schedule.every(10).seconds.do(scheduler.prova_caso)
-
-    while 1:
-        schedule.run_pending()
-        time.sleep(1)
     
+    #istanzio lo scheduler
+    sched = Scheduler(db_service)
+    sched.connect_to_database()
+
+    print("iniziamo")
+    #chiamo il change ogni mezzanotte
+    sched.change()
     
-    #while(True):
-     #   pass
+    while(True):
+       pass
 
 if __name__ == '__main__':
     main()
