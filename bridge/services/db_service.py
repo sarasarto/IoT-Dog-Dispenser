@@ -49,3 +49,4 @@ class DatabaseService:
         #RIMETTO A NULL L'ANIMALE INTERESSATO!
         dispenser_ref['collarId'] = None
         doc_ref.set(dispenser_ref)
+

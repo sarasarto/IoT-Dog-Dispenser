@@ -18,7 +18,6 @@ def main():
     client.set_bridge(bridge)
     client.listen_dispenser_updates()
     
-
     bridge_thread = threading.Thread(target=bridge.loop)
     client_thread = threading.Thread(target=client.loop)
 
@@ -27,9 +26,17 @@ def main():
 
     bridge_thread.start()
     client_thread.start()
+
+    #schedule.every().day.at("00:00").do(reset_midnight)
+    schedule.every(10).seconds.do(client.prova_caso)
+
+    while 1:
+        schedule.run_pending()
+        time.sleep(1)
     
-    while(True):
-        pass
+    
+    #while(True):
+     #   pass
 
 if __name__ == '__main__':
     main()

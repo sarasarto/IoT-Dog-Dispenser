@@ -27,8 +27,6 @@ class _ErogaViewState extends State<ErogaView> {
   @override
   Widget build(BuildContext context) {
     List<Animal> animals = widget.animals;
-    //print('siamo qua');
-    //print(animals);
     Dispenser dispenser = widget.dispenser;
     final AuthService _authService = AuthService();
     final DatabaseService _dbService = DatabaseService();
@@ -160,27 +158,3 @@ class _ErogaViewState extends State<ErogaView> {
   }
 }
 
-/*child: Column(
-            children: [for (var a in animals) Text(a.name)],
-          ),*/
-/*child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("Select an animal"),
-              SizedBox(
-                height: 20.0,
-              ),
-              DropdownButton(
-                value: _selectedAnimal,
-                items: _dropDown,
-                onChanged: onChangeDropdownItem,
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Text('Selected: ${_selectedAnimal.name}'),
-            ],
-          ),
-        ),*/
