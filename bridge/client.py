@@ -1,5 +1,5 @@
 from services.db_service import DatabaseService
-from constants import  DISPENSER_ID
+from constants import  DISPENSER_ID, DEFAULT_RATION
 from bridge import Bridge
 
 class Client:
@@ -65,9 +65,7 @@ class Client:
         #supponiamo per il momento che si eroga solo
         #una quantità di 30 alla volta
         available_ration = self.get_available_ration(collar_id)
-        print('eccociiiiii')
-        print(available_ration)
-        return True if available_ration >= 30 else False
+        return True if available_ration >= DEFAULT_RATION else False
 
        
     def loop(self):
