@@ -42,6 +42,22 @@ class DatabaseService:
         animal = animal_ref.get().to_dict()
         print(animal)
         return animal['availableRation']
+
+    #funzione utile nel caso non usiamo gli ibeacon
+    def get_user_animals(self, user_id):
+        collar_id_list = []
+        animals_ref = self.db_ref.collection('Animal')
+        query = animals_ref.where('userId', '==', user_id)
+        animals = query.stream()
+        for animal in animals:
+            collar_id_list.append(animal.to_dict()['collarId'])
+        
+        return collar_id_list
+
+    def get_user_from_dispenser(self):
+        dispenser_ref = self.get_doc_ref('Dispenser', DISPENSER_ID)
+        dispenser = dispenser_ref.get().to_dict()
+        return dispenser['userId']
         
     def resetDispenserState(self, dispenser_ref):
         doc_ref = self.db_ref.collection('Dispenser').document(DISPENSER_ID)

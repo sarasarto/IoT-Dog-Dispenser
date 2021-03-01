@@ -28,18 +28,22 @@ void setup() {
   currentState = 0;
 }
 
-int command;
+char data;
+char *packet = "";
 
 void loop() {
   futureState = 0;
   
-  if (Serial.available()>0){
-    command = Serial.read();
+  while(Serial.available() > 0){
+    data = Serial.read();
+    packet.concat(data);
+    delay(10);
+  }
 
-    if(command=='1'){
-      stepper.step(2048);
-    }
-  }// if (Serial.available()>0)
+  if (packet.length() > 0) { 
+    stepper.step(nStep);
+    packet = "";
+  }
 
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
@@ -49,7 +53,6 @@ void loop() {
   duration = pulseIn(echoPin, HIGH);
   distance = duration*0.034/2;
   //Serial.println(distance);
-
 
   delay(200);
 

@@ -1,6 +1,7 @@
 from services.db_service import DatabaseService
 from bridge import Bridge
 from client import Client
+import random
 import threading
 
 
@@ -26,7 +27,6 @@ def main():
 
     bridge_thread.start()
     client_thread.start()
-
     
     while(True):
         pass

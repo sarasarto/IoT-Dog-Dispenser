@@ -31,9 +31,17 @@ class Client:
             collar_id = dispenser_ref['collarId']
 
             if qtnRation != 0 and collar_id != None:
-                print('erogati')
-                #da qui andrò ad inviare il comando ad arduino
-                self.bridge.write_msg('1') 
+                #da qui andrò ad inviare il comando ad arduino per erogare
+                #non so però ancora se andrà a buon fine.
+                #inviamo--> ff/02/01/qtn/fe
+                self.bridge.write(b'\xff')
+                self.bridge.write(b'\x02')
+                self.bridge.write(b'\x01')
+                self.bridge.write(qtnRation)
+                self.bridge.write(b'\xfe')
+                
+                
+
 
                 #LEGGO ACK DA ARDUINO ---> come lo implemento???
                 #IF arduino ha ricevuto --> SOTTRAGGO LA QTNRATION DALLA AVAILABLE RATION
@@ -66,6 +74,13 @@ class Client:
         #una quantità di 30 alla volta
         available_ration = self.get_available_ration(collar_id)
         return True if available_ration >= DEFAULT_RATION else False
+
+    def get_user_animals(self):
+        user_id = self.db_service.get_user_from_dispenser()
+        return self.db_service.get_user_animals(user_id)
+
+    def get_user_from_dispenser(self):
+        return self.db_service.get_user_from_dispenser()
 
        
     def loop(self):

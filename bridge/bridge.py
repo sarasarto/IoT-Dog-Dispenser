@@ -1,6 +1,7 @@
 from firebase_admin.firestore import client
 from serial.tools import list_ports
 import serial
+import random
                                                                                                                                                                              
 class Bridge:
     def __init__(self):
@@ -28,8 +29,8 @@ class Bridge:
         else:
             print('No available ports!')
 
-    def write_msg(self, msg):
-        self.ser.write(msg.encode())
+    def write(self, data):
+        self.ser.write(data)
 
 
     def loop(self):
@@ -55,6 +56,8 @@ class Bridge:
                     self.inbuffer.append (lastchar)
 
     def useData(self):
+        animals = self.client.get_user_animals()
+
         # I have received a line from the serial port. I can use it
         print('controllo i DATI')
         if len(self.inbuffer)<3:   # at least header, size, footer
@@ -72,12 +75,16 @@ class Bridge:
         else:
             print('faccio verifica tramite il client')
             #faccio tutte le verfiche del caso tramite il client
-            is_available = self.client.is_available('ASE9RnI2PcnmwDzkNgKO')
+            
+            collar_id = random.choice(animals)
+            print(collar_id)
+
+            is_available = self.client.is_available(collar_id)
             if is_available:
                 print('erogazione in corso')
                 self.write_msg('1')
                 #a questo punto tolgo 30 dalla razione dell'animale
-                self.client.update_available_ration('ASE9RnI2PcnmwDzkNgKO', 30)
+                self.client.update_available_ration(collar_id, 30)
 
                 return True
             else:
