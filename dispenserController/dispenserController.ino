@@ -29,18 +29,18 @@ void setup() {
 }
 
 char data;
-char *packet = "";
+String packet = "";
 
 void loop() {
   futureState = 0;
   
-  while(Serial.available() > 0){
+  if(Serial.available() > 0){
     data = Serial.read();
     packet.concat(data);
-    delay(10);
   }
 
   if (packet.length() > 0) { 
+    Serial.println(packet);
     stepper.step(nStep);
     packet = "";
   }
@@ -53,8 +53,6 @@ void loop() {
   duration = pulseIn(echoPin, HIGH);
   distance = duration*0.034/2;
   //Serial.println(distance);
-
-  delay(200);
 
   if (currentState==0 && distance<15) futureState=1;
   if (currentState==0 && distance>=15) futureState=0;

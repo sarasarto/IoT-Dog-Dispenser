@@ -40,9 +40,7 @@ class Client:
                 self.bridge.write(qtnRation)
                 self.bridge.write(b'\xfe')
                 
-                
-
-
+            
                 #LEGGO ACK DA ARDUINO ---> come lo implemento???
                 #IF arduino ha ricevuto --> SOTTRAGGO LA QTNRATION DALLA AVAILABLE RATION
                 #if(...):
