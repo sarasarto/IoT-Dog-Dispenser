@@ -1,7 +1,7 @@
 #include <Stepper.h>
 
 int nStep = 2048;
-int motor_speed = 10;
+int motor_speed = 6;
 float basic_angle = 60;
 
 int pinOne = 8;
