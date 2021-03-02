@@ -70,9 +70,7 @@ class Bridge:
 
         command = int.from_bytes(self.inbuffer[1], byteorder='little')
         print(command)
-        if command != 1:
-            return False
-        else:
+        if command == 1:
             print('faccio verifica tramite il client')
             #faccio tutte le verfiche del caso tramite il client
             
@@ -90,4 +88,13 @@ class Bridge:
             else:
                 print('quantità non disponibile')
                 return False
+            
+        else:
+            if command == 2:
+                print('ricevuto ack da arduino!')
+                
+            else:
+                print('qualcosa è andato storto')
+                return False
+
             

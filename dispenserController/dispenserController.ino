@@ -38,6 +38,11 @@ void loop() {
 
     if(command == '1'){
       stepper.step(nStep);
+
+      //invio ack al bridge
+      Serial.write(0xff);
+      Serial.write(0x02);
+      Serial.write(0xfe);
     }
   }
 
