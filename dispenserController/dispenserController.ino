@@ -28,37 +28,34 @@ void setup() {
   currentState = 0;
 }
 
-char data;
-String packet = "";
+int command;
 
 void loop() {
   futureState = 0;
   
   if(Serial.available() > 0){
-    data = Serial.read();
-    packet.concat(data);
-  }
+    command = Serial.read();
 
-  if (packet.length() > 0) { 
-    Serial.println(packet);
-    stepper.step(nStep);
-    packet = "";
+    if(command == '1'){
+      stepper.step(nStep);
+    }
   }
 
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
+  
 
   duration = pulseIn(echoPin, HIGH);
   distance = duration*0.034/2;
-  //Serial.println(distance);
+
+  delay(200);
 
   if (currentState==0 && distance<15) futureState=1;
   if (currentState==0 && distance>=15) futureState=0;
   if (currentState==1 && distance>=15) futureState=0;
   if (currentState==1 && distance<15) futureState=1;
-
 
 
   //onEnter actions

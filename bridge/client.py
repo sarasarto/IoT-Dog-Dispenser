@@ -34,13 +34,15 @@ class Client:
                 #da qui andrò ad inviare il comando ad arduino per erogare
                 #non so però ancora se andrà a buon fine.
                 #inviamo--> ff/02/01/qtn/fe
-                self.bridge.write(b'\xff')
-                self.bridge.write(b'\x02')
-                self.bridge.write(b'\x01')
-                self.bridge.write(qtnRation)
-                self.bridge.write(b'\xfe')
                 
-            
+                # self.bridge.write(b'\xff')
+                # self.bridge.write(b'\x02')
+                # self.bridge.write(b'\x01')
+                # self.bridge.write(qtnRation)
+                # self.bridge.write(b'\xfe')
+
+                self.bridge.write('1')
+                
                 #LEGGO ACK DA ARDUINO ---> come lo implemento???
                 #IF arduino ha ricevuto --> SOTTRAGGO LA QTNRATION DALLA AVAILABLE RATION
                 #if(...):

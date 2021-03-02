@@ -30,7 +30,7 @@ class Bridge:
             print('No available ports!')
 
     def write(self, data):
-        self.ser.write(data)
+        self.ser.write(data.encode())
 
 
     def loop(self):
@@ -82,7 +82,7 @@ class Bridge:
             is_available = self.client.is_available(collar_id)
             if is_available:
                 print('erogazione in corso')
-                self.write_msg('1')
+                self.write('1')
                 #a questo punto tolgo 30 dalla razione dell'animale
                 self.client.update_available_ration(collar_id, 30)
 
