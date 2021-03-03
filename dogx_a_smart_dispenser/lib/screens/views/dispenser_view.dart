@@ -17,11 +17,11 @@ class DispenserView extends StatelessWidget {
       providers: [
         StreamProvider<List<Dispenser>>.value(
             value: DatabaseService().dispensers),
-        StreamProvider<List<Animal>>.value(value: DatabaseService().animals)
+        //StreamProvider<List<Animal>>.value(value: DatabaseService().animals)
       ],
       child: Builder(
         builder: (BuildContext context) {
-          final animals = Provider.of<List<Animal>>(context);
+          //final animals = Provider.of<List<Animal>>(context);
           return Scaffold(
               backgroundColor: Colors.brown[50],
               appBar: AppBar(
@@ -29,7 +29,7 @@ class DispenserView extends StatelessWidget {
                 backgroundColor: Colors.brown[400],
                 elevation: 0.0,
               ),
-              body: DispenserList(animals: animals),
+              body: DispenserList(/*animals: animals*/),
               floatingActionButton: FloatingActionButton(
                   child: Icon(Icons.add),
                   backgroundColor: Colors.brown[400],

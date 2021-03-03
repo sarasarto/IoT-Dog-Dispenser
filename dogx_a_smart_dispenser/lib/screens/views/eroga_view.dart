@@ -1,21 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dogx_a_smart_dispenser/models/Animal.dart';
 import 'package:dogx_a_smart_dispenser/models/Dispenser.dart';
-import 'package:dogx_a_smart_dispenser/screens/forms/add_form.dart';
-import 'package:dogx_a_smart_dispenser/screens/list_views/animal_list.dart';
 import 'package:dogx_a_smart_dispenser/services/auth.dart';
 import 'package:dogx_a_smart_dispenser/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:dogx_a_smart_dispenser/screens/list_views/dispenser_tile.dart';
-
 
 //import 'package:intl/intl.dart'
 //import 'package:intl/intl_browser.dart';
 class ErogaView extends StatefulWidget {
   final Dispenser dispenser;
-  final List<Animal> animals;
-  ErogaView({this.dispenser, this.animals});
+  //final List<Animal> animals;
+  ErogaView({this.dispenser /*, this.animals*/});
   @override
   _ErogaViewState createState() => _ErogaViewState();
 }
@@ -25,7 +20,6 @@ class _ErogaViewState extends State<ErogaView> {
 
   String _currentQnt;
   Animal _currentAnimal;
-  int _currentStrenght;
 
   DateTime pickedDate;
   TimeOfDay time;
@@ -38,11 +32,15 @@ class _ErogaViewState extends State<ErogaView> {
 
   @override
   Widget build(BuildContext context) {
-    List<Animal> animals = widget.animals;
+    final animals = Provider.of<List<Animal>>(context);
+    for (int i = 0; i < animals.length; i++) {
+      print(animals[i].name);
+      print(animals[i].availableRation);
+    }
+
     Dispenser dispenser = widget.dispenser;
     final AuthService _authService = AuthService();
     final DatabaseService _dbService = DatabaseService();
-    print('*************prima-->' + dispenser.qtnRation.toString());
 
     _pickDate() async {
       DateTime date = await showDatePicker(
@@ -91,7 +89,7 @@ class _ErogaViewState extends State<ErogaView> {
               SizedBox(height: 20.0),
               //dropdown
               DropdownButtonFormField(
-                  //value: _currentAnimal ?? animals[0],
+                  value: animals[0],
                   items: animals.map((animal) {
                     //print("quaaaa");
                     //print(animal.name);
@@ -126,9 +124,12 @@ class _ErogaViewState extends State<ErogaView> {
 
                     // QUANITA NEGATIVA (?)
                     print(_currentQnt);
+                    print('CLICCATO EROGAZIONE PER::::');
                     print(_currentAnimal.name);
+                    print(_currentQnt);
                     if (_currentAnimal.availableRation >=
                         int.parse(_currentQnt)) {
+                      _currentAnimal.availableRation -= int.parse(_currentQnt);
                       _dbService.updateDispenser(
                           dispenser.id,
                           _authService.getCurrentUserUid(),

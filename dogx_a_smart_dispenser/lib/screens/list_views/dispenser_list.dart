@@ -31,7 +31,7 @@ class _DispenserListState extends State<DispenserList> {
               _dbService.deleteDispenser(dispensers[index].id);
             },
             background: Container(color: Colors.red),
-            child:DispenserTile(dispenser: dispensers[index], animals:widget.animals)
+            child:DispenserTile(dispenser: dispensers[index]/*, animals:widget.animals*/)
             );
       },
       
