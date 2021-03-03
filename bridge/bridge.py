@@ -1,7 +1,10 @@
 from firebase_admin.firestore import client
+from services.db_service import DatabaseService
 from serial.tools import list_ports
 import serial
 import random
+from constants import  DISPENSER_ID, DEFAULT_RATION
+from datetime import datetime
                                                                                                                                                                              
 class Bridge:
     def __init__(self):
@@ -9,6 +12,7 @@ class Bridge:
         self.port_name = None
         self.client = None
         self.inbuffer = []
+        
 
     def set_client(self, client):
         self.client = client
@@ -28,6 +32,7 @@ class Bridge:
             print('Connected with success!')
         else:
             print('No available ports!')
+
 
     def write(self, data):
         self.ser.write(data.encode())
@@ -84,6 +89,11 @@ class Bridge:
                 #a questo punto tolgo 30 dalla razione dell'animale
                 self.client.update_available_ration(collar_id, 30)
 
+                # DA INSERIRE DOVE METTIAMO ACK RICEVUTO CORRETTAMENTE
+                # SE VOGLIAMO POI FARE LA PREDIZIONE PER QUANDO SI AVVICINERA'
+                #qnt = self.client.get_available_ration(collar_id)
+                #self.client.add_prediction(collar_id, qnt, DISPENSER_ID )
+
                 return True
             else:
                 print('quantità non disponibile')
@@ -92,6 +102,7 @@ class Bridge:
         else:
             if command == 2:
                 print('ricevuto ack da arduino!')
+                
                 
             else:
                 print('qualcosa è andato storto')
