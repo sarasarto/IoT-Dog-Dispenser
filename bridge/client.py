@@ -1,7 +1,7 @@
 from services.db_service import DatabaseService
 from constants import  DISPENSER_ID, DEFAULT_RATION
 from bridge import Bridge
-
+from datetime import datetime
 class Client:
     def __init__(self, db_service):
         self.db_service = db_service
@@ -50,7 +50,9 @@ class Client:
                 #IF NOT OK --> NON FACCIO NULLA MA RESETTO COMUNQUE LO STATO DEL DISPENSER
                 #RIMETTENDO A ZERO LA QTNRATION E RESETTANDO IL RELATIVO ANIMALE A NULL
 
-                #INOLTRE POPOLIAMO TABELLA PER LE PREDIZIONI ADDPREDICTION(?) 
+                #INOLTRE POPOLIAMO TABELLA PER LE PREDIZIONI ADDPREDICTION(?)
+                self.add_prediction(collar_id, qtnRation, DISPENSER_ID)
+                
 
                 #PROBLEMA: COME MI METTO IN COMUNICAZIONE CON IL BRIDGE PER CAPIRE SE E' ANDATO TUTTO
                 #OK OPPURE NO????
@@ -92,6 +94,8 @@ class Client:
         while(True):
             pass
     
+    def add_prediction(self, collarId, qnt, dispenser_id):
+        return self.db_service.add_prediction(collarId, qnt, dispenser_id)
 
     
 
