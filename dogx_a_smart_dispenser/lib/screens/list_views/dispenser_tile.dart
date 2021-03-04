@@ -1,9 +1,7 @@
-import 'package:dogx_a_smart_dispenser/models/Animal.dart';
 import 'package:dogx_a_smart_dispenser/models/Dispenser.dart';
-import 'package:dogx_a_smart_dispenser/screens/views/eroga_view.dart';
-import 'package:dogx_a_smart_dispenser/services/database.dart';
+import 'package:dogx_a_smart_dispenser/screens/views/erogation_view.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 
 class DispenserTile extends StatelessWidget {
   final Dispenser dispenser;
@@ -27,7 +25,7 @@ class DispenserTile extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => ErogaView(
+                    builder: (context) => ErogationView(
                         dispenser: dispenser /*, animals: animals*/)));
           },
         ),

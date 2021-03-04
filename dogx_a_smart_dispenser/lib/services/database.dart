@@ -1,7 +1,6 @@
 import 'package:dogx_a_smart_dispenser/models/Animal.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dogx_a_smart_dispenser/models/Dispenser.dart';
-import 'package:dogx_a_smart_dispenser/screens/list_views/animal_list.dart';
 import 'package:dogx_a_smart_dispenser/services/auth.dart';
 
 class DatabaseService {
