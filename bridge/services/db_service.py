@@ -73,3 +73,12 @@ class DatabaseService:
 
         pred = Prediction(collar_id = collarId, qnt = qnt, dispenser_id = dispenser_id)
         self.db_ref.collection('Prediction').add(pred.to_dict())
+
+
+    def getAllCollection(self, collection_name):
+        doc_coll = self.db_ref.collection(collection_name).stream()
+        #print("qua sono in db")
+        #for doc in doc_coll:
+        #    print(doc.to_dict())
+        #print("fine db")
+        return doc_coll
