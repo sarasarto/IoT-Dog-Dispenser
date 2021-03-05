@@ -20,7 +20,7 @@ class AnimalTile extends StatelessWidget {
           });
     }
 
-    return Padding(
+    /* return Padding(
       padding: EdgeInsets.only(top: 8),
       child: Card(
         margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
@@ -30,8 +30,38 @@ class AnimalTile extends StatelessWidget {
             _showUpdatePanel(animal);
           },
           title: Text(animal.name),
-          subtitle: Text(animal.dailyRation.toString()),
+          subtitle: Text(animal.availableRation.toString()),
         ),
+      ),
+    );*/
+
+    return Padding(
+      padding: EdgeInsets.only(top: 8),
+      child: GestureDetector(
+        onTap: () {
+          _showUpdatePanel(animal);
+        },
+        child: Card(
+            margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[Text("Nome: " + animal.name)],
+                ),
+                Row(
+                  children: <Widget>[
+                    Text(
+                        "Razione giornaliera: " + animal.dailyRation.toString())
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Text("Razione disponibile: " +
+                        animal.availableRation.toString())
+                  ],
+                )
+              ],
+            )),
       ),
     );
   }

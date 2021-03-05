@@ -118,11 +118,8 @@ class DatabaseService {
     await dispenserCollection.doc(id).delete();
   }
 
-  Future updateDispenser(String id, String userId, int qtnRation, String collarId) async {
-    //DocumentReference docRef = await dispenserCollection
-    return await dispenserCollection.doc(id).set({
-      'Id': id,
-      'userId': userId,
+  Future updateDispenser(String id, int qtnRation, String collarId) async {
+    return await dispenserCollection.doc(id).update({
       'qtnRation': qtnRation,
       'collarId': collarId,
     });

@@ -1,13 +1,9 @@
-//modello relativo al dispenser
-//rimane da decidere bene gli attributi da inserire.
-
 class Dispenser {
   String id;
   String userId;
-  //bool daErogare;
-  int qtnRation;
+  int qtnRation; // se questa variabile è !=0 allora bisogna erogare.
   String collarId;
-  //List<Animal> animals;
+
 
   Dispenser(
       {this.id, this.userId, this.qtnRation, this.collarId});

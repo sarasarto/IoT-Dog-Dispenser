@@ -1,15 +1,16 @@
-//modello relativo al singolo animale
-//da decidere bene quali sono gli attributi da inserire
-
 class Animal {
   String collarId; //si usa questo per definire il doc id di firebase
   String name;
   int dailyRation;
   int availableRation;
   String userId;
-  
-  Animal({this.collarId, this.name, this.dailyRation, 
-          this.availableRation, this.userId});
+
+  Animal(
+      {this.collarId,
+      this.name,
+      this.dailyRation,
+      this.availableRation,
+      this.userId});
 
   String getIdCollar() {
     return this.collarId;

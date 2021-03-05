@@ -1,6 +1,5 @@
 import 'package:dogx_a_smart_dispenser/models/Animal.dart';
 import 'package:dogx_a_smart_dispenser/models/Dispenser.dart';
-import 'package:dogx_a_smart_dispenser/services/auth.dart';
 import 'package:dogx_a_smart_dispenser/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +23,6 @@ class _ErogationPageState extends State<ErogationPage> {
   @override
   void initState() {
     super.initState();
-    _currentAnimal = null;
     pickedDate = DateTime.now();
     time = TimeOfDay.now();
   }
@@ -33,7 +31,6 @@ class _ErogationPageState extends State<ErogationPage> {
   Widget build(BuildContext context) {
     Dispenser dispenser = widget.dispenser;
     final animals = Provider.of<List<Animal>>(context);
-    final AuthService _authService = AuthService();
     final DatabaseService _dbService = DatabaseService();
 
     _pickDate() async {
@@ -113,21 +110,20 @@ class _ErogationPageState extends State<ErogationPage> {
                       // QUANITA NEGATIVA (?)
                       print(_currentQnt);
                       print('CLICCATO EROGAZIONE PER::::');
-                      print(_currentAnimal);
+                      print(_currentAnimal.name);
                       if (_currentAnimal != null) {
                         if (_currentAnimal.availableRation >=
                             int.parse(_currentQnt)) {
                           print(_currentAnimal.name);
                           print(_currentQnt);
+
                           _currentAnimal.availableRation -=
                               int.parse(_currentQnt);
-                          _dbService.updateDispenser(
-                              dispenser.id,
-                              _authService.getCurrentUserUid(),
-                              int.parse(_currentQnt),
-                              _currentAnimal.collarId);
 
-                              Navigator.of(context).pop();
+                          _dbService.updateDispenser(dispenser.id,
+                              int.parse(_currentQnt), _currentAnimal.collarId);
+/*
+                          Navigator.of(context).pop();
                           showDialog(
                               context: context,
                               barrierDismissible:
@@ -148,7 +144,15 @@ class _ErogationPageState extends State<ErogationPage> {
                                     ),
                                   ],
                                 );
-                              });
+                              });*/
+                          _currentAnimal = null;
+              
+
+                          final snackBar = SnackBar(
+                              content:
+                                  Text('Erogazione avvenuta con successo!'));
+
+                          Scaffold.of(context).showSnackBar(snackBar);
                         } else {
                           showDialog(
                               context: context,
@@ -175,11 +179,10 @@ class _ErogationPageState extends State<ErogationPage> {
                                         //cambio qntRation cosi bridge se ne accorge
                                         _dbService.updateDispenser(
                                             dispenser.id,
-                                            _authService.getCurrentUserUid(),
                                             int.parse(_currentQnt),
                                             _currentAnimal.collarId);
 
-                                            Navigator.of(context).pop();
+                                        Navigator.of(context).pop();
                                       }, //closes popup
                                     ),
                                   ],
