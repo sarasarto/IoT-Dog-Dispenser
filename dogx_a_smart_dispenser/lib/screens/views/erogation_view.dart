@@ -7,7 +7,9 @@ import 'package:provider/provider.dart';
 
 class ErogationView extends StatefulWidget {
   final Dispenser dispenser;
-  ErogationView({this.dispenser});
+  
+  final ValueChanged<int> onPush;
+  ErogationView({this.dispenser, this.onPush});
 
   @override
   _ErogationViewState createState() => _ErogationViewState();

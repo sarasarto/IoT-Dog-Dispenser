@@ -22,18 +22,12 @@ class AnimalView extends StatelessWidget {
 
     return StreamProvider<List<Animal>>.value(
       value: DatabaseService().animals,
-      child: Scaffold(
-        backgroundColor: Colors.brown[50],
-        appBar: AppBar(
-          title: Text('I tuoi animali'),
-          backgroundColor: Colors.brown[400],
-          elevation: 0.0,
-        ),
-        body: AnimalList(),
-        floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.add),
-            backgroundColor: Colors.brown[400],
-            onPressed: () => _showAddPanel()),
+      child: Container(
+        child: AnimalList(),
+        //floatingActionButton: FloatingActionButton(
+          //  child: Icon(Icons.add),
+            //backgroundColor: Colors.brown[400],
+            //onPressed: () => _showAddPanel()),
       ),
     );
   }

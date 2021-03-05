@@ -21,20 +21,14 @@ class DispenserView extends StatelessWidget {
       child: Builder(
         builder: (BuildContext context) {
           //final animals = Provider.of<List<Animal>>(context);
-          return Scaffold(
-              backgroundColor: Colors.brown[50],
-              appBar: AppBar(
-                title: Text('I tuoi dispenser'),
-                backgroundColor: Colors.brown[400],
-                elevation: 0.0,
-              ),
-              body: DispenserList(/*animals: animals*/),
-              floatingActionButton: FloatingActionButton(
-                  child: Icon(Icons.add),
-                  backgroundColor: Colors.brown[400],
-                  onPressed: () {
-                    _scannerDispenser(context);
-                  }));
+          return Container(
+              child: DispenserList(/*animals: animals*/),
+              //floatingActionButton: FloatingActionButton(
+                  //child: Icon(Icons.add),
+                  //backgroundColor: Colors.brown[400],
+                  //onPressed: () {
+                    //_scannerDispenser(context);
+                );
         },
       ),
     );

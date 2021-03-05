@@ -13,6 +13,7 @@ class DispenserTile extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: 8),
       child: Card(
+        color: Colors.black12,
         margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
         child: ListTile(
           title: Text(dispenser.id),

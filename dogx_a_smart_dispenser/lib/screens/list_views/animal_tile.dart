@@ -42,6 +42,7 @@ class AnimalTile extends StatelessWidget {
           _showUpdatePanel(animal);
         },
         child: Card(
+          color: Colors.black12,
             margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
             child: Column(
               children: <Widget>[
