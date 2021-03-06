@@ -97,5 +97,8 @@ class Client:
     def add_prediction(self, collarId, qnt, dispenser_id):
         return self.db_service.add_prediction(collarId, qnt, dispenser_id)
 
+    def update_FoodStateDispenser(self):
+        return self.db_service.update_FoodStateDispenser()
+
     
 

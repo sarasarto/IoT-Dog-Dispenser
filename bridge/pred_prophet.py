@@ -41,10 +41,16 @@ print("fuori for")
 # 2.0 tipi di dato e nomi colonne
 correct_date = pd.DatetimeIndex(date)
 
-d = {'collar_id': collar_id, 'dispenser_id': dispenser_id, 'quantity': quantity, 'date': date, 'hours': hours, 'tutto': tot_date}
+d = {'collar_id': collar_id,
+ #'dispenser_id': dispenser_id,
+  #'quantity': quantity,
+   #'date': date,
+   'hours': hours,
+    'tutto': tot_date
+   }
 df = pd.DataFrame(data=d)
 
-df = df.rename(columns={'date': 'ds',
+group = df.rename(columns={'tutto': 'ds',
                         'hours': 'y'})
 print(df.head(5))
 
@@ -58,8 +64,37 @@ for animal in grouped.groups:
     #ax = df.set_index('ds').plot(figsize=(12, 8))
     #ax.set_ylabel('Monthly Number of Airline Passengers')
     #ax.set_xlabel('Date')
+    fig = plt.figure(facecolor='w', figsize=(10, 6))
+    plt.plot(group['ds'], group['y'])
+    plt.show()
+    
 
-    #plt.show()
+    #4.0 model creation
+    #my_model = Prophet()
+
+
+    #5.0 fit the data
+    my_model.fit(group.drop(columns=['collar_id']))
+
+    #6.0 creation of future dataframe
+    future_dates = my_model.make_future_dataframe(periods=4, freq='day')
+    print(future_dates.tail())
+
+    #7.0 forecast
+    forecast = my_model.predict(future_dates)
+    forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
+
+    #8.0 plot of the forecast
+    plt2 = my_model.plot(forecast, uncertainty=True)
+    plt2.show()
+    fzwait()
+
+
+
+    plt3 = my_model.plot_components(forecast)
+    plt3.show()
+    fzwait()
+
     break
 
-#fzwait()
+fzwait()

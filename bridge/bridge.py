@@ -51,8 +51,9 @@ class Bridge:
 
                 if lastchar==b'\xfe': #EOL
                     self.inbuffer.append(lastchar)
-                    print("\nAnimale avvicinato!!!!!!!!!")
-                    print('verifico che l\' animale abbia ancora razione disponibile!')
+                    #print("\nAnimale avvicinato o stanno per finire croccantini!!!!!!!!!")
+                    #print('verifico che l\' animale abbia ancora razione disponibile!')
+                    print("su seriale: ")
                     print(self.inbuffer)
                     self.useData()
                     self.inbuffer =[]
@@ -76,6 +77,7 @@ class Bridge:
         command = int.from_bytes(self.inbuffer[1], byteorder='little')
         print(command)
         if command == 1:
+            print("\nAnimale avvicinato!!!!!")
             print('faccio verifica tramite il client')
             #faccio tutte le verfiche del caso tramite il client
             
@@ -102,10 +104,19 @@ class Bridge:
         else:
             if command == 2:
                 print('ricevuto ack da arduino!')
+                print("Ha erogato correttamente")
                 
                 
             else:
-                print('qualcosa è andato storto')
-                return False
+                if command == 6: 
+                    print('si stanno esaurendo i croccantini!!!')
+                    self.client.update_FoodStateDispenser()
+                else:
+                    if command==7:
+                        print('il dispenser è rifornito')
+                        self.client.update_FoodStateDispenser()
+                    else:
+                        print('qualcosa è andato storto')
+                        return False
 
             

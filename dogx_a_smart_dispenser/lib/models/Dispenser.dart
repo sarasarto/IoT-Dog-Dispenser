@@ -3,10 +3,9 @@ class Dispenser {
   String userId;
   int qtnRation; // se questa variabile è !=0 allora bisogna erogare.
   String collarId;
+  bool food_state;
 
-
-  Dispenser(
-      {this.id, this.userId, this.qtnRation, this.collarId});
+  Dispenser({this.id, this.userId, this.qtnRation, this.collarId, this.food_state});
 
   String getIdDispenser() {
     return this.id;
@@ -38,5 +37,13 @@ class Dispenser {
 
   void setCollarId(String collarId) {
     this.collarId = collarId;
+  }
+
+  bool getFoodStateDispenser() {
+    return this.food_state;
+  }
+
+  void setFoodStateDispenser(bool food_state) {
+    this.food_state = food_state;
   }
 }

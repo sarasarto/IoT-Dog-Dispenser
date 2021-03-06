@@ -82,3 +82,21 @@ class DatabaseService:
         #    print(doc.to_dict())
         #print("fine db")
         return doc_coll
+    
+    def get_Dispenser_curr_foodState(self):
+        dispenser_ref = self.get_doc_ref('Dispenser', DISPENSER_ID)
+        dispenser = dispenser_ref.get().to_dict()
+        return dispenser['food_state']
+
+    def update_FoodStateDispenser(self):
+        dispenser_ref = self.get_doc_ref('Dispenser', DISPENSER_ID)
+        curr_foodState = self.get_Dispenser_curr_foodState()
+        print('*************************\n')
+        print(curr_foodState)
+
+        if(curr_foodState == False):
+            curr_foodState = True
+        else:
+            curr_foodState = False
+    
+        dispenser_ref.update({'food_state':curr_foodState})
