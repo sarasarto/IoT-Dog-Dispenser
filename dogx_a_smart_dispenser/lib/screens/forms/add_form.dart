@@ -39,7 +39,7 @@ class _AddFormState extends State<AddForm> {
           ),
           SizedBox(height: 20),
           RaisedButton(
-            color: Colors.pink[400],
+            color: Colors.black,
             child: Text(
               'Aggiungi',
               style: TextStyle(color: Colors.white),

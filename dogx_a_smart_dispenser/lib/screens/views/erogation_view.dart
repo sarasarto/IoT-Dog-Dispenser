@@ -7,9 +7,12 @@ import 'package:provider/provider.dart';
 
 class ErogationView extends StatefulWidget {
   final Dispenser dispenser;
-  
-  final ValueChanged<int> onPush;
-  ErogationView({this.dispenser, this.onPush});
+
+  //final ValueChanged<int> onPush;
+  ErogationView({
+    this.dispenser,
+    /* this.onPush*/
+  });
 
   @override
   _ErogationViewState createState() => _ErogationViewState();
@@ -21,10 +24,16 @@ class _ErogationViewState extends State<ErogationView> {
     return StreamProvider<List<Animal>>.value(
       value: DatabaseService().animals,
       child: Scaffold(
-        backgroundColor: Colors.brown[50],
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text('Eroga dal tuo dispenser'),
-          backgroundColor: Colors.brown[400],
+          iconTheme: IconThemeData(
+            color: Colors.black, //change your color here
+          ),
+          title: Text(
+            'Eroga dal tuo dispenser',
+            style: TextStyle(color: Colors.black),
+          ),
+          backgroundColor: Colors.white,
           elevation: 0.0,
         ),
         body: ErogationPage(dispenser: widget.dispenser),

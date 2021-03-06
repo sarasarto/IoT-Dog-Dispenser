@@ -17,14 +17,8 @@ class _ScannerState extends State<Scanner> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.brown[50],
-      appBar: AppBar(
-        title: Text('Scanner'),
-        backgroundColor: Colors.brown[400],
-        elevation: 0.0,
-      ),
-      body: Stack(
+    return Container(
+      child: Stack(
         children: <Widget>[
           QRView(
               key: _qrKey,

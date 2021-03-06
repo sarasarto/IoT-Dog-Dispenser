@@ -99,7 +99,7 @@ class _ErogationPageState extends State<ErogationPage> {
                 //button
                 SizedBox(height: 20.0),
                 RaisedButton(
-                    color: Colors.pink[400],
+                    color: Colors.black,
                     child: Text('Eroga Ora',
                         style: TextStyle(color: Colors.white),
                         textAlign: TextAlign.center),
@@ -122,31 +122,8 @@ class _ErogationPageState extends State<ErogationPage> {
 
                           _dbService.updateDispenser(dispenser.id,
                               int.parse(_currentQnt), _currentAnimal.collarId);
-/*
-                          Navigator.of(context).pop();
-                          showDialog(
-                              context: context,
-                              barrierDismissible:
-                                  false, // disables popup to close if tapped outside popup (need a button to close)
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text(
-                                    "Hai erogato correttamente",
-                                  ),
 
-                                  //buttons METTIAMO LA POSSIBILIà DI DARGLI PIU CIBO?????
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text("Ok, close"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      }, //closes popup
-                                    ),
-                                  ],
-                                );
-                              });*/
                           _currentAnimal = null;
-              
 
                           final snackBar = SnackBar(
                               content:
@@ -175,13 +152,13 @@ class _ErogationPageState extends State<ErogationPage> {
                                     FlatButton(
                                       child: Text("Eroga"),
                                       onPressed: () {
-                                        Navigator.of(context).pop();
+                                        //Navigator.of(context).pop();
                                         //cambio qntRation cosi bridge se ne accorge
                                         _dbService.updateDispenser(
                                             dispenser.id,
                                             int.parse(_currentQnt),
                                             _currentAnimal.collarId);
-
+                                        _currentAnimal = null;
                                         Navigator.of(context).pop();
                                       }, //closes popup
                                     ),
@@ -193,7 +170,7 @@ class _ErogationPageState extends State<ErogationPage> {
                     }),
                 SizedBox(height: 20.0),
                 RaisedButton(
-                    color: Colors.pink[400],
+                    color: Colors.black,
                     child: Text('Programma Erogazione',
                         style: TextStyle(color: Colors.white),
                         textAlign: TextAlign.center),

@@ -6,12 +6,23 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: TextButton(
-      onPressed: () async {
-        await _authService.signOut();
-      },
-      child: Text("LOG OUT"),
-    ));
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text('Profilo', style: TextStyle(color: Colors.black)),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+      ),
+      body: Container(
+        child: Center(
+            child: TextButton(
+          onPressed: () async {
+            await _authService.signOut();
+          },
+          child: Text("LOG OUT"),
+        )),
+      ),
+    );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:dogx_a_smart_dispenser/models/Dispenser.dart';
 import 'package:dogx_a_smart_dispenser/screens/views/dispenser_view.dart';
 import 'package:dogx_a_smart_dispenser/screens/views/erogation_view.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,9 @@ class TabNavigatorDispenser extends StatelessWidget {
       {int materialIndex: 500}) {
     return {
       TabNavigatorRoutes.root: (context) => DispenserView(),
-      //TabNavigatorRoutes.detail: (context) => ErogationView(dispenser: ...,),
+
+      //NB:DA SISTEMARE IL PARAMETROOO!!!
+      TabNavigatorRoutes.detail: (context) => ErogationView(),
     };
   }
 

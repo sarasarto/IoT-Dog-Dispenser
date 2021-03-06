@@ -58,7 +58,7 @@ class _UpdateFormState extends State<UpdateForm> {
           ),
           SizedBox(height: 20),
           RaisedButton(
-            color: Colors.pink[400],
+            color: Colors.black,
             child: Text(
               'Modifica',
               style: TextStyle(color: Colors.white),

@@ -21,24 +21,33 @@ class DispenserView extends StatelessWidget {
       child: Builder(
         builder: (BuildContext context) {
           //final animals = Provider.of<List<Animal>>(context);
-          return Container(
-              child: DispenserList(/*animals: animals*/),
-              //floatingActionButton: FloatingActionButton(
-                  //child: Icon(Icons.add),
-                  //backgroundColor: Colors.brown[400],
-                  //onPressed: () {
-                    //_scannerDispenser(context);
-                );
+          return Scaffold(
+              backgroundColor: Colors.white,
+              appBar: AppBar(
+                title: Text('I tuoi dispenser',
+                    style: TextStyle(color: Colors.black)),
+                centerTitle: true,
+                backgroundColor: Colors.white,
+                elevation: 0.0,
+              ),
+              floatingActionButton: FloatingActionButton(
+                  child: Icon(Icons.qr_code_scanner),
+                  backgroundColor: Colors.black,
+                  onPressed: () {
+                    _scannerDispenser(context);
+                  }),
+              body: DispenserList());
         },
       ),
     );
   }
 
-  Future _scannerDispenser(BuildContext context) async {   
+  Future _scannerDispenser(BuildContext context) async {
     final result = await Navigator.push(
         context, MaterialPageRoute(builder: (c) => Scanner()));
     if (result != null) {
-      _dbService.addDispenser(result.code, _authService.getCurrentUserUid(), 0, null );
+      _dbService.addDispenser(
+          result.code, _authService.getCurrentUserUid(), 0, null);
     }
   }
 }

@@ -5,7 +5,6 @@ import 'package:dogx_a_smart_dispenser/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class AnimalView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -22,12 +21,20 @@ class AnimalView extends StatelessWidget {
 
     return StreamProvider<List<Animal>>.value(
       value: DatabaseService().animals,
-      child: Container(
-        child: AnimalList(),
-        //floatingActionButton: FloatingActionButton(
-          //  child: Icon(Icons.add),
-            //backgroundColor: Colors.brown[400],
-            //onPressed: () => _showAddPanel()),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title:
+              Text('I tuoi animali', style: TextStyle(color: Colors.black)),
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+        ),
+        body: AnimalList(),
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.add),
+            backgroundColor: Colors.black,
+            onPressed: () => _showAddPanel()),
       ),
     );
   }

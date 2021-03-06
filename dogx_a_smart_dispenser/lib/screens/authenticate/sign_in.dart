@@ -18,12 +18,14 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown[100],
+       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.brown[400],
+        title: Text('Benvenuto su DogX', style: TextStyle(color: Colors.black)),
+        centerTitle: true,
+        backgroundColor: Colors.white,
         elevation: 0.0,
-        title: Text('Sign in to the App'),
       ),
+      
       body: Container(
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
           child: Form(
@@ -33,7 +35,7 @@ class _SignInState extends State<SignIn> {
                 SizedBox(height: 20),
                 TextFormField(
                   decoration: InputDecoration(hintText: 'Email'),
-                  validator: (val) => val.isEmpty ? 'Enter an email' : null,
+                  validator: (val) => val.isEmpty ? 'Inserisci un\' email valida' : null,
                   onChanged: (val) {
                     setState(() => email = val);
                   },
@@ -41,7 +43,7 @@ class _SignInState extends State<SignIn> {
                 TextFormField(
                   decoration: InputDecoration(hintText: 'Password'),
                   validator: (val) =>
-                      val.length < 6 ? 'Enter a password 6+ chars' : null,
+                      val.length < 6 ? 'Inserisci una password di almeno 6 caratteri' : null,
                   obscureText: true,
                   onChanged: (val) {
                     setState(() => password = val);
@@ -49,9 +51,9 @@ class _SignInState extends State<SignIn> {
                 ),
                 SizedBox(height: 20),
                 RaisedButton(
-                  color: Colors.pink[400],
+                  color: Colors.black,
                   child: Text(
-                    'Sign in',
+                    'Accedi',
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () async {
@@ -59,15 +61,15 @@ class _SignInState extends State<SignIn> {
                       dynamic result = await _authService
                           .signInWithEmailAndPassword(email, password);
                       if (result == null) {
-                        setState(() => error = 'Invalid email or password');
+                        setState(() => error = 'Email o password errati');
                       }
                     }
                   },
                 ),
                 RaisedButton(
-                  color: Colors.pink[400],
+                  color: Colors.black,
                   child: Text(
-                    'No Account?--> Register!',
+                    'Registrati',
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () async {
@@ -80,7 +82,7 @@ class _SignInState extends State<SignIn> {
                 SizedBox(height: 12),
                 Text(
                   error,
-                  style: TextStyle(color: Colors.red, fontSize: 14),
+                  style: TextStyle(color: Colors.black, fontSize: 14),
                 )
               ],
             ),

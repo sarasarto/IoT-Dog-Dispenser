@@ -26,7 +26,7 @@ class _RegistrationState extends State<Registration> {
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
         elevation: 0.0,
-        title: Text('Register to the App'),
+        title: Text('DogX'),
       ),
       body: Container(
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
