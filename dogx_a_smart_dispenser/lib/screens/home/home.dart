@@ -74,89 +74,93 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        /*backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text('DogX', style: TextStyle(color: Colors.black)),
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          elevation: 0.0,
-        ),*/
+    return WillPopScope(
+      onWillPop: () async =>
+          !await navigatorKeys[currentTab].currentState.maybePop(),
+          child: Scaffold(
+          /*backgroundColor: Colors.white,
+          appBar: AppBar(
+            title: Text('DogX', style: TextStyle(color: Colors.black)),
+            centerTitle: true,
+            backgroundColor: Colors.white,
+            elevation: 0.0,
+          ),*/
 
-        /*
-      body: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 40,
-          ),
-          Dashboard()
-        ],
-      ),
-    );*/
-
-        bottomNavigationBar: BubbleBottomBar(
-          opacity: 0.0,
-          backgroundColor: Colors.white,
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(16.0),
-          ),
-          currentIndex: currentTab,
-          hasInk: false,
-          inkColor: Colors.black,
-          hasNotch: true,
-          onTap: _selectTab,
-          items: [
-            BubbleBottomBarItem(
-              backgroundColor: Colors.black,
-              icon: Icon(
-                Icons.home,
-                color: Colors.black,
-              ),
-              activeIcon: Icon(
-                Icons.home,
-                color: Colors.black,
-              ),
-              title: Text('Home'),
+          /*
+        body: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 40,
             ),
-            BubbleBottomBarItem(
-              backgroundColor: Colors.black,
-              icon: Icon(
-                Icons.dock,
-                color: Colors.black,
-              ),
-              activeIcon: Icon(
-                Icons.dock,
-                color: Colors.black,
-              ),
-              title: Text('Dispenser'),
-            ),
-            BubbleBottomBarItem(
-              backgroundColor: Colors.black,
-              icon: Icon(
-                Icons.pets,
-                color: Colors.black,
-              ),
-              activeIcon: Icon(
-                Icons.pets,
-                color: Colors.black,
-              ),
-              title: Text('Animali'),
-            ),
-            BubbleBottomBarItem(
-              backgroundColor: Colors.black,
-              icon: Icon(
-                Icons.person,
-                color: Colors.black,
-              ),
-              activeIcon: Icon(
-                Icons.person,
-                color: Colors.black,
-              ),
-              title: Text('Account'),
-            ),
+            Dashboard()
           ],
         ),
-        body: _buildBody());
+      );*/
+
+          bottomNavigationBar: BubbleBottomBar(
+            opacity: 0.0,
+            backgroundColor: Colors.white,
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(16.0),
+            ),
+            currentIndex: currentTab,
+            hasInk: false,
+            inkColor: Colors.black,
+            hasNotch: true,
+            onTap: _selectTab,
+            items: [
+              BubbleBottomBarItem(
+                backgroundColor: Colors.black,
+                icon: Icon(
+                  Icons.home,
+                  color: Colors.black,
+                ),
+                activeIcon: Icon(
+                  Icons.home,
+                  color: Colors.black,
+                ),
+                title: Text('Home'),
+              ),
+              BubbleBottomBarItem(
+                backgroundColor: Colors.black,
+                icon: Icon(
+                  Icons.dock,
+                  color: Colors.black,
+                ),
+                activeIcon: Icon(
+                  Icons.dock,
+                  color: Colors.black,
+                ),
+                title: Text('Dispenser'),
+              ),
+              BubbleBottomBarItem(
+                backgroundColor: Colors.black,
+                icon: Icon(
+                  Icons.pets,
+                  color: Colors.black,
+                ),
+                activeIcon: Icon(
+                  Icons.pets,
+                  color: Colors.black,
+                ),
+                title: Text('Animali'),
+              ),
+              BubbleBottomBarItem(
+                backgroundColor: Colors.black,
+                icon: Icon(
+                  Icons.person,
+                  color: Colors.black,
+                ),
+                activeIcon: Icon(
+                  Icons.person,
+                  color: Colors.black,
+                ),
+                title: Text('Account'),
+              ),
+            ],
+          ),
+          body: _buildBody()),
+    );
   }
 
   Widget _buildOffstageNavigator(int tabItem) {

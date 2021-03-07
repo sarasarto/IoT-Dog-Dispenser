@@ -89,7 +89,8 @@ class DatabaseService {
           userId: doc.data()['userId'] ?? '',
           qtnRation: doc.data()['qtnRation'] ?? '',
           collarId: doc.data()['collarId'] ?? null,
-          food_state: doc.data()['food_state'] ?? false,
+          //foodState: doc.data()['food_state'] ?? false,
+          foodState: doc.data()['food_state'] ?? 0,
           );
     }).toList();
   }
@@ -113,7 +114,7 @@ class DatabaseService {
       'userId': userId,
       'qtnRation': qtnRation,
       'collarId': collarId,
-      'food_state': false
+      'food_state': 0
     });
 
     // await docRef.update({'Id': docRef.id});
