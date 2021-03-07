@@ -14,7 +14,7 @@ int pinFour = 11;
 int pinLed = 6;
 int fotor = A0;
 int luce=0;
-int val_min = 400;
+int val_min = 350;
 
 const int trigPin = 13;
 const int echoPin = 12;

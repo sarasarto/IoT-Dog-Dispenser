@@ -83,13 +83,16 @@ class Bridge:
             
             collar_id = random.choice(animals)
             print(collar_id)
+            name = self.client.get_nameAnimal_fromCollar(collar_id)
+            print(name)
 
             is_available = self.client.is_available(collar_id)
             if is_available:
                 print('erogazione in corso')
                 self.write('1')
                 #a questo punto tolgo 30 dalla razione dell'animale
-                self.client.update_available_ration(collar_id, 30)
+                avvicinato = True
+                self.client.update_available_ration(collar_id, 30, avvicinato)
 
                 # DA INSERIRE DOVE METTIAMO ACK RICEVUTO CORRETTAMENTE
                 # SE VOGLIAMO POI FARE LA PREDIZIONE PER QUANDO SI AVVICINERA'
@@ -98,7 +101,7 @@ class Bridge:
 
                 return True
             else:
-                print('quantità non disponibile')
+                print('erogazione non avvenuta')
                 return False
             
         else:

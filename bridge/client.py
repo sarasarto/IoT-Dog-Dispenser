@@ -46,7 +46,10 @@ class Client:
                 #LEGGO ACK DA ARDUINO ---> come lo implemento???
                 #IF arduino ha ricevuto --> SOTTRAGGO LA QTNRATION DALLA AVAILABLE RATION
                 #if(...):
-                self.update_available_ration(collar_id, qtnRation)
+                # IN QUESTO CASO L'EROGAZIONE AVVIENE PERCHE UTENTE HA CHIESTO EROGAZIONE
+                # NON PERCHE ANIMALE AVVICINATO
+                avvicinato= False
+                self.update_available_ration(collar_id, qtnRation, avvicinato)
                 #IF NOT OK --> NON FACCIO NULLA MA RESETTO COMUNQUE LO STATO DEL DISPENSER
                 #RIMETTENDO A ZERO LA QTNRATION E RESETTANDO IL RELATIVO ANIMALE A NULL
 
@@ -64,19 +67,27 @@ class Client:
     #e di conseguenza bisogna verificare che abbia ancora razione disponibile
     def get_available_ration(self, collar_id):
         return self.db_service.get_available_ration(collar_id)
+    
+    def get_food_counter(self, collar_id):
+        return self.db_service.get_food_counter(collar_id)
 
     #funziona che viene eseguita una volta ricevuto 
     #ACK dal microcontrollore
     #OSSERVAZIONE: IN QUESTO CASO NON SERVE CONTROLLARE
     #SE ANIMALE HA ABBASTANZA QUANTITA' XK VIENE GIà
     #FATTO DALL' APP---> e' giusta questa osservazione??
-    def update_available_ration(self, collar_id, ration):
-        self.db_service.update_available_ration(collar_id, ration)
+    def update_available_ration(self, collar_id, ration, avvicinato):
+        self.db_service.update_available_ration(collar_id, ration, avvicinato)
 
     def is_available(self, collar_id):
         #supponiamo per il momento che si eroga solo
         #una quantità di 30 alla volta
         available_ration = self.get_available_ration(collar_id)
+        food_counter = self.get_food_counter(collar_id)
+        if food_counter >= 3:
+            print("Si è gia raggiunta la soglia giornaliera di 3 volte!")
+            return False
+        #qua ho gia il controllo del food counter
         return True if available_ration >= DEFAULT_RATION else False
 
     def get_user_animals(self):
@@ -85,6 +96,9 @@ class Client:
 
     def get_user_from_dispenser(self):
         return self.db_service.get_user_from_dispenser()
+
+    def get_nameAnimal_fromCollar(self, collar_id):
+        return self.db_service.get_nameAnimal_fromCollar(collar_id)
 
        
     def loop(self):

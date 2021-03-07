@@ -4,13 +4,15 @@ class Animal {
   int dailyRation;
   int availableRation;
   String userId;
+  int foodCounter;
 
   Animal(
       {this.collarId,
       this.name,
       this.dailyRation,
       this.availableRation,
-      this.userId});
+      this.userId,
+      this.foodCounter});
 
   String getIdCollar() {
     return this.collarId;
@@ -50,5 +52,13 @@ class Animal {
 
   void setAvailableQuantity(int availableRation) {
     this.availableRation = availableRation;
+  }
+
+  int getFoodCounter() {
+    return this.foodCounter;
+  }
+
+  void setFoodCounter(int foodCounter) {
+    this.foodCounter = foodCounter;
   }
 }

@@ -73,7 +73,9 @@ class _UpdateFormState extends State<UpdateForm> {
                     nameController.text,
                     int.parse(rationController.text),
                     int.parse(rationController.text),
-                    _authService.getCurrentUserUid());
+                    _authService.getCurrentUserUid(),
+                    widget.animal.foodCounter);
+                    
                 Navigator.pop(context);
               }
             },

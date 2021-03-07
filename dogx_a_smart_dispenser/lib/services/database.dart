@@ -38,20 +38,22 @@ class DatabaseService {
       'name': name,
       'dailyRation': dailyRation,
       'availableRation': availableRation,
-      'userId': userId
+      'userId': userId,
+      'foodCounter': 0
     });
 
     await docRef.update({'collarId': docRef.id});
   }
 
   Future updateAnimal(String collarId, String name, int dailyRation,
-      int availableRation, String userId) async {
+      int availableRation, String userId, int foodCounter) async {
     return await animalCollection.doc(collarId).set({
       'collarId': collarId,
       'name': name,
       'dailyRation': dailyRation,
       'availableRation': availableRation,
-      'userId': userId
+      'userId': userId, 
+      'foodCounter': foodCounter
     });
   }
 
@@ -66,7 +68,8 @@ class DatabaseService {
           name: doc.data()['name'] ?? '',
           dailyRation: doc.data()['dailyRation'] ?? -1,
           availableRation: doc.data()['availableRation'] ?? -1,
-          userId: doc.data()['userId'] ?? '');
+          userId: doc.data()['userId'] ?? '',
+          foodCounter: doc.data()['foodCounter'] ?? 0);
     }).toList();
   }
 

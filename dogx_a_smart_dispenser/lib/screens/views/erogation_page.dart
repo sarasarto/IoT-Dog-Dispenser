@@ -119,6 +119,9 @@ class _ErogationPageState extends State<ErogationPage> {
 
                           _currentAnimal.availableRation -=
                               int.parse(_currentQnt);
+                          print('Valore dell available');
+                          print(_currentAnimal.availableRation);
+                          
 
                           _dbService.updateDispenser(dispenser.id,
                               int.parse(_currentQnt), _currentAnimal.collarId);

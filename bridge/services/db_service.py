@@ -24,25 +24,44 @@ class DatabaseService:
         doc_ref = self.db_ref.collection(collection_name).document(doc_id)
         return doc_ref
 
-    def update_available_ration(self, collar_id, ration):
+    def update_available_ration(self, collar_id, ration, avvicinato):
         animal_ref = self.get_doc_ref('Animal', collar_id)
         available_ration = self.get_available_ration(collar_id)
+        food_counter = self.get_food_counter(collar_id)
+        #se il cane si è avvicinato
+        # else non cambiamo niente
+        print('AVVICINATO***********')
+        print(avvicinato)
+        if avvicinato == True:
+            food_counter += 1
 
         #se la available diventa negativa allora la settiamo a 0
         #questo si verifica quando dall'app diamo la possibilità
         #di erogare più di quello a disposizione
         if(ration >= available_ration):
-            available_ration = 0
+            available_ration = 0            
         else:
-            available_ration -= ration
+            available_ration -= ration           
     
-        animal_ref.update({'availableRation':available_ration})
+        animal_ref.update({'availableRation':available_ration, 'foodCounter': food_counter})
 
     def get_available_ration(self, collar_id):
         animal_ref = self.get_doc_ref('Animal', collar_id)
         animal = animal_ref.get().to_dict()
-        print(animal)
+        #print(animal)
         return animal['availableRation']
+
+    def get_food_counter(self, collar_id):
+        animal_ref = self.get_doc_ref('Animal', collar_id)
+        animal = animal_ref.get().to_dict()
+        #print(animal)
+        return animal['foodCounter']
+
+    def get_nameAnimal_fromCollar(self, collar_id):
+        animal_ref = self.get_doc_ref('Animal', collar_id)
+        animal = animal_ref.get().to_dict()
+        #print(animal)
+        return animal['name']
 
     #funzione utile nel caso non usiamo gli ibeacon
     def get_user_animals(self, user_id):

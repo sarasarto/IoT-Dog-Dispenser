@@ -16,7 +16,7 @@ class Scheduler:
            print(animal.to_dict()['name'])
            cur = animal.to_dict()
            #animal.update({'availableRation':cur['dailyRation']})
-           self.db_service.db_ref.collection('Animal').document(cur['collarId']).update({'availableRation': cur['dailyRation']})
+           self.db_service.db_ref.collection('Animal').document(cur['collarId']).update({'availableRation': cur['dailyRation'],'foodCounter': 0})
 
     #def prova_caso(self):
     #     print("Ciao ciao uei")
