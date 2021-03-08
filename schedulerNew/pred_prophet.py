@@ -16,8 +16,8 @@ db_service.initialize_connection()
 coll = db_service.getAllCollection('Prediction')
 
 collar_id = []
-dispenser_id = []
-quantity = []
+#dispenser_id = []
+#quantity = []
 date = []
 hours = []
 tot_date = []
@@ -32,8 +32,8 @@ for d in coll:
 
     hours.append(curr['date_time'].hour)
     collar_id.append(curr['collar_id'])
-    dispenser_id.append(curr['dispenserId'])
-    quantity.append(curr['quantity'])
+    #dispenser_id.append(curr['dispenserId'])
+    #quantity.append(curr['quantity'])
     #break
     
 print("fuori for")
@@ -44,13 +44,13 @@ correct_date = pd.DatetimeIndex(date)
 d = {'collar_id': collar_id,
  #'dispenser_id': dispenser_id,
   #'quantity': quantity,
-   #'date': date,
+   'date': date,
    'hours': hours,
-    'tutto': tot_date
+   # 'tutto': tot_date
    }
 df = pd.DataFrame(data=d)
 
-group = df.rename(columns={'tutto': 'ds',
+df = df.rename(columns={'date': 'ds',
                         'hours': 'y'})
 print(df.head(5))
 
@@ -59,7 +59,7 @@ grouped = df.groupby('collar_id')
 print(grouped)
 for animal in grouped.groups:
     group = grouped.get_group(animal)
-    print(group)
+   
     #break
     #ax = df.set_index('ds').plot(figsize=(12, 8))
     #ax.set_ylabel('Monthly Number of Airline Passengers')
@@ -67,14 +67,18 @@ for animal in grouped.groups:
     fig = plt.figure(facecolor='w', figsize=(10, 6))
     plt.plot(group['ds'], group['y'])
     plt.show()
+    print(group)
+    group = group.drop(columns=['collar_id'])
+    print('quaaaa')
+    print(group)
     
-
+    break
     #4.0 model creation
-    #my_model = Prophet()
+    my_model = Prophet()
 
 
     #5.0 fit the data
-    my_model.fit(group.drop(columns=['collar_id']))
+    my_model.fit(group)
 
     #6.0 creation of future dataframe
     future_dates = my_model.make_future_dataframe(periods=4, freq='day')

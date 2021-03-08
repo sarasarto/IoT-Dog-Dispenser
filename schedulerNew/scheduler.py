@@ -26,7 +26,7 @@ class Scheduler:
         #questo per prova
         #schedule.every(15).seconds.do(self.reset_midnight)
         schedule.every().day.at("00:00").do(self.reset_midnight)
-
+        
         while True:
             schedule.run_pending()
             time.sleep(1)
