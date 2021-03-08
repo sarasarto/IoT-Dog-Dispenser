@@ -1,7 +1,8 @@
 import pandas as pd
 from fbprophet import Prophet
 import matplotlib.pyplot as plt
-from services.db_service import DatabaseService
+from db_scheduler import DatabaseService
+plt.style.use('fivethirtyeight')
 
 def fzwait():
     if False:
@@ -13,14 +14,14 @@ db_service.initialize_connection()
 
 
 # 1. lettura dati
-coll = db_service.getAllCollection('Prediction')
+#coll = db_service.getAllCollection('Prediction')
+df = pd.read_csv('/content/date_hours.csv')
+print(df.head(5))
 
-collar_id = []
-#dispenser_id = []
-#quantity = []
-date = []
-hours = []
-tot_date = []
+#collar_id = []
+#date = []
+#hours = []
+#tot_date = []
 for d in coll:
     curr = d.to_dict()
 
@@ -32,11 +33,9 @@ for d in coll:
 
     hours.append(curr['date_time'].hour)
     collar_id.append(curr['collar_id'])
-    #dispenser_id.append(curr['dispenserId'])
-    #quantity.append(curr['quantity'])
     #break
     
-print("fuori for")
+print("fuori for") 
 
 # 2.0 tipi di dato e nomi colonne
 correct_date = pd.DatetimeIndex(date)
@@ -52,7 +51,14 @@ df = pd.DataFrame(data=d)
 
 df = df.rename(columns={'date': 'ds',
                         'hours': 'y'})
+print(df.head(5)) 
+print(df.dtypes)
+df['Date'] = pd.DatetimeIndex(df['Date'])
+print(df.dtypes)
+df = df.rename(columns={'Date': 'ds',
+                        'Hours': 'y'})
 print(df.head(5))
+
 
 #3.0 show data
 grouped = df.groupby('collar_id')
@@ -100,5 +106,14 @@ for animal in grouped.groups:
     fzwait()
 
     break
+
+fzwait()
+
+#3.0 show data
+ax = df.set_index('ds').plot(figsize=(12, 8))
+ax.set_ylabel('Erogation hour')
+ax.set_xlabel('Date')
+
+plt.show()
 
 fzwait()
