@@ -2,7 +2,7 @@ class Dispenser {
   String id;
   String userId;
   int qtnRation; // se questa variabile è !=0 allora bisogna erogare.
-  String collarId;
+  String collarId; // variabile che di default è null, e ci dice per quale animale erogare
   //bool foodState;
   int foodState;
 
