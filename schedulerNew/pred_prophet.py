@@ -15,7 +15,7 @@ db_service.initialize_connection()
 
 # 1. lettura dati
 #coll = db_service.getAllCollection('Prediction')
-df = pd.read_csv('/content/date_hours.csv')
+df = pd.read_csv('schedulerNew/date_hours.csv')
 print(df.head(5))
 
 #collar_id = []

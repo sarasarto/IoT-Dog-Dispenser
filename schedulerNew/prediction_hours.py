@@ -12,7 +12,7 @@ def fzwait():
 
 # 1. lettura dati
 
-df = pd.read_csv('date_hours.csv')
+df = pd.read_csv('schedulerNew/date_hours.csv')
 print(df.head(5))
 
 # 2.0 tipi di dato e nomi colonne
