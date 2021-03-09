@@ -1,6 +1,7 @@
-from db_scheduler import DatabaseService
+from schedulerNew.db_scheduler import DatabaseService
 import schedule
 import time
+
 
 class Scheduler:
     def __init__(self, db_service):
@@ -18,14 +19,25 @@ class Scheduler:
            #animal.update({'availableRation':cur['dailyRation']})
            self.db_service.db_ref.collection('Animal').document(cur['collarId']).update({'availableRation': cur['dailyRation'],'foodCounter': 0})
 
+    def do_prophet_prediction(self):
+        print("entro per prendere l'ora predetta")
+
+        #faccio la predizione e la scrivo sul db
+        h_pred = self.db_service.get_hour_predictio()
+        self.db_service.add_fbp_prediction(h_pred)
+
+
     #def prova_caso(self):
     #     print("Ciao ciao uei")
 
     def change(self):
-        #print("sono in change")
+        print("sono in change")
         #questo per prova
         #schedule.every(15).seconds.do(self.reset_midnight)
+
         schedule.every().day.at("00:00").do(self.reset_midnight)
+        #schedule.every().day.at("00:00").do(self.do_prophet_prediction)
+        schedule.every(5).seconds.do(self.do_prophet_prediction)
         
         while True:
             schedule.run_pending()

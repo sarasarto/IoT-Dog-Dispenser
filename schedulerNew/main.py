@@ -1,5 +1,5 @@
-from db_scheduler import DatabaseService
-from scheduler import Scheduler
+from schedulerNew.db_scheduler import DatabaseService
+from schedulerNew.scheduler import Scheduler
 import schedule
 import time
 
@@ -13,6 +13,7 @@ def main():
     sched.connect_to_database()
 
     print("iniziamo")
+
     #chiamo il change ogni mezzanotte
     sched.change()
     

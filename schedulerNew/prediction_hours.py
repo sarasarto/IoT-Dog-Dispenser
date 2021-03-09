@@ -1,63 +1,32 @@
 import pandas as pd
 from fbprophet import Prophet
 import matplotlib.pyplot as plt
-from schedulerNew.db_scheduler import DatabaseService
- 
 plt.style.use('fivethirtyeight')
 
-def fzwait():
-    if True:
-        return input("Press Enter to continue.")
-    return ' '
+class Hour_Prediction:
+    def __init__(self, file_name):
+        self.file_name = file_name
 
-# 1. lettura dati
+    def do_pred(self):
+        # 1. lettura dati
+        print("sto leggendo dal csv")
+        df = pd.read_csv(self.file_name)
+        #print(df.head(5))
 
-df = pd.read_csv('date_hours.csv')
-print(df.head(5))
+        df['Date'] = pd.DatetimeIndex(df['Date'])
+        df = df.rename(columns={'Date': 'ds',
+                                'Hours': 'y'})
 
-db_service = DatabaseService()
-db_service.initialize_connection()
-# 2.0 tipi di dato e nomi colonne
+        # 4.0 model creation
+        my_model = Prophet(interval_width=0.95, daily_seasonality=True)
+        # 5.0 fit the data
+        my_model.fit(df)
 
-print(df.dtypes)
-df['Date'] = pd.DatetimeIndex(df['Date'])
-print(df.dtypes)
-df = df.rename(columns={'Date': 'ds',
-                        'Hours': 'y'})
-print(df.head(5))
+        # 6.0 creation of future dataframe
+        future_dates = my_model.make_future_dataframe(periods=1, freq='D')
 
+        forecast = my_model.predict(future_dates)
+        forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
 
-#3.0 show data
-ax = df.set_index('ds').plot(figsize=(12, 8))
-ax.set_ylabel('Erogation hour')
-ax.set_xlabel('Date')
-
-#plt.show()
-
-#fzwait()
-
-#4.0 model creation
-my_model = Prophet(interval_width=0.95,  daily_seasonality=True)
-
-
-#5.0 fit the data
-my_model.fit(df)
-
-#6.0 creation of future dataframe
-future_dates = my_model.make_future_dataframe(periods=3, freq='D')
-print(future_dates.tail())
-
-
-#7.0 forecast
-forecast = my_model.predict(future_dates)
-forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
-print(forecast)
-#8.0 plot of the forecast
-plt2 = my_model.plot(forecast, uncertainty=True)
-#plt2.show()
-#fzwait()
-
-plt3 = my_model.plot_components(forecast)
-#plt3.show()
-#fzwait()
+        return round(forecast['yhat'][1])
 
