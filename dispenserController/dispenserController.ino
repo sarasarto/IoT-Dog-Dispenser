@@ -62,17 +62,14 @@ void loop() {
 
   //onEnter actions
   if(futureStateLight==1 && currentStateLight==0){
-    Serial.write(0xff);
     Serial.write(0x06);
-    Serial.write(0xfe);
-
+    
     digitalWrite(pinLed, HIGH);
   }
 
   if(futureStateLight==0 && currentStateLight==1){
-    Serial.write(0xff);
     Serial.write(0x07);
-    Serial.write(0xfe);
+ 
 
 
   digitalWrite(pinLed, LOW);
@@ -92,9 +89,7 @@ void loop() {
       stepper.step(nStep);
 
       //invio ack al bridge
-      Serial.write(0xff);
       Serial.write(0x02);
-      Serial.write(0xfe);
     }
 
   }
@@ -118,9 +113,7 @@ void loop() {
 
   //onEnter actions
   if(futureState==1 && currentState==0){
-    Serial.write(0xff);
     Serial.write(0x01);
-    Serial.write(0xfe);
   }
 
   currentState = futureState;
