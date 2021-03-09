@@ -49,32 +49,17 @@ class Bridge:
                 lastchar=self.ser.read(1)
 
 
-                if lastchar==b'\xfe': #EOL
-                    self.inbuffer.append(lastchar)
-                    #print("\nAnimale avvicinato o stanno per finire croccantini!!!!!!!!!")
-                    #print('verifico che l\' animale abbia ancora razione disponibile!')
-                    print("su seriale: ")
-                    print(self.inbuffer)
-                    self.useData()
-                    self.inbuffer =[]
-                else:
-                    # append
-                    self.inbuffer.append (lastchar)
+                self.useData(lastchar)
+                  
+         
 
-    def useData(self):
+    def useData(self, lastchar):
         animals = self.client.get_user_animals()
 
         # I have received a line from the serial port. I can use it
         print('controllo i DATI')
-        if len(self.inbuffer)<3:   # at least header, size, footer
-            print('minore di 3')
-            return False
-        # split parts
-        if self.inbuffer[0] != b'\xff':
-            print('il primo non è giusto')
-            return False
 
-        command = int.from_bytes(self.inbuffer[1], byteorder='little')
+        command = int.from_bytes(lastchar, byteorder='little')
         print(command)
         if command == 1:
             print("\nAnimale avvicinato!!!!!")

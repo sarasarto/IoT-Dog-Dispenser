@@ -22,6 +22,12 @@ class _HomePageState extends State<HomePage> {
         stream: DatabaseService().dispensers,
         builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
           if (asyncSnapshot.hasData) {
+            print('QUAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!');
+            print(asyncSnapshot.data.length);
+            List<Dispenser> disp = new List<Dispenser>.from(asyncSnapshot.data);
+            for (int i = 0; i < asyncSnapshot.data.length; i++) {
+              print(asyncSnapshot.data[i].id);
+            }
             if (widget.dispensers.isNotEmpty) {
               for (int i = 0; i < widget.dispensers.length; i++) {
                 print(widget.dispensers[i].id);
@@ -47,7 +53,9 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(height: 20.0),
                   DropdownButtonFormField<Dispenser>(
                       value: widget._currentDispenser,
-                      items: widget.dispensers.map((dispenser) {
+                      items:
+                          widget.dispensers.map((dispenser) {
+                        print('sono quiiiiii');
                         return DropdownMenuItem(
                           value: dispenser,
                           child: Text(dispenser.id,

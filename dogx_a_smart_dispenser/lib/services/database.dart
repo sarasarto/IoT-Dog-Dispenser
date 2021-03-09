@@ -23,6 +23,9 @@ class DatabaseService {
   final CollectionReference dispenserCollection =
       FirebaseFirestore.instance.collection('Dispenser');
 
+  final CollectionReference programmedErogationCollection =
+      FirebaseFirestore.instance.collection('Programmed Erogation');
+
   Future updateUser(
       String uid, String name, String surname, String email) async {
     return await userCollection
@@ -52,7 +55,7 @@ class DatabaseService {
       'name': name,
       'dailyRation': dailyRation,
       'availableRation': availableRation,
-      'userId': userId, 
+      'userId': userId,
       'foodCounter': foodCounter
     });
   }
@@ -85,13 +88,13 @@ class DatabaseService {
   List<Dispenser> _dispenserListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Dispenser(
-          id: doc.data()['Id'] ?? '', 
-          userId: doc.data()['userId'] ?? '',
-          qtnRation: doc.data()['qtnRation'] ?? '',
-          collarId: doc.data()['collarId'] ?? null,
-          //foodState: doc.data()['food_state'] ?? false,
-          foodState: doc.data()['food_state'] ?? 0,
-          );
+        id: doc.data()['Id'] ?? '',
+        userId: doc.data()['userId'] ?? '',
+        qtnRation: doc.data()['qtnRation'] ?? '',
+        collarId: doc.data()['collarId'] ?? null,
+        //foodState: doc.data()['food_state'] ?? false,
+        foodState: doc.data()['food_state'] ?? 0,
+      );
     }).toList();
   }
 
@@ -107,7 +110,8 @@ class DatabaseService {
     return animalCollection.doc().snapshots();
   }
 
-  Future addDispenser(String id, String userId, int qtnRation, String collarId) async {
+  Future addDispenser(
+      String id, String userId, int qtnRation, String collarId) async {
     //DocumentReference docRef = await dispenserCollection
     return await dispenserCollection.doc(id).set({
       'Id': id,
@@ -128,6 +132,18 @@ class DatabaseService {
     return await dispenserCollection.doc(id).update({
       'qtnRation': qtnRation,
       'collarId': collarId,
+    });
+  }
+
+  Future addProgrammedErogation(String dispenserId, String collarId,
+      int qtnRation, String date, String time) async {
+    //DocumentReference docRef = await dispenserCollection
+    return await programmedErogationCollection.doc().set({
+      'dispenserId': dispenserId,
+      'collarId': collarId,
+      'qtnRation': qtnRation,
+      'date': date,
+      'time': time
     });
   }
 }

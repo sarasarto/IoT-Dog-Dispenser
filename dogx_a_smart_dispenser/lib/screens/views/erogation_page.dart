@@ -3,6 +3,7 @@ import 'package:dogx_a_smart_dispenser/models/Dispenser.dart';
 import 'package:dogx_a_smart_dispenser/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class ErogationPage extends StatefulWidget {
   final Dispenser dispenser;
@@ -14,56 +15,26 @@ class ErogationPage extends StatefulWidget {
 }
 
 class _ErogationPageState extends State<ErogationPage> {
+  final DatabaseService _dbService = DatabaseService();
+
   String _currentQnt;
   Animal _currentAnimal;
   List<Animal> animals;
 
-  DateTime pickedDate;
-  TimeOfDay time;
-  @override
-  void initState() {
-    super.initState();
-    pickedDate = DateTime.now();
-    time = TimeOfDay.now();
-  }
+  String selectedDate;
+  String selectedTime;
 
   @override
   Widget build(BuildContext context) {
     Dispenser dispenser = widget.dispenser;
     final animals = Provider.of<List<Animal>>(context);
-    final DatabaseService _dbService = DatabaseService();
-
-    _pickDate() async {
-      DateTime date = await showDatePicker(
-        context: context,
-        firstDate: DateTime(DateTime.now().year - 5),
-        lastDate: DateTime(DateTime.now().year + 5),
-        initialDate: pickedDate,
-      );
-      if (date != null)
-        setState(() {
-          pickedDate = date;
-        });
-    }
-
-    _pickTime() async {
-      TimeOfDay t = await showTimePicker(context: context, initialTime: time);
-      if (t != null)
-        setState(() {
-          time = t;
-          print("tempo scelto: " + time.toString());
-          // QUA DEVO PRENDERE IL DISPENSER E METTERE IL TEMPO NELLA VARIABILE GIUSTA
-          //_dbService.updateDispenser(id, userId, qtnRation, collarId, ORARIO)
-        });
-    }
 
     return StreamBuilder(
         stream: DatabaseService().animals,
         builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
           if (asyncSnapshot.hasData) {
             return Container(
-                child: Column(
-              children: <Widget>[
+              child: Column(children: <Widget>[
                 SizedBox(height: 40.0),
                 Text(
                   'Seleziona il tuo animale',
@@ -121,7 +92,6 @@ class _ErogationPageState extends State<ErogationPage> {
                               int.parse(_currentQnt);
                           print('Valore dell available');
                           print(_currentAnimal.availableRation);
-                          
 
                           _dbService.updateDispenser(dispenser.id,
                               int.parse(_currentQnt), _currentAnimal.collarId);
@@ -178,37 +148,10 @@ class _ErogationPageState extends State<ErogationPage> {
                         style: TextStyle(color: Colors.white),
                         textAlign: TextAlign.center),
                     onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Scaffold(
-                              appBar: AppBar(
-                                title: Text('Date Time Picker'),
-                              ),
-                              body: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    ListTile(
-                                      title: Text(
-                                          "Date: ${pickedDate.year}, ${pickedDate.month}, ${pickedDate.day}"),
-                                      trailing: Icon(Icons.keyboard_arrow_down),
-                                      onTap: _pickDate,
-                                    ),
-                                    ListTile(
-                                      title: Text(
-                                          "Time: ${time.hour}:${time.minute}"),
-                                      trailing: Icon(Icons.keyboard_arrow_down),
-                                      onTap: _pickTime,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          });
-                    }),
-              ],
-            ));
+                      _showDateTimePicker();
+                    })
+              ]),
+            );
           } else {
             return Center(
               child: CircularProgressIndicator(
@@ -217,5 +160,37 @@ class _ErogationPageState extends State<ErogationPage> {
             );
           }
         });
+  }
+
+  Future<void> _showDateTimePicker() async {
+    final DateTime datePicked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2101));
+
+    if (datePicked != null) {
+      final TimeOfDay timePicked = await showTimePicker(
+          context: context,
+          initialTime: TimeOfDay(
+              hour: TimeOfDay.now().hour, minute: TimeOfDay.now().minute));
+      if (timePicked != null) {
+        setState(() {
+          selectedDate = "${DateFormat("yyyy-MM-dd").format(datePicked)}";
+          selectedTime = "${timePicked.format(context)}";
+
+          if (_currentAnimal == null || _currentQnt == null) {
+            print('o animale o razione sono nulli');
+          } else {
+            _dbService.addProgrammedErogation(
+                widget.dispenser.id,
+                _currentAnimal.collarId,
+                int.parse(_currentQnt),
+                selectedDate,
+                selectedTime);
+          }
+        });
+      }
+    }
   }
 }
