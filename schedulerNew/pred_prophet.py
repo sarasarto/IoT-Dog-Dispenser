@@ -14,8 +14,8 @@ db_service.initialize_connection()
 
 
 # 1. lettura dati
-#coll = db_service.getAllCollection('Prediction')
-df = pd.read_csv('/content/date_hours.csv')
+coll = db_service.getAllCollection('Prediction')
+df = pd.read_csv('schedulerNew/date_hours.csv')
 print(df.head(5))
 
 #collar_id = []
@@ -23,6 +23,7 @@ print(df.head(5))
 #hours = []
 #tot_date = []
 for d in coll:
+    break
     curr = d.to_dict()
 
     data  = str(curr['date_time'].year)+ '-' +str(curr['date_time'].month)+ '-' + str(curr['date_time'].day)

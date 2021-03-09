@@ -1,20 +1,22 @@
 import pandas as pd
 from fbprophet import Prophet
 import matplotlib.pyplot as plt
-from db_scheduler import DatabaseService
+from schedulerNew.db_scheduler import DatabaseService
  
 plt.style.use('fivethirtyeight')
 
 def fzwait():
-    if False:
+    if True:
         return input("Press Enter to continue.")
     return ' '
 
 # 1. lettura dati
 
-df = pd.read_csv('schedulerNew/date_hours.csv')
+df = pd.read_csv('date_hours.csv')
 print(df.head(5))
 
+db_service = DatabaseService()
+db_service.initialize_connection()
 # 2.0 tipi di dato e nomi colonne
 
 print(df.dtypes)
@@ -30,9 +32,9 @@ ax = df.set_index('ds').plot(figsize=(12, 8))
 ax.set_ylabel('Erogation hour')
 ax.set_xlabel('Date')
 
-plt.show()
+#plt.show()
 
-fzwait()
+#fzwait()
 
 #4.0 model creation
 my_model = Prophet(interval_width=0.95,  daily_seasonality=True)
@@ -49,12 +51,13 @@ print(future_dates.tail())
 #7.0 forecast
 forecast = my_model.predict(future_dates)
 forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
-
+print(forecast)
 #8.0 plot of the forecast
 plt2 = my_model.plot(forecast, uncertainty=True)
-plt2.show()
-fzwait()
+#plt2.show()
+#fzwait()
 
 plt3 = my_model.plot_components(forecast)
-plt3.show()
-fzwait()
+#plt3.show()
+#fzwait()
+

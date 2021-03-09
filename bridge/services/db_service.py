@@ -5,7 +5,7 @@ from constants import DISPENSER_ID, SERVICES_PATH
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
-from prediction import Prediction
+
 
 
 class DatabaseService:

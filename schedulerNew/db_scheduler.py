@@ -1,17 +1,17 @@
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
-from constants import DISPENSER_ID, SERVICES_PATH
+from schedulerNew.constants import DISPENSER_ID, SERVICES_PATH
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
-
+from bridge import services
 
 class DatabaseService:
     
     def __init__(self):
         self.services_path = SERVICES_PATH
-        self.cred = credentials.Certificate('bridge/services/' + self.services_path)
+        self.cred = credentials.Certificate(self.services_path)
         self.db_ref = None
 
     def initialize_connection(self):
