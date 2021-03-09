@@ -47,8 +47,6 @@ class Bridge:
             if self.ser.in_waiting>0:
                 # data available from the serial port
                 lastchar=self.ser.read(1)
-
-
                 self.useData(lastchar)
                   
          
@@ -75,36 +73,28 @@ class Bridge:
             if is_available:
                 print('erogazione in corso')
                 self.write('1')
-                #a questo punto tolgo 30 dalla razione dell'animale
-                avvicinato = True
-                self.client.update_available_ration(collar_id, 30, avvicinato)
 
-                # DA INSERIRE DOVE METTIAMO ACK RICEVUTO CORRETTAMENTE
-                # SE VOGLIAMO POI FARE LA PREDIZIONE PER QUANDO SI AVVICINERA'
-                #qnt = self.client.get_available_ration(collar_id)
-                #self.client.add_prediction(collar_id, qnt, DISPENSER_ID )
+                while(self.ser.in_waiting<=0):
+                    pass
 
-                return True
-            else:
-                print('erogazione non avvenuta')
-                return False
-            
+                command = self.ser.read(1)
+                if(command == 2):
+                    print('ricevuto ack-> aggiorno il db')
+                    #a questo punto tolgo 30 dalla razione dell'animale
+                    avvicinato = True
+                    self.client.update_available_ration(collar_id, 30, avvicinato)
+                else:
+                    print('errore nella ricezione ack. Non faccio nulla!')
+                        
         else:
-            if command == 2:
-                print('ricevuto ack da arduino!')
-                print("Ha erogato correttamente")
-                
-                
+            if command == 6: 
+                print('si stanno esaurendo i croccantini!!!')
+                self.client.update_FoodStateDispenser()
             else:
-                if command == 6: 
-                    print('si stanno esaurendo i croccantini!!!')
+                if command==7:
+                    print('il dispenser è rifornito')
                     self.client.update_FoodStateDispenser()
                 else:
-                    if command==7:
-                        print('il dispenser è rifornito')
-                        self.client.update_FoodStateDispenser()
-                    else:
-                        print('qualcosa è andato storto')
-                        return False
+                    print('qualcosa è andato storto')
 
             
