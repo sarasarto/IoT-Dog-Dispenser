@@ -30,8 +30,6 @@ class DatabaseService:
         food_counter = self.get_food_counter(collar_id)
         #se il cane si è avvicinato
         # else non cambiamo niente
-        print('AVVICINATO***********')
-        print(avvicinato)
         if avvicinato == True:
             food_counter += 1
 
@@ -91,7 +89,7 @@ class DatabaseService:
         print("Aggiungo nella tabella di predizione")
 
         pred = Erogazione(collar_id = collarId, qnt = qnt, dispenser_id = dispenser_id)
-        self.db_ref.collection('Erogation Date').add(pred.to_dict())
+        self.db_ref.collection('Erogation Data').add(pred.to_dict())
 
 
     def getAllCollection(self, collection_name):
@@ -110,8 +108,7 @@ class DatabaseService:
     def update_FoodStateDispenser(self):
         dispenser_ref = self.get_doc_ref('Dispenser', DISPENSER_ID)
         curr_foodState = self.get_Dispenser_curr_foodState()
-        print('*************************\n')
-        print(curr_foodState)
+       
 
         if(curr_foodState == False):
             curr_foodState = True

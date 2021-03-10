@@ -23,6 +23,10 @@ int distance;
 
 Stepper stepper(nStep, pinOne, pinTwo, pinThree, pinFour);
 
+
+const int stepPin = 3; 
+const int dirPin = 4; 
+
 // STATES: 0:FAR, 1:NEAR
 int currentState;
 int futureState;
@@ -39,6 +43,9 @@ void setup() {
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
   currentState = 0;
+
+  pinMode(stepPin,OUTPUT); 
+  pinMode(dirPin,OUTPUT);
 
   //fotoresistore
   pinMode(fotor, INPUT);
@@ -86,7 +93,13 @@ void loop() {
     command = Serial.read();
 
     if(command == '1'){
-      stepper.step(nStep);
+      //stepper.step(nStep);
+      for(int x = 0; x < 200; x++) {
+        digitalWrite(stepPin,HIGH); 
+        delayMicroseconds(3000); 
+        digitalWrite(stepPin,LOW); 
+        delayMicroseconds(3000); 
+       }
 
       //invio ack al bridge
       Serial.write(0x02);

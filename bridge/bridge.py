@@ -56,35 +56,30 @@ class Bridge:
 
         # I have received a line from the serial port. I can use it
         print('controllo i DATI')
+        collar_id = random.choice(animals)
+        name = self.client.get_nameAnimal_fromCollar(collar_id)
 
         command = int.from_bytes(lastchar, byteorder='little')
         print(command)
         if command == 1:
-            print("\nAnimale avvicinato!!!!!")
-            print('faccio verifica tramite il client')
-            #faccio tutte le verfiche del caso tramite il client
+            print("Rilevato animale vicino al dispenser!")
             
-            collar_id = random.choice(animals)
-            print(collar_id)
-            name = self.client.get_nameAnimal_fromCollar(collar_id)
-            print(name)
-
+            print('Id collare: ' + collar_id)
+            print('Nome animale: ' + name)
+            
+            #faccio tutte le verfiche del caso tramite il client
+            print('Verifica in corso...')
+            
             is_available = self.client.is_available(collar_id)
             if is_available:
-                print('erogazione in corso')
+                print('Erogazione in corso...')
                 self.write('1')
 
-                while(self.ser.in_waiting<=0):
-                    pass
+                #TODO: QUI ANCORA BISOGNA GESTIRE A MODO ACK
+                #PER IL MOMENTO è STATO INSERITO NELL'ULTIMA RIGA.
 
-                command = self.ser.read(1)
-                if(command == 2):
-                    print('ricevuto ack-> aggiorno il db')
-                    #a questo punto tolgo 30 dalla razione dell'animale
-                    avvicinato = True
-                    self.client.update_available_ration(collar_id, 30, avvicinato)
-                else:
-                    print('errore nella ricezione ack. Non faccio nulla!')
+            else:
+                print(name + ' non ha una razione sufficiente per l\' erogazione')
                         
         else:
             if command == 6: 
@@ -95,6 +90,12 @@ class Bridge:
                     print('il dispenser è rifornito')
                     self.client.update_FoodStateDispenser()
                 else:
-                    print('qualcosa è andato storto')
+                    if command == 2:
+                        print('Ricevuto ACK in seguito all\' erogazione!')
+                        avvicinato = True
+                        self.client.update_available_ration(collar_id, 30, avvicinato)
+                        
+                    else:
+                        print('Attenzione, si è verificata un\' anomalia')
 
             
