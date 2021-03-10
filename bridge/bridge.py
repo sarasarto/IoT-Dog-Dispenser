@@ -85,11 +85,11 @@ class Bridge:
             if command == 6:
                 #false food_state
                 print('si stanno esaurendo i croccantini!!!')
-                self.client.update_FoodStateDispenser()
+                self.client.update_FoodStateDispenser(False)
             else:
                 if command==7:
                     print('il dispenser è rifornito')
-                    self.client.update_FoodStateDispenser()
+                    self.client.update_FoodStateDispenser(True)
                 else:
                     if command == 2:
                         print('Ricevuto ACK in seguito all\' erogazione!')

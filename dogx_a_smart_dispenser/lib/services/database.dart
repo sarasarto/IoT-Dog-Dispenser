@@ -26,6 +26,9 @@ class DatabaseService {
   final CollectionReference programmedErogationCollection =
       FirebaseFirestore.instance.collection('Programmed Erogation');
 
+  final CollectionReference notificheCollection =
+      FirebaseFirestore.instance.collection('Notifiche');
+
   Future updateUser(
       String uid, String name, String surname, String email) async {
     return await userCollection
@@ -147,4 +150,5 @@ class DatabaseService {
       'time': time
     });
   }
+
 }

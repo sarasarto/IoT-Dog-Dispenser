@@ -105,13 +105,13 @@ class DatabaseService:
         dispenser = dispenser_ref.get().to_dict()
         return dispenser['food_state']
 
-    def update_FoodStateDispenser(self):
+    def update_FoodStateDispenser(self, val):
         dispenser_ref = self.get_doc_ref('Dispenser', DISPENSER_ID)
         curr_foodState = self.get_Dispenser_curr_foodState()
        
 
-        if(curr_foodState == False):
-            #c'erano i croccantini, ora cambio stat
+        if(val == False):
+            #c'erano i croccantini, ora cambio stato
             curr_foodState = True
             #qua il led dovrebbe essere acceso
             print("LED SI ACCENDE --- RISCHIO CROCCANTINI")
@@ -119,13 +119,23 @@ class DatabaseService:
             self.set_notifica()
 
         else:
-            
+            #mancavano i crocc ma li ho aggiunti
             curr_foodState = False
+            self.delete_notifica()
     
         dispenser_ref.update({'food_state':curr_foodState})
 
     def set_notifica(self):
         dispenser_ref = self.get_doc_ref('Dispenser', DISPENSER_ID)
-        notifica = Notifica(dispenser_id = dispenser_id)
-        self.db_ref.collection('Notifiche').add(notifica.to_dict())
+        user_id = dispenser_ref.get().to_dict()['userId']
+        notifica = Notifica(dispenser_id = DISPENSER_ID, user_id =user_id )
+        print("STO AGGIUNGENDO LA NOTIFICA AL DB PER UTENTE")
+        #self.db_ref.collection('Notifiche').add(notifica.to_dict())
+        self.db_ref.collection('Notifiche').document(DISPENSER_ID).set(notifica.to_dict())
 
+    def delete_notifica(self):
+        dispenser_ref = self.get_doc_ref('Dispenser', DISPENSER_ID)
+        #user_id = dispenser_ref.get().to_dict()['userId']
+        doc_ref = self.db_ref.collection('Notifiche').document(DISPENSER_ID)
+        print("STO ELIMINANDO LA NOTIFICA PER L'UTENTE")
+        doc_ref.delete()

@@ -57,8 +57,8 @@ class Client:
 
                 self.db_service.resetDispenserState(dispenser_ref)
 
-            if no_croccantini == True:
-                print("non ci sono croccantiniiiiiiiiiiii *************************")
+            #if no_croccantini == True:
+                #print("non ci sono croccantiniiiiiiiiiiii *************************")
                 #self.db_service.set_notifica()
 
 
@@ -110,8 +110,8 @@ class Client:
     def add_prediction(self, collarId, qnt, dispenser_id):
         return self.db_service.add_prediction(collarId, qnt, dispenser_id)
 
-    def update_FoodStateDispenser(self):
-        return self.db_service.update_FoodStateDispenser()
+    def update_FoodStateDispenser(self, val):
+        return self.db_service.update_FoodStateDispenser(val)
 
     
 

@@ -171,6 +171,7 @@ class HomeState extends State<Home> {
                   color: Colors.black,
                 ),
                 title: Text('Notifiche'),
+                
               ),
             ],
           ),
