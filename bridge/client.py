@@ -35,6 +35,8 @@ class Client:
                 #da qui andrò ad inviare il comando ad arduino per erogare
                 #non so però ancora se andrà a buon fine.
                 self.bridge.write('1')
+                name = self.get_nameAnimal_fromCollar(collar_id)
+                print('Erogazione in corso per ' + name)
                 
                 #LEGGO ACK DA ARDUINO ---> come lo implemento???
                 #IF arduino ha ricevuto --> SOTTRAGGO LA QTNRATION DALLA AVAILABLE RATION
