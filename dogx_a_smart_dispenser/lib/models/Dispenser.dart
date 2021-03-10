@@ -3,8 +3,8 @@ class Dispenser {
   String userId;
   int qtnRation; // se questa variabile è !=0 allora bisogna erogare.
   String collarId; // variabile che di default è null, e ci dice per quale animale erogare
-  //bool foodState;
-  int foodState;
+  bool foodState;
+  //int foodState;
 
   Dispenser(
       {this.id, this.userId, this.qtnRation, this.collarId, this.foodState});
@@ -41,19 +41,19 @@ class Dispenser {
     this.collarId = collarId;
   }
 
-  /*bool getFoodState() {
+  bool getFoodState() {
     return this.foodState;
   }
 
   void setFoodState(bool foodState) {
     this.foodState = foodState;
-  }*/
+  }
 
-  int getFoodState() {
+ /* int getFoodState() {
     return this.foodState;
   }
 
   void setFoodState(int foodState) {
     this.foodState = foodState;
-  }
+  }*/
 }

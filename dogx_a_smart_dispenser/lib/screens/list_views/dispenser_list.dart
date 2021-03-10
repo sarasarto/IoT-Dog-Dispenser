@@ -18,6 +18,7 @@ class DispenserList extends StatefulWidget {
 class _DispenserListState extends State<DispenserList> {
   @override
   Widget build(BuildContext context) {
+    //print("arrivo qua listttttttttttttttt");
     final dispensers = Provider.of<List<Dispenser>>(context);
     //final animals = Provider.of<List<Animal>>(context);
     final DatabaseService _dbService = DatabaseService();
@@ -25,16 +26,15 @@ class _DispenserListState extends State<DispenserList> {
     return ListView.builder(
       itemCount: dispensers != null ? dispensers.length : 0,
       itemBuilder: (context, index) {
-            return Dismissible(
+        return Dismissible(
             key: Key(dispensers[index].id),
             onDismissed: (direction) {
               _dbService.deleteDispenser(dispensers[index].id);
             },
             background: Container(color: Colors.red),
-            child:DispenserTile(dispenser: dispensers[index]/*, animals:widget.animals*/)
-            );
+            child: DispenserTile(
+                dispenser: dispensers[index] /*, animals:widget.animals*/));
       },
-      
     );
   }
 }
