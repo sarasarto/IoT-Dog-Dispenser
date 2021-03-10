@@ -3,6 +3,7 @@ import 'package:dogx_a_smart_dispenser/screens/views/dispenser_view.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatelessWidget {
+  
   final Item animals = new Item(
       title: "Animali", img: "assets/calendar.png", onClickRoute: AnimalView());
 

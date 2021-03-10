@@ -6,7 +6,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from erogation import Erogazione
-
+from notification import Notifica
 
 class DatabaseService:
     
@@ -114,8 +114,21 @@ class DatabaseService:
         print(curr_foodState)
 
         if(curr_foodState == False):
+            #c'erano i croccantini, ora cambio stat
             curr_foodState = True
+            #qua il led dovrebbe essere acceso
+            print("LED SI ACCENDE --- RISCHIO CROCCANTINI")
+            #inserisco la notifica per utente
+            self.set_notifica()
+
         else:
+            
             curr_foodState = False
     
         dispenser_ref.update({'food_state':curr_foodState})
+
+    def set_notifica(self):
+        dispenser_ref = self.get_doc_ref('Dispenser', DISPENSER_ID)
+        notifica = Notifica(dispenser_id = dispenser_id)
+        self.db_ref.collection('Notifiche').add(notifica.to_dict())
+

@@ -22,6 +22,7 @@ class Client:
         if(len(doc_snapshot) > 0):
             dispenser_ref = doc_snapshot[0].to_dict()
             qtnRation = dispenser_ref['qtnRation']
+            no_croccantini = dispenser_ref['food_state']
 
             #ci sarà da leggere anche l'id animale interessato
             #lo leggo in questo modo
@@ -53,6 +54,10 @@ class Client:
                 #OK OPPURE NO????
 
                 self.db_service.resetDispenserState(dispenser_ref)
+
+            if no_croccantini == True:
+                print("non ci sono croccantiniiiiiiiiiiii *************************")
+                #self.db_service.set_notifica()
 
 
     #funzione che viene invocata quando animale si avvicina al dispenser

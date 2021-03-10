@@ -3,6 +3,7 @@ import 'package:dogx_a_smart_dispenser/screens/tab_navigation_dispenser.dart';
 import 'package:dogx_a_smart_dispenser/screens/views/animal_view.dart';
 import 'package:dogx_a_smart_dispenser/screens/views/home_view.dart';
 import 'package:dogx_a_smart_dispenser/screens/views/profile_view.dart';
+import 'package:dogx_a_smart_dispenser/screens/views/notification_view.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MaterialApp(home: Home()));
@@ -16,7 +17,8 @@ class Home extends StatefulWidget {
 //1: dispenser
 //2: animali
 //3: profilo
-List tabs = [0, 1, 2, 3];
+//4: notifiche
+List tabs = [0, 1, 2, 3, 4];
 Map<int, GlobalKey<NavigatorState>> navigatorKeys = {
   tabs[1]: GlobalKey<NavigatorState>(),
 };
@@ -44,7 +46,11 @@ class HomeState extends State<Home> {
         if (currentTab == 2) {
           return AnimalView();
         } else {
-          return ProfileView();
+          if (currentTab == 3) {
+            return ProfileView();
+          } else {
+            return NotificationView();
+          }
         }
       }
     }
@@ -77,7 +83,7 @@ class HomeState extends State<Home> {
     return WillPopScope(
       onWillPop: () async =>
           !await navigatorKeys[currentTab].currentState.maybePop(),
-          child: Scaffold(
+      child: Scaffold(
           /*backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text('DogX', style: TextStyle(color: Colors.black)),
@@ -156,6 +162,15 @@ class HomeState extends State<Home> {
                   color: Colors.black,
                 ),
                 title: Text('Account'),
+              ),
+              BubbleBottomBarItem(
+                backgroundColor: Colors.black,
+                icon: Icon(Icons.notifications, color: Colors.black),
+                activeIcon: Icon(
+                  Icons.notifications,
+                  color: Colors.black,
+                ),
+                title: Text('Notifiche'),
               ),
             ],
           ),
