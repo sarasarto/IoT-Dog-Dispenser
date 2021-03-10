@@ -5,7 +5,7 @@ from constants import DISPENSER_ID, SERVICES_PATH
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
-from prediction import Prediction
+from erogation import Erogazione
 
 
 class DatabaseService:
@@ -90,8 +90,8 @@ class DatabaseService:
     def add_prediction(self, collarId, qnt, dispenser_id):
         print("Aggiungo nella tabella di predizione")
 
-        pred = Prediction(collar_id = collarId, qnt = qnt, dispenser_id = dispenser_id)
-        self.db_ref.collection('Prediction').add(pred.to_dict())
+        pred = Erogazione(collar_id = collarId, qnt = qnt, dispenser_id = dispenser_id)
+        self.db_ref.collection('Erogation Date').add(pred.to_dict())
 
 
     def getAllCollection(self, collection_name):

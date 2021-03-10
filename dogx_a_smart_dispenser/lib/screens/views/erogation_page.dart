@@ -148,7 +148,30 @@ class _ErogationPageState extends State<ErogationPage> {
                         style: TextStyle(color: Colors.white),
                         textAlign: TextAlign.center),
                     onPressed: () {
-                      _showDateTimePicker();
+                      if (_currentAnimal == null || _currentQnt == null) {
+                        print('o animale o razione sono nulli');
+                        showDialog(
+                            context: context,
+                            barrierDismissible:
+                                false, // disables popup to close if tapped outside popup (need a button to close)
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(
+                                  "Prima devi selezionare l'animale e la quantità!",
+                                ),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text("Ok, ho capito!"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    }, //closes popup
+                                  ),
+                                ],
+                              );
+                            });
+                      } else {
+                        _showDateTimePicker();
+                      }
                     })
               ]),
             );

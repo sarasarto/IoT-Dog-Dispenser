@@ -28,5 +28,5 @@ class Hour_Prediction:
         forecast = my_model.predict(future_dates)
         forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
 
-        return round(forecast['yhat'][1])
+        return round(forecast['yhat'][len(forecast)-1])
 

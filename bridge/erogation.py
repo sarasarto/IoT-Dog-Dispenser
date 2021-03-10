@@ -1,6 +1,6 @@
 from datetime import datetime
 
-class Prediction(object):
+class Erogazione(object):
     def __init__(self, collar_id, qnt , dispenser_id ):
         self.datetime = datetime.now()
         self.collar_id = collar_id
