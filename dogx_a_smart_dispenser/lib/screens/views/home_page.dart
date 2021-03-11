@@ -2,6 +2,16 @@ import 'package:dogx_a_smart_dispenser/models/Dispenser.dart';
 import 'package:dogx_a_smart_dispenser/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:dogx_a_smart_dispenser/services/auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:dogx_a_smart_dispenser/models/Animal.dart';
+import 'package:dogx_a_smart_dispenser/screens/forms/add_form.dart';
+import 'package:dogx_a_smart_dispenser/screens/list_views/animal_list.dart';
+import 'package:dogx_a_smart_dispenser/services/database.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:dogx_a_smart_dispenser/services/auth.dart';
 
 class HomePage extends StatefulWidget {
   Dispenser _currentDispenser;
@@ -15,47 +25,28 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     widget.dispensers = Provider.of<List<Dispenser>>(context);
-
-    print('REBUILDDD');
-
     return StreamBuilder(
         stream: DatabaseService().dispensers,
         builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
+          widget._currentDispenser = null;
           if (asyncSnapshot.hasData) {
-            print('QUAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!');
-            print(asyncSnapshot.data.length);
-            List<Dispenser> disp = new List<Dispenser>.from(asyncSnapshot.data);
-            for (int i = 0; i < asyncSnapshot.data.length; i++) {
-              print(asyncSnapshot.data[i].id);
-            }
             if (widget.dispensers.isNotEmpty) {
-              for (int i = 0; i < widget.dispensers.length; i++) {
-                print(widget.dispensers[i].id);
-                print(widget.dispensers[i].foodState);
-                print('+++++++++++++++++++++++++++++++++++++++++');
-              }
-
-              //_currentDispenser = dispensers[0];
               if (widget._currentDispenser == null) {
                 widget._currentDispenser = widget.dispensers[0];
               }
-              print('provo accessooooo');
-              print(widget._currentDispenser.id);
               return Container(
                   child: Column(
                 children: <Widget>[
                   SizedBox(height: 40.0),
                   Text(
-                    'Ottieni informazioni aggiornate in tempo reale sui tuoi dispenser!',
+                    'Seleziona il tuo dispenser per informazioni in tempo reale!',
                     style: TextStyle(fontSize: 16.0),
                     //textAlign: TextAlign.left,
                   ),
                   SizedBox(height: 20.0),
                   DropdownButtonFormField<Dispenser>(
                       value: widget._currentDispenser,
-                      items:
-                          widget.dispensers.map((dispenser) {
-                        print('sono quiiiiii');
+                      items: widget.dispensers.map((dispenser) {
                         return DropdownMenuItem(
                           value: dispenser,
                           child: Text(dispenser.id,
@@ -78,8 +69,10 @@ class _HomePageState extends State<HomePage> {
             } else {
               return Container(
                 child: Center(
-                  child: Text(
-                      'Nessun dispenser disponibile aggiungine uno nuovo!'),
+                  child: Column(children: <Widget>[
+                    Text('Non hai ancora connesso alcun dispenser'),
+                    Text('Aggiungine uno nuovo!')
+                  ]),
                 ),
               );
             }

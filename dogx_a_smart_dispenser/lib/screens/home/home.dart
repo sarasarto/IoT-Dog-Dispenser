@@ -47,9 +47,9 @@ class HomeState extends State<Home> {
           return AnimalView();
         } else {
           if (currentTab == 3) {
-            return ProfileView();
-          } else {
             return NotificationView();
+          } else {
+            return ProfileView();
           }
         }
       }
@@ -151,6 +151,16 @@ class HomeState extends State<Home> {
                 ),
                 title: Text('Animali'),
               ),
+                           BubbleBottomBarItem(
+                backgroundColor: Colors.black,
+                icon: Icon(Icons.notifications, color: Colors.black),
+                activeIcon: Icon(
+                  Icons.notifications,
+                  color: Colors.black,
+                ),
+                title: Text('Notifiche'),
+                
+              ),
               BubbleBottomBarItem(
                 backgroundColor: Colors.black,
                 icon: Icon(
@@ -163,16 +173,7 @@ class HomeState extends State<Home> {
                 ),
                 title: Text('Account'),
               ),
-              BubbleBottomBarItem(
-                backgroundColor: Colors.black,
-                icon: Icon(Icons.notifications, color: Colors.black),
-                activeIcon: Icon(
-                  Icons.notifications,
-                  color: Colors.black,
-                ),
-                title: Text('Notifiche'),
-                
-              ),
+ 
             ],
           ),
           body: _buildBody()),
