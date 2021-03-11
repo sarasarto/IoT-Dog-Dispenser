@@ -52,7 +52,8 @@ class NotificationView extends StatelessWidget {
                               "Attenzione!! stai finendo i croccantini"),
                         );
                       }).toList(),
-                    ))),
+                    )
+                    )),
           );
         },
       ),

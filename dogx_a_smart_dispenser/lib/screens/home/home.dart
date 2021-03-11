@@ -5,7 +5,7 @@ import 'package:dogx_a_smart_dispenser/screens/views/home_view.dart';
 import 'package:dogx_a_smart_dispenser/screens/views/profile_view.dart';
 import 'package:dogx_a_smart_dispenser/screens/views/notification_view.dart';
 import 'package:flutter/material.dart';
-
+import 'package:percent_indicator/percent_indicator.dart';
 void main() => runApp(MaterialApp(home: Home()));
 
 class Home extends StatefulWidget {
