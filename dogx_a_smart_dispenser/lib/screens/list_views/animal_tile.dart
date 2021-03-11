@@ -1,6 +1,7 @@
 import 'package:dogx_a_smart_dispenser/screens/forms/update_form.dart';
 import 'package:flutter/material.dart';
 import 'package:dogx_a_smart_dispenser/models/Animal.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class AnimalTile extends StatelessWidget {
   final Animal animal;
@@ -19,7 +20,7 @@ class AnimalTile extends StatelessWidget {
             );
           });
     }
-
+  
     /* return Padding(
       padding: EdgeInsets.only(top: 8),
       child: Card(
@@ -49,7 +50,7 @@ class AnimalTile extends StatelessWidget {
                 Row(
                   children: <Widget>[Text("Nome: " + animal.name)],
                 ),
-                Row(
+                /*Row(
                   children: <Widget>[
                     Text(
                         "Razione giornaliera: " + animal.dailyRation.toString())
@@ -60,7 +61,24 @@ class AnimalTile extends StatelessWidget {
                     Text("Razione disponibile: " +
                         animal.availableRation.toString())
                   ],
-                )
+                ),*/
+                    Padding(
+              padding: EdgeInsets.all(15.0),
+              child: new LinearPercentIndicator(
+                width: 140.0,
+                animation: true,
+                animationDuration: 1000,
+                lineHeight: 20.0,
+                leading: new Text( "Rimane " + ((1-animal.availableRation).abs()).toString()),
+                trailing: new  Text(
+                        animal.dailyRation.toString()), 
+                percent:
+                (1-animal.availableRation/animal.dailyRation),
+                center: Text(((1-animal.availableRation/animal.dailyRation)*100).toString()+ "%"),
+                linearStrokeCap: LinearStrokeCap.butt,
+                progressColor: Colors.red,
+              ),
+            ),
               ],
             )),
       ),
