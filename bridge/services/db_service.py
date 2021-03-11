@@ -28,6 +28,8 @@ class DatabaseService:
         animal_ref = self.get_doc_ref('Animal', collar_id)
         available_ration = self.get_available_ration(collar_id)
         food_counter = self.get_food_counter(collar_id)
+        print('UPDATEEE')
+        print(collar_id)
         #se il cane si è avvicinato
         # else non cambiamo niente
         if  is_animal_detected:
