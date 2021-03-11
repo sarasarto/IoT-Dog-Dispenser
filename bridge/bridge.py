@@ -78,7 +78,7 @@ class Bridge:
                 self.write('1')
 
             else:
-                print(name + ' non ha una razione sufficiente per l\' erogazione')
+                print('Erogazione non effettuata causa soglia o razione disponibile!')
                         
         else:
             if command == 6:
@@ -94,11 +94,17 @@ class Bridge:
                         print('Ricevuto ACK in seguito all\' erogazione!')
                         if(self.is_animal_detected is True):
                             print('aggiorno in seguito ad avvicinamento')
+                            print(self.collar_id)
+                            print(self.qtn_ration)
+                            print(self.is_animal_detected)
                             self.client.update_available_ration(self.collar_id, DEFAULT_RATION, self.is_animal_detected)
                             self.is_animal_detected = False
                             self.collar_id = None
                         else:
                             print('aggiorno in seguito a comando immediato')
+                            print(self.collar_id)
+                            print(self.qtn_ration)
+                            print(self.is_animal_detected)
                             self.client.update_available_ration(self.collar_id, self.qtn_ration, self.is_animal_detected)
                             self.client.add_prediction(self.collar_id, self.qtn_ration, DISPENSER_ID)
                             self.qtn_ration = 0

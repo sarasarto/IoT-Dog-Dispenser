@@ -45,7 +45,7 @@ class Client:
                 # NON PERCHE ANIMALE AVVICINATO
                 self.bridge.dispenser_ref = dispenser_ref
                 self.bridge.is_animal_detected = False
-                self.bridge.qtnRation = qtnRation
+                self.bridge.qtn_ration = qtnRation
                 self.bridge.collar_id = collar_id
                 #self.update_available_ration(collar_id, qtnRation, avvicinato)
                 #IF NOT OK --> NON FACCIO NULLA MA RESETTO COMUNQUE LO STATO DEL DISPENSER
