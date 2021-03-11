@@ -1,3 +1,3 @@
 DISPENSER_ID = 'dispenser2'
 SERVICES_PATH = 'dogx-9703b-firebase-adminsdk-30k5j-b74bd82c2c.json'
-file_name = 'date_hours.csv'
+file_name = 'server_module/date_hours.csv'

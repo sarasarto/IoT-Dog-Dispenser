@@ -1,21 +1,19 @@
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
-from schedulerNew.constants import DISPENSER_ID, SERVICES_PATH
+from constants import DISPENSER_ID, SERVICES_PATH, file_name
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
-from schedulerNew import prophet_prediction
-from bridge import services
-from schedulerNew.prophet_prediction import Prophet_Prediction
-from schedulerNew.prediction_hours import Hour_Prediction
-from schedulerNew.constants import file_name
+from prophet_prediction import Prophet_Prediction
+from prediction_hours import Hour_Prediction
+
 
 class DatabaseService:
     
     def __init__(self):
         self.services_path = SERVICES_PATH
-        self.cred = credentials.Certificate(self.services_path)
+        self.cred = credentials.Certificate('server_module/' + self.services_path)
         self.db_ref = None
 
     def initialize_connection(self):
@@ -33,9 +31,9 @@ class DatabaseService:
     def add_fbp_prediction(self, prediction):
         print("Aggiungo nella tabella di predizione di prophet")
         pred = Prophet_Prediction(prediction=prediction)
-        self.db_ref.collection('Prophet_Prediction').add(pred.to_dict())
+        self.db_ref.collection('Predicted Erogation').add(pred.to_dict())
 
-    def get_hour_predictio(self):
+    def get_hour_prediction(self):
         print("sono del db per prendere ora")
         model = Hour_Prediction(file_name)
         h_pred= model.do_pred()
