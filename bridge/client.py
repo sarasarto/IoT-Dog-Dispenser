@@ -43,29 +43,36 @@ class Client:
                 #if(...):
                 # IN QUESTO CASO L'EROGAZIONE AVVIENE PERCHE UTENTE HA CHIESTO EROGAZIONE
                 # NON PERCHE ANIMALE AVVICINATO
-                avvicinato= False
-                self.update_available_ration(collar_id, qtnRation, avvicinato)
+                self.bridge.dispenser_ref = dispenser_ref
+                self.bridge.is_animal_detected = False
+                self.bridge.qtnRation = qtnRation
+                self.bridge.collar_id = collar_id
+                #self.update_available_ration(collar_id, qtnRation, avvicinato)
                 #IF NOT OK --> NON FACCIO NULLA MA RESETTO COMUNQUE LO STATO DEL DISPENSER
                 #RIMETTENDO A ZERO LA QTNRATION E RESETTANDO IL RELATIVO ANIMALE A NULL
 
                 #INOLTRE POPOLIAMO TABELLA PER LE PREDIZIONI ADDPREDICTION(?)
-                self.add_prediction(collar_id, qtnRation, DISPENSER_ID)
+                #self.add_prediction(collar_id, qtnRation, DISPENSER_ID)
                 
 
-                #PROBLEMA: COME MI METTO IN COMUNICAZIONE CON IL BRIDGE PER CAPIRE SE E' ANDATO TUTTO
-                #OK OPPURE NO????
+    
 
-                self.db_service.resetDispenserState(dispenser_ref)
+                #self.db_service.resetDispenserState(dispenser_ref)
 
             #if no_croccantini == True:
                 #print("non ci sono croccantiniiiiiiiiiiii *************************")
                 #self.db_service.set_notifica()
+
+    def reset_dispenser_state(self, dispenser_ref):
+        self.db_service.reset_dispenser_state(dispenser_ref)
 
 
     #funzione che viene invocata quando animale si avvicina al dispenser
     #e di conseguenza bisogna verificare che abbia ancora razione disponibile
     def get_available_ration(self, collar_id):
         return self.db_service.get_available_ration(collar_id)
+
+    #def reset_dispenser_state()
     
     def get_food_counter(self, collar_id):
         return self.db_service.get_food_counter(collar_id)

@@ -24,13 +24,13 @@ class DatabaseService:
         doc_ref = self.db_ref.collection(collection_name).document(doc_id)
         return doc_ref
 
-    def update_available_ration(self, collar_id, ration, avvicinato):
+    def update_available_ration(self, collar_id, ration, is_animal_detected):
         animal_ref = self.get_doc_ref('Animal', collar_id)
         available_ration = self.get_available_ration(collar_id)
         food_counter = self.get_food_counter(collar_id)
         #se il cane si è avvicinato
         # else non cambiamo niente
-        if avvicinato == True:
+        if  is_animal_detected:
             food_counter += 1
 
         #se la available diventa negativa allora la settiamo a 0
@@ -46,19 +46,16 @@ class DatabaseService:
     def get_available_ration(self, collar_id):
         animal_ref = self.get_doc_ref('Animal', collar_id)
         animal = animal_ref.get().to_dict()
-        #print(animal)
         return animal['availableRation']
 
     def get_food_counter(self, collar_id):
         animal_ref = self.get_doc_ref('Animal', collar_id)
         animal = animal_ref.get().to_dict()
-        #print(animal)
         return animal['foodCounter']
 
     def get_nameAnimal_fromCollar(self, collar_id):
         animal_ref = self.get_doc_ref('Animal', collar_id)
         animal = animal_ref.get().to_dict()
-        #print(animal)
         return animal['name']
 
     #funzione utile nel caso non usiamo gli ibeacon
@@ -77,7 +74,7 @@ class DatabaseService:
         dispenser = dispenser_ref.get().to_dict()
         return dispenser['userId']
         
-    def resetDispenserState(self, dispenser_ref):
+    def reset_dispenser_state(self, dispenser_ref):
         doc_ref = self.db_ref.collection('Dispenser').document(DISPENSER_ID)
         dispenser_ref['qtnRation'] = 0
         #RIMETTO A NULL L'ANIMALE INTERESSATO!

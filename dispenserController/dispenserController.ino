@@ -93,13 +93,13 @@ void loop() {
     command = Serial.read();
 
     if(command == '1'){
-      //stepper.step(nStep);
-      for(int x = 0; x < 200; x++) {
+      stepper.step(nStep);
+      /*for(int x = 0; x < 200; x++) {
         digitalWrite(stepPin,HIGH); 
         delayMicroseconds(3000); 
         digitalWrite(stepPin,LOW); 
         delayMicroseconds(3000); 
-       }
+       }*/
 
       //invio ack al bridge
       Serial.write(0x02);

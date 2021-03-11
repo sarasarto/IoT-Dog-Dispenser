@@ -11,7 +11,10 @@ class Bridge:
         self.ser = None
         self.port_name = None
         self.client = None
-        self.inbuffer = []
+        self.dispenser_ref = None
+        self.is_animal_detected = False
+        self.qtn_ration = 0
+        self.collar_id = None
         
 
     def set_client(self, client):
@@ -53,30 +56,26 @@ class Bridge:
 
     def useData(self, lastchar):
         animals = self.client.get_user_animals()
+        command = int.from_bytes(lastchar, byteorder='little')
 
         # I have received a line from the serial port. I can use it
-        print('controllo i DATI')
-        collar_id = random.choice(animals)
-        name = self.client.get_nameAnimal_fromCollar(collar_id)
-
-        command = int.from_bytes(lastchar, byteorder='little')
-        print(command)
         if command == 1:
+            self.collar_id = random.choice(animals)
+            name = self.client.get_nameAnimal_fromCollar(self.collar_id)
+            
             print("Rilevato animale vicino al dispenser!")
             
-            print('Id collare: ' + collar_id)
+            print('Id collare: ' + self.collar_id)
             print('Nome animale: ' + name)
             
             #faccio tutte le verfiche del caso tramite il client
             print('Verifica in corso...')
             
-            is_available = self.client.is_available(collar_id)
+            is_available = self.client.is_available(self.collar_id)
             if is_available:
                 print('Erogazione in corso...')
+                self.is_animal_detected = True
                 self.write('1')
-
-                #TODO: QUI ANCORA BISOGNA GESTIRE A MODO ACK
-                #PER IL MOMENTO è STATO INSERITO NELL'ULTIMA RIGA.
 
             else:
                 print(name + ' non ha una razione sufficiente per l\' erogazione')
@@ -93,9 +92,19 @@ class Bridge:
                 else:
                     if command == 2:
                         print('Ricevuto ACK in seguito all\' erogazione!')
-                        avvicinato = True
-                        self.client.update_available_ration(collar_id, 30, avvicinato)
-                        
+                        if(self.is_animal_detected is True):
+                            print('aggiorno in seguito ad avvicinamento')
+                            self.client.update_available_ration(self.collar_id, DEFAULT_RATION, self.is_animal_detected)
+                            self.is_animal_detected = False
+                            self.collar_id = None
+                        else:
+                            print('aggiorno in seguito a comando immediato')
+                            self.client.update_available_ration(self.collar_id, self.qtn_ration, self.is_animal_detected)
+                            self.client.add_prediction(self.collar_id, self.qtn_ration, DISPENSER_ID)
+                            self.qtn_ration = 0
+                            self.collar_id = None
+                            self.client.reset_dispenser_state(self.dispenser_ref)   
+                       
                     else:
                         print('Attenzione, si è verificata un\' anomalia')
 
