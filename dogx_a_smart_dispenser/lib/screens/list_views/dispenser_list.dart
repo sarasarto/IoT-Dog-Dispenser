@@ -7,6 +7,7 @@ import 'package:dogx_a_smart_dispenser/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dispenser_tile.dart';
+import 'package:dogx_a_smart_dispenser/screens/list_views/dispenser_tile.dart';
 
 class DispenserList extends StatefulWidget {
   final List<Animal> animals;

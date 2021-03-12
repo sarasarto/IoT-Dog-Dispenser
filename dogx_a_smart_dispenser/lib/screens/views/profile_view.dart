@@ -1,4 +1,4 @@
-import 'package:dogx_a_smart_dispenser/services/auth.dart';
+/*import 'package:dogx_a_smart_dispenser/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfileView extends StatelessWidget {
@@ -26,3 +26,4 @@ class ProfileView extends StatelessWidget {
     );
   }
 }
+*/

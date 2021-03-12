@@ -23,11 +23,12 @@ class DispenserTile extends StatelessWidget {
             print("collare: " + dispenser.collarId.toString());
             print("qnt : " + dispenser.qtnRation.toString());
             print(dispenser.userId);
-            Navigator.push(
+            /*Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => ErogationView(
-                        dispenser: dispenser /*, animals: animals*/)));
+                        dispenser: dispenser /*, animals: animals*/))
+                        );*/
           },
         ),
       ),

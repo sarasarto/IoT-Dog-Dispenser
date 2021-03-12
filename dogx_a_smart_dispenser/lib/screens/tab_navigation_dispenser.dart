@@ -29,7 +29,7 @@ class TabNavigatorDispenser extends StatelessWidget {
       TabNavigatorRoutes.root: (context) => DispenserView(),
 
       //NB:DA SISTEMARE IL PARAMETROOO!!!
-      TabNavigatorRoutes.detail: (context) => ErogationView(),
+      //TabNavigatorRoutes.detail: (context) => ErogationView(),
     };
   }
 

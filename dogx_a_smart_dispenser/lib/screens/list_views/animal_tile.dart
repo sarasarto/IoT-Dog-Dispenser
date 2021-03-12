@@ -20,21 +20,6 @@ class AnimalTile extends StatelessWidget {
             );
           });
     }
-  
-    /* return Padding(
-      padding: EdgeInsets.only(top: 8),
-      child: Card(
-        margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
-        child: ListTile(
-          onTap: () {
-            //apro il bottom sheet
-            _showUpdatePanel(animal);
-          },
-          title: Text(animal.name),
-          subtitle: Text(animal.availableRation.toString()),
-        ),
-      ),
-    );*/
 
     return Padding(
       padding: EdgeInsets.only(top: 8),
@@ -43,42 +28,40 @@ class AnimalTile extends StatelessWidget {
           _showUpdatePanel(animal);
         },
         child: Card(
-          color: Colors.black12,
+            color: Colors.black12,
             margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
             child: Column(
               children: <Widget>[
                 Row(
-                  children: <Widget>[Text("Nome: " + animal.name)],
-                ),
-                /*Row(
                   children: <Widget>[
                     Text(
-                        "Razione giornaliera: " + animal.dailyRation.toString())
+                      " " + animal.name,
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    )
                   ],
                 ),
-                Row(
-                  children: <Widget>[
-                    Text("Razione disponibile: " +
-                        animal.availableRation.toString())
-                  ],
-                ),*/
-                    Padding(
-              padding: EdgeInsets.all(15.0),
-              child: new LinearPercentIndicator(
-                width: 140.0,
-                animation: true,
-                animationDuration: 1000,
-                lineHeight: 20.0,
-                leading: new Text( "Rimane " + ((1-animal.availableRation).abs()).toString()),
-                trailing: new  Text(
-                        animal.dailyRation.toString()), 
-                percent:
-                (1-animal.availableRation/animal.dailyRation),
-                center: Text(((1-animal.availableRation/animal.dailyRation)*100).toString()+ "%"),
-                linearStrokeCap: LinearStrokeCap.butt,
-                progressColor: Colors.red,
-              ),
-            ),
+                Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: new LinearPercentIndicator(
+                    width: 140.0,
+                    animation: true,
+                    animationDuration: 1000,
+                    lineHeight: 20.0,
+                    leading: new Text("Rimangono " +
+                        ((1 - animal.availableRation).abs()).toString()),
+                    trailing: new Text(animal.dailyRation.toString()),
+                    percent: (1 - animal.availableRation / animal.dailyRation),
+                    center: Text(
+                        ((1 - animal.availableRation / animal.dailyRation) *
+                                    100)
+                                .toString() +
+                            "%", style: TextStyle(color: Colors.white)),
+                    linearStrokeCap: LinearStrokeCap.butt,
+                    progressColor: Colors.grey[900],
+                  ),
+                ),
               ],
             )),
       ),

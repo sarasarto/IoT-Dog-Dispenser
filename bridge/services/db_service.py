@@ -12,7 +12,7 @@ class DatabaseService:
     
     def __init__(self):
         self.services_path = SERVICES_PATH
-        self.cred = credentials.Certificate('services/' + self.services_path)
+        self.cred = credentials.Certificate('bridge/services/' + self.services_path)
         self.db_ref = None
 
     def initialize_connection(self):

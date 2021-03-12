@@ -16,9 +16,9 @@ class Home extends StatefulWidget {
 //0: home
 //1: dispenser
 //2: animali
-//3: profilo
-//4: notifiche
-List tabs = [0, 1, 2, 3, 4];
+
+//3: notifiche
+List tabs = [0, 1, 2, 3];
 Map<int, GlobalKey<NavigatorState>> navigatorKeys = {
   tabs[1]: GlobalKey<NavigatorState>(),
 };
@@ -48,22 +48,13 @@ class HomeState extends State<Home> {
         } else {
           if (currentTab == 3) {
             return NotificationView();
-          } else {
+          } /*else {
             return ProfileView();
-          }
+          }*/
         }
       }
     }
-    /*return Container(
-        color: TabHelper.color(TabItem.home),
-        alignment: Alignment.center,
-        child: FlatButton(
-          child: Text(
-            'PUSH',
-            style: TextStyle(fontSize: 32.0, color: Colors.white),
-          ),
-          onPressed: _push,
-        ));*/
+
   }
 
   /*void _push() {
@@ -161,7 +152,7 @@ class HomeState extends State<Home> {
                 title: Text('Notifiche'),
                 
               ),
-              BubbleBottomBarItem(
+             /* BubbleBottomBarItem(
                 backgroundColor: Colors.black,
                 icon: Icon(
                   Icons.person,
@@ -172,7 +163,7 @@ class HomeState extends State<Home> {
                   color: Colors.black,
                 ),
                 title: Text('Account'),
-              ),
+              ),*/
  
             ],
           ),
