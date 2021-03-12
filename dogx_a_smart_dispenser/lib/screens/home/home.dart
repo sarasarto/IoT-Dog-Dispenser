@@ -1,6 +1,7 @@
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:dogx_a_smart_dispenser/screens/tab_navigation_dispenser.dart';
 import 'package:dogx_a_smart_dispenser/screens/views/animal_view.dart';
+import 'package:dogx_a_smart_dispenser/screens/views/dispenser_view.dart';
 import 'package:dogx_a_smart_dispenser/screens/views/home_view.dart';
 import 'package:dogx_a_smart_dispenser/screens/views/profile_view.dart';
 import 'package:dogx_a_smart_dispenser/screens/views/notification_view.dart';
@@ -16,7 +17,6 @@ class Home extends StatefulWidget {
 //0: home
 //1: dispenser
 //2: animali
-
 //3: notifiche
 List tabs = [0, 1, 2, 3];
 Map<int, GlobalKey<NavigatorState>> navigatorKeys = {
@@ -37,35 +37,22 @@ class HomeState extends State<Home> {
       return HomeView();
     } else {
       if (currentTab == 1) {
-        //return DispenserView();
-        return TabNavigatorDispenser(
-          navigatorKey: navigatorKey,
-          tabItem: currentTab,
-        );
+        return DispenserView();
+    
       } else {
         if (currentTab == 2) {
           return AnimalView();
         } else {
           if (currentTab == 3) {
             return NotificationView();
-          } /*else {
-            return ProfileView();
-          }*/
+          } 
         }
       }
     }
 
   }
 
-  /*void _push() {
-    Navigator.of(context).push(MaterialPageRoute(
-      // we'll look at ColorDetailPage later
-      builder: (context) => ColorDetailPage(
-        color: TabHelper.color(TabItem.red),
-        title: TabHelper.description(TabItem.red),
-      ),
-    ));
-  }*/
+ 
 
   final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -171,7 +158,7 @@ class HomeState extends State<Home> {
     );
   }
 
-  Widget _buildOffstageNavigator(int tabItem) {
+  /*Widget _buildOffstageNavigator(int tabItem) {
     return Offstage(
       offstage: currentTab != tabItem,
       child: TabNavigatorDispenser(
@@ -179,5 +166,5 @@ class HomeState extends State<Home> {
         tabItem: tabItem,
       ),
     );
-  }
+  }*/
 }

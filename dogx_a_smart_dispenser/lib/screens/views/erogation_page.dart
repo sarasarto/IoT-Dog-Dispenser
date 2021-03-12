@@ -1,19 +1,19 @@
 import 'package:dogx_a_smart_dispenser/models/Animal.dart';
 import 'package:dogx_a_smart_dispenser/models/Dispenser.dart';
+import 'package:dogx_a_smart_dispenser/screens/views/home_page.dart';
 import 'package:dogx_a_smart_dispenser/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class ErogationPage extends StatefulWidget {
-  //final Dispenser dispenser;
+  final Dispenser dispenser;
 
   Animal _currentAnimal;
-  Dispenser _currentDispenser;
+  //Dispenser _currentDispenser;
   List<Animal> animals;
-  List<Dispenser> dispensers;
 
-  ErogationPage({this.dispensers});
+  ErogationPage({this.dispenser});
 
   @override
   _ErogationPageState createState() => _ErogationPageState();
@@ -29,44 +29,19 @@ class _ErogationPageState extends State<ErogationPage> {
   @override
   Widget build(BuildContext context) {
     widget.animals = Provider.of<List<Animal>>(context);
-    widget.dispensers = Provider.of<List<Dispenser>>(context);
+    //widget.dispensers = Provider.of<List<Dispenser>>(context);
     return StreamBuilder(
         stream: DatabaseService().animals,
         builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
-          widget._currentAnimal = null;
+          //widget._currentAnimal = null;
           if (asyncSnapshot.hasData) {
             if (widget.animals.isNotEmpty) {
               if (widget._currentAnimal == null) {
                 widget._currentAnimal = widget.animals[0];
-                widget._currentDispenser = widget.dispensers[0];
+                //widget._currentDispenser = widget.dispensers[0];
               }
               return Container(
                 child: Column(children: <Widget>[
-                  //SizedBox(height: 40.0),
-                  /*Text(
-                    'Seleziona il tuo animale e il tuo dispenser',
-                    style: TextStyle(fontSize: 16.0),
-                    //textAlign: TextAlign.left,
-                  ),*/
-                  //SizedBox(height: 20.0),
-                  /*DropdownButtonFormField<Dispenser>(
-                      hint: Text("Seleziona il tuo dispenser"),
-                      //value: widget._currentDispenser,
-                      items: widget.dispensers.map((dispenser) {
-                        return DropdownMenuItem(
-                          value:
-                              dispenser, //questo è il corrente che devo mettere nel db
-                          child: Text(dispenser.id,
-                              style: TextStyle(fontSize: 18.0)),
-                        );
-                      }).toList(),
-                      onChanged: (Dispenser value) {
-                        setState(() {
-                          widget._currentDispenser = value;
-                          print('SELEZIONATOOOO DISPENSER');
-                          print(widget._currentDispenser.id);
-                        });
-                      }),*/
                   SizedBox(height: 5.0),
 
                   Container(
@@ -88,7 +63,7 @@ class _ErogationPageState extends State<ErogationPage> {
                         onChanged: (Animal value) {
                           setState(() {
                             widget._currentAnimal = value;
-                            print('SELEZIONATOOOO');
+                            print('SELEZIONATOOOO EROGA');
                             print(widget._currentAnimal.name);
                           });
                         }),
@@ -140,19 +115,20 @@ class _ErogationPageState extends State<ErogationPage> {
                                 print(widget._currentAnimal.availableRation);
 
                                 _dbService.updateDispenser(
-                                    widget._currentDispenser.id,
-                                    //dispenser.id,
+                                    //widget._currentDispenser.id,
+                                    widget.dispenser.id,
                                     int.parse(_currentQnt),
                                     widget._currentAnimal.collarId);
 
                                 widget._currentAnimal = null;
-                                widget._currentDispenser = null;
+                                //widget.dispenser = null;
 
                                 final snackBar = SnackBar(
                                     content: Text(
                                         'Erogazione avvenuta con successo!'));
 
                                 Scaffold.of(context).showSnackBar(snackBar);
+                                setState(() {});
                               } else {
                                 showDialog(
                                     context: context,
@@ -179,13 +155,19 @@ class _ErogationPageState extends State<ErogationPage> {
                                               //cambio qntRation cosi bridge se ne accorge
                                               _dbService.updateDispenser(
                                                   //dispenser.id,
-                                                  widget._currentDispenser.id,
+                                                 widget.dispenser.id,
                                                   int.parse(_currentQnt),
                                                   widget
                                                       ._currentAnimal.collarId);
                                               widget._currentAnimal = null;
-                                              widget._currentDispenser = null;
-                                              Navigator.of(context).pop();
+                                              //widget.dispenser = null;
+                                              //Navigator.of(context).pop();
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        HomePage()),
+                                              );
                                             }, //closes popup
                                           ),
                                         ],
@@ -266,7 +248,7 @@ class _ErogationPageState extends State<ErogationPage> {
             print('o animale o razione sono nulli');
           } else {
             _dbService.addProgrammedErogation(
-                widget._currentDispenser.id,
+                widget.dispenser.id,
                 //widget.dispenser.id,
                 widget._currentAnimal.collarId,
                 int.parse(_currentQnt),

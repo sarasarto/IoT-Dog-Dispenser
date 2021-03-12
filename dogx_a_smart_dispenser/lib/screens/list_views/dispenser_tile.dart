@@ -1,5 +1,4 @@
 import 'package:dogx_a_smart_dispenser/models/Dispenser.dart';
-import 'package:dogx_a_smart_dispenser/screens/views/erogation_view.dart';
 import 'package:flutter/material.dart';
 
 

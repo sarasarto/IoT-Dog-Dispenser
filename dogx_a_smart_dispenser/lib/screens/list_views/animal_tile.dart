@@ -50,13 +50,12 @@ class AnimalTile extends StatelessWidget {
                     animationDuration: 1000,
                     lineHeight: 20.0,
                     leading: new Text("Rimangono " +
-                        ((1 - animal.availableRation).abs()).toString()),
+                        ((animal.dailyRation - animal.availableRation).abs()).toString()),
                     trailing: new Text(animal.dailyRation.toString()),
                     percent: (1 - animal.availableRation / animal.dailyRation),
                     center: Text(
                         ((1 - animal.availableRation / animal.dailyRation) *
-                                    100)
-                                .toString() +
+                                    100).round().toString() +
                             "%", style: TextStyle(color: Colors.white)),
                     linearStrokeCap: LinearStrokeCap.butt,
                     progressColor: Colors.grey[900],

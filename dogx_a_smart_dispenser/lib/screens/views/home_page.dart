@@ -8,9 +8,10 @@ import 'package:dogx_a_smart_dispenser/services/auth.dart';
 import 'package:dogx_a_smart_dispenser/models/Animal.dart';
 
 class HomePage extends StatefulWidget {
-  Dispenser _currentDispenser;
+  //Dispenser _currentDispenser;
   List<Dispenser> dispensers;
   List<Animal> animals;
+  Dispenser last_selected;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -26,44 +27,24 @@ class _HomePageState extends State<HomePage> {
 
     widget.dispensers = Provider.of<List<Dispenser>>(context);
 
+    Dispenser _currentDispenser;
     return StreamBuilder(
         stream: DatabaseService().dispensers,
         builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
-          widget._currentDispenser = null;
-
+          
           if (asyncSnapshot.hasData) {
             if (widget.dispensers.isNotEmpty) {
-              if (widget._currentDispenser == null) {
-                widget._currentDispenser = widget.dispensers[0];
-                /* return Container(
-                    child: Column(children: <Widget>[
-                  //SizedBox(height: 40.0),
-                  /*Text(
-                    'Seleziona il tuo dispenser per informazioni in tempo reale!',
-                    style: TextStyle(fontSize: 16.0),
-                    //textAlign: TextAlign.left,
-                  ),*/
-                  SizedBox(height: 20.0),
-                  DropdownButtonFormField<Dispenser>(
-                    hint: Text("seleziona il dispenser"),
-                      //value: widget._currentDispenser,
-                      items: widget.dispensers.map((dispenser) {
-                        return DropdownMenuItem(
-                          value: dispenser,
-                          child: Text(dispenser.id,
-                              style: TextStyle(fontSize: 18.0)),
-                        );
-                      }).toList(),
-                      onChanged: (Dispenser value) {
-                        setState(() {
-                          widget._currentDispenser = value;
-                          print("SELEZIONATO");
-                          print(widget._currentDispenser.id);
-                          last_selected = value;
-                        });
-                      }),
-                ]));*/
-              } /*else {*/
+              if (widget.last_selected != null) {
+                for (Dispenser disp in widget.dispensers) {
+                  if (disp.id == widget.last_selected.id) {
+                    widget.last_selected = disp;
+                  }
+                }
+                _currentDispenser = widget.last_selected;
+                
+              } else {
+                _currentDispenser = widget.dispensers[0];
+              }
               return Container(
                   child: Column(
                 children: <Widget>[
@@ -76,7 +57,7 @@ class _HomePageState extends State<HomePage> {
                     child: DropdownButtonFormField<Dispenser>(
                         icon: Icon(Icons.arrow_drop_down),
                         iconSize: 30,
-                        value: widget._currentDispenser,
+                        value: _currentDispenser,
                         items: widget.dispensers.map((dispenser) {
                           return DropdownMenuItem(
                               value: dispenser,
@@ -85,7 +66,11 @@ class _HomePageState extends State<HomePage> {
                         }).toList(),
                         onChanged: (Dispenser value) {
                           setState(() {
-                            widget._currentDispenser = value;
+                            _currentDispenser = value;
+                            widget.last_selected = value;
+                            print("selezionato");
+                            print(widget.last_selected);
+                            print(_currentDispenser.id);
                           });
                         }),
                   ),
@@ -94,17 +79,15 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       children: <Widget>[
                         Center(
-                          child: Text(
-                              widget._currentDispenser.foodState.toString()),
+                          child: Text(_currentDispenser.foodState.toString()),
                         ),
                         SizedBox(height: 20.0),
                         CircularPercentIndicator(
                           radius: 120.0,
                           lineWidth: 13.0,
                           animation: true,
-                          percent: 0.7, //(last_selected.qtnRation / 100),
-                          center: new Text(
-                            "70%",
+                          percent:  _currentDispenser.qtnRation/100, 
+                          center: new Text( _currentDispenser.qtnRation.toString() + "%",
                             style: new TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20.0),
                           ),
@@ -126,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(fontSize: 16.0),
                     //textAlign: TextAlign.left,
                   ),
-                  ErogationPage(),
+                  ErogationPage(dispenser: _currentDispenser),
                 ],
               ));
               //}
@@ -136,8 +119,10 @@ class _HomePageState extends State<HomePage> {
               return Container(
                 child: Center(
                   child: Column(children: <Widget>[
-                    Text('Non hai ancora connesso alcun dispenser'),
-                    Text('Aggiungine uno nuovo!')
+                    SizedBox(height: 70.0),
+                    Text('Non hai ancora connesso alcun dispenser',
+                    style: TextStyle(fontSize: 20.0),),
+                    Text('Aggiungine uno nuovo!',style: TextStyle(fontSize: 16.0),)
                   ]),
                 ),
               );
