@@ -1,6 +1,5 @@
 import 'package:dogx_a_smart_dispenser/models/Animal.dart';
 import 'package:dogx_a_smart_dispenser/models/Dispenser.dart';
-import 'package:dogx_a_smart_dispenser/screens/views/home_page.dart';
 import 'package:dogx_a_smart_dispenser/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +11,8 @@ class ErogationPage extends StatefulWidget {
   //Dispenser _currentDispenser;
   List<Animal> animals;
   Animal last_animal;
-  ErogationPage({this.dispenser});
+  Animal currentAnimal;
+  ErogationPage({this.dispenser, this.currentAnimal});
 
   @override
   _ErogationPageState createState() => _ErogationPageState();
@@ -28,8 +28,8 @@ class _ErogationPageState extends State<ErogationPage> {
   @override
   Widget build(BuildContext context) {
     widget.animals = Provider.of<List<Animal>>(context);
-    Animal _currentAnimal;
-
+    //Animal _currentAnimal; //quando rientra qua dopo home page dovrebbe rimanere NON null
+    print(widget.currentAnimal);
     return StreamBuilder(
         stream: DatabaseService().animals,
         builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
@@ -38,7 +38,7 @@ class _ErogationPageState extends State<ErogationPage> {
               print("SONO INIZIO");
 
               print("curr");
-              print(_currentAnimal);
+              print(widget.currentAnimal);
               print("last");
               print(widget.last_animal);
               if (widget.last_animal != null) {
@@ -48,9 +48,9 @@ class _ErogationPageState extends State<ErogationPage> {
                     widget.last_animal = a;
                   }
                 }
-                _currentAnimal = widget.last_animal;
+                widget.currentAnimal = widget.last_animal;
               } else {
-                _currentAnimal = widget.animals[0];
+                widget.currentAnimal = widget.animals[0];
               }
               return Container(
                 child: Column(children: <Widget>[
@@ -74,7 +74,7 @@ class _ErogationPageState extends State<ErogationPage> {
                         }).toList(),
                         onChanged: (Animal value) {
                           setState(() {
-                            _currentAnimal = value;
+                            widget.currentAnimal = value;
                             widget.last_animal = value;
                           });
                         }),
@@ -113,29 +113,29 @@ class _ErogationPageState extends State<ErogationPage> {
                             // QUANITA NEGATIVA (?)
                             print(_currentQnt);
                             print('CLICCATO EROGAZIONE PER::::');
-                            print(_currentAnimal.name);
+                            print(widget.currentAnimal.name);
                             print('ULTIMMO ANIMALE:');
                             print(widget.last_animal.name);
-                            if (_currentAnimal != null) {
-                              if (_currentAnimal.availableRation >=
+                            if (widget.currentAnimal != null) {
+                              if (widget.currentAnimal.availableRation >=
                                   int.parse(_currentQnt)) {
-                                print(_currentAnimal.name);
+                                print(widget.currentAnimal.name);
                                 print(_currentQnt);
 
-                                _currentAnimal.availableRation -=
+                                widget.currentAnimal.availableRation -=
                                     int.parse(_currentQnt);
                                 print('Valore dell available');
-                                print(_currentAnimal.availableRation);
-                                print('ULTIMMO ANIMALE:');
-                                print(widget.last_animal);
+                                print(widget.currentAnimal.availableRation);
+                                print('ULTIMMO ANIMALE 2:');
+                                print(widget.last_animal.name);
                                 _dbService.updateDispenser(
                                     //widget._currentDispenser.id,
                                     widget.dispenser.id,
                                     int.parse(_currentQnt),
-                                    _currentAnimal.collarId);
-                                print(_currentAnimal.collarId);
+                                    widget.currentAnimal.collarId);
+                                print(widget.currentAnimal.collarId);
 
-                                widget.last_animal = _currentAnimal;
+                                widget.last_animal = widget.currentAnimal;
                                 // _currentAnimal = null;
                                 //widget.dispenser = null;
                                 print("QUIII");
@@ -146,12 +146,7 @@ class _ErogationPageState extends State<ErogationPage> {
                                         'Erogazione avvenuta con successo!'));
 
                                 Scaffold.of(context).showSnackBar(snackBar);
-                                setState(() {
-                                  print("DOPO EROGAZIOME");
-                                  widget.last_animal = _currentAnimal;
-                                  print(widget.last_animal.name);
-                                  
-                                });
+                               
                               } else {
                                 showDialog(
                                     context: context,
@@ -180,16 +175,8 @@ class _ErogationPageState extends State<ErogationPage> {
                                                   //dispenser.id,
                                                   widget.dispenser.id,
                                                   int.parse(_currentQnt),
-                                                  _currentAnimal.collarId);
-                                              //_currentAnimal = null;
-                                              //widget.dispenser = null;
-                                              //Navigator.of(context).pop();
-                                              /*Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        HomePage()),
-                                              );*/
+                                                  widget.currentAnimal.collarId);
+                                            
                                             }, //closes popup
                                           ),
                                         ],
@@ -207,7 +194,7 @@ class _ErogationPageState extends State<ErogationPage> {
                               style: TextStyle(color: Colors.white),
                               textAlign: TextAlign.center),
                           onPressed: () {
-                            if (_currentAnimal == null || _currentQnt == null) {
+                            if (widget.currentAnimal == null || widget.currentAnimal == null) {
                               print('qua o animale o razione sono nulli');
                               showDialog(
                                   context: context,
@@ -229,7 +216,7 @@ class _ErogationPageState extends State<ErogationPage> {
                                     );
                                   });
                             } else {
-                              _showDateTimePicker(_currentAnimal);
+                              _showDateTimePicker(widget.currentAnimal);
                             }
                           })
                     ],
@@ -237,13 +224,7 @@ class _ErogationPageState extends State<ErogationPage> {
                   //SizedBox(height: 20.0),
                 ]),
               );
-            }else{
-               return Center(
-              child: CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(Colors.black),
-              ),
-            );
-            }
+            } 
           } else {
             return Center(
               child: CircularProgressIndicator(
@@ -251,9 +232,7 @@ class _ErogationPageState extends State<ErogationPage> {
               ),
             );
           }
-        }
-        
-        );
+        });
   }
 
   Future<void> _showDateTimePicker(_currentAnimal) async {

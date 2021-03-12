@@ -1,12 +1,10 @@
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
-import 'package:dogx_a_smart_dispenser/screens/tab_navigation_dispenser.dart';
 import 'package:dogx_a_smart_dispenser/screens/views/animal_view.dart';
 import 'package:dogx_a_smart_dispenser/screens/views/dispenser_view.dart';
 import 'package:dogx_a_smart_dispenser/screens/views/home_view.dart';
-import 'package:dogx_a_smart_dispenser/screens/views/profile_view.dart';
 import 'package:dogx_a_smart_dispenser/screens/views/notification_view.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/percent_indicator.dart';
+
 void main() => runApp(MaterialApp(home: Home()));
 
 class Home extends StatefulWidget {
@@ -38,21 +36,17 @@ class HomeState extends State<Home> {
     } else {
       if (currentTab == 1) {
         return DispenserView();
-    
       } else {
         if (currentTab == 2) {
           return AnimalView();
         } else {
           if (currentTab == 3) {
             return NotificationView();
-          } 
+          }
         }
       }
     }
-
   }
-
- 
 
   final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -62,25 +56,6 @@ class HomeState extends State<Home> {
       onWillPop: () async =>
           !await navigatorKeys[currentTab].currentState.maybePop(),
       child: Scaffold(
-          /*backgroundColor: Colors.white,
-          appBar: AppBar(
-            title: Text('DogX', style: TextStyle(color: Colors.black)),
-            centerTitle: true,
-            backgroundColor: Colors.white,
-            elevation: 0.0,
-          ),*/
-
-          /*
-        body: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 40,
-            ),
-            Dashboard()
-          ],
-        ),
-      );*/
-
           bottomNavigationBar: BubbleBottomBar(
             opacity: 0.0,
             backgroundColor: Colors.white,
@@ -129,7 +104,7 @@ class HomeState extends State<Home> {
                 ),
                 title: Text('Animali'),
               ),
-                           BubbleBottomBarItem(
+              BubbleBottomBarItem(
                 backgroundColor: Colors.black,
                 icon: Icon(Icons.notifications, color: Colors.black),
                 activeIcon: Icon(
@@ -137,9 +112,8 @@ class HomeState extends State<Home> {
                   color: Colors.black,
                 ),
                 title: Text('Notifiche'),
-                
               ),
-             /* BubbleBottomBarItem(
+              /* BubbleBottomBarItem(
                 backgroundColor: Colors.black,
                 icon: Icon(
                   Icons.person,
@@ -151,20 +125,9 @@ class HomeState extends State<Home> {
                 ),
                 title: Text('Account'),
               ),*/
- 
             ],
           ),
           body: _buildBody()),
     );
   }
-
-  /*Widget _buildOffstageNavigator(int tabItem) {
-    return Offstage(
-      offstage: currentTab != tabItem,
-      child: TabNavigatorDispenser(
-        navigatorKey: navigatorKeys[tabItem],
-        tabItem: tabItem,
-      ),
-    );
-  }*/
 }

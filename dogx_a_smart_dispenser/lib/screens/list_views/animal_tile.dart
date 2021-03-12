@@ -40,17 +40,15 @@ class AnimalTile extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 20,
                       ),
-                      
-                    ),         Text(
-                  "Spuntini mangiati: " + (animal.foodCounter).toString(),
-                  style: TextStyle(
-                    fontSize: 15,
-                  ),
-                  
-                ),
+                    ),
+                    Text(
+                      "Spuntini mangiati: " + (animal.foodCounter).toString(),
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
+                    ),
                   ],
                 ),
-            
                 Padding(
                   padding: EdgeInsets.all(15.0),
                   child: new CircularPercentIndicator(

@@ -24,8 +24,7 @@ class AnimalView extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title:
-              Text('I tuoi animali', style: TextStyle(color: Colors.black)),
+          title: Text('I tuoi animali', style: TextStyle(color: Colors.black)),
           centerTitle: true,
           backgroundColor: Colors.white,
           elevation: 0.0,
