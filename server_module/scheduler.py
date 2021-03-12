@@ -48,7 +48,6 @@ class ServerScheduler:
 
                 print('Prevista nuova erogazione il: ' + date + ' ' + time)
 
-
             elif change.type.name == 'MODIFIED':
                 print(f'Modified erogation: {change.document.id}')
             elif change.type.name == 'REMOVED':

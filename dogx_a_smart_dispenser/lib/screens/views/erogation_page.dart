@@ -49,6 +49,8 @@ class _ErogationPageState extends State<ErogationPage> {
                   }
                 }
                 _currentAnimal = widget.last_animal;
+                print('****cur');
+                print(_currentAnimal.name);
               } else {
                 _currentAnimal = widget.animals[0];
               }
@@ -63,7 +65,7 @@ class _ErogationPageState extends State<ErogationPage> {
                         borderRadius: BorderRadius.circular(8)),
                     child: DropdownButtonFormField<Animal>(
                         hint: Text("Seleziona il tuo animale"),
-                        //value: widget._currentAnimal,
+                        value: _currentAnimal,
                         items: widget.animals.map((animal) {
                           return DropdownMenuItem(
                             value:
@@ -74,8 +76,10 @@ class _ErogationPageState extends State<ErogationPage> {
                         }).toList(),
                         onChanged: (Animal value) {
                           setState(() {
+                            print('schiacciato pulsante');
                             _currentAnimal = value;
                             widget.last_animal = value;
+                            print(widget.last_animal.name);
                           });
                         }),
                   ),
@@ -146,12 +150,6 @@ class _ErogationPageState extends State<ErogationPage> {
                                         'Erogazione avvenuta con successo!'));
 
                                 Scaffold.of(context).showSnackBar(snackBar);
-                                setState(() {
-                                  print("DOPO EROGAZIOME");
-                                  widget.last_animal = _currentAnimal;
-                                  print(widget.last_animal.name);
-                                  
-                                });
                               } else {
                                 showDialog(
                                     context: context,
@@ -181,15 +179,6 @@ class _ErogationPageState extends State<ErogationPage> {
                                                   widget.dispenser.id,
                                                   int.parse(_currentQnt),
                                                   _currentAnimal.collarId);
-                                              //_currentAnimal = null;
-                                              //widget.dispenser = null;
-                                              //Navigator.of(context).pop();
-                                              /*Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        HomePage()),
-                                              );*/
                                             }, //closes popup
                                           ),
                                         ],
@@ -237,12 +226,12 @@ class _ErogationPageState extends State<ErogationPage> {
                   //SizedBox(height: 20.0),
                 ]),
               );
-            }else{
-               return Center(
-              child: CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(Colors.black),
-              ),
-            );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(
+                  valueColor: new AlwaysStoppedAnimation<Color>(Colors.black),
+                ),
+              );
             }
           } else {
             return Center(
@@ -251,9 +240,7 @@ class _ErogationPageState extends State<ErogationPage> {
               ),
             );
           }
-        }
-        
-        );
+        });
   }
 
   Future<void> _showDateTimePicker(_currentAnimal) async {

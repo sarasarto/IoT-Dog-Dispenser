@@ -12,8 +12,8 @@ class HomePage extends StatefulWidget {
   List<Dispenser> dispensers;
   List<Animal> animals;
   Dispenser last_selected;
-    Animal last_animal;
-Animal _currentAnimal;
+  Animal last_animal;
+  Animal _currentAnimal;
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
     widget.dispensers = Provider.of<List<Dispenser>>(context);
     print("torno home page");
 
-        
     Dispenser _currentDispenser;
     return StreamBuilder(
         stream: DatabaseService().dispensers,
@@ -42,8 +41,6 @@ class _HomePageState extends State<HomePage> {
                   if (disp.id == widget.last_selected.id) {
                     widget.last_selected = disp;
                   }
-
-                
                 }
                 _currentDispenser = widget.last_selected;
               } else {
@@ -115,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                     //textAlign: TextAlign.left,
                   ),
 
-                /* StreamBuilder(
+                  /* StreamBuilder(
         stream: DatabaseService().animals,
         builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
           if (asyncSnapshot.hasData) {
