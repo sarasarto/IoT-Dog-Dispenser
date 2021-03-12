@@ -1,4 +1,3 @@
-import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from constants import DISPENSER_ID, SERVICES_PATH, file_name
@@ -13,7 +12,7 @@ class DatabaseService:
     
     def __init__(self):
         self.services_path = SERVICES_PATH
-        self.cred = credentials.Certificate('server_module/' + self.services_path)
+        self.cred = credentials.Certificate(self.services_path)
         self.db_ref = None
 
     def initialize_connection(self):
@@ -27,6 +26,11 @@ class DatabaseService:
         for doc in doc_coll:
             print(doc.to_dict())
         return doc_coll
+
+    def activate_erogation(self, dispenser_id, collar_id, qtn_ration):
+        dispenser_ref = self.db_ref.collection('Dispenser').document(dispenser_id)
+        dispenser_ref.update({'collarId':collar_id, 'qtnRation': qtn_ration})
+        #a questo punto sarà compito del client ascoltare le modifiche al db per effetuare erogazione
 
     def add_fbp_prediction(self, prediction):
         print("Aggiungo nella tabella di predizione di prophet")

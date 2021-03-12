@@ -69,13 +69,13 @@ void loop() {
 
   //onEnter actions
   if(futureStateLight==1 && currentStateLight==0){
-    Serial.write(0x06);
+    //Serial.write(0x06);
     
     digitalWrite(pinLed, HIGH);
   }
 
   if(futureStateLight==0 && currentStateLight==1){
-    Serial.write(0x07);
+    //Serial.write(0x07);
  
 
 
