@@ -118,7 +118,6 @@ class _HomePageState extends State<HomePage> {
           if (asyncSnapshot.hasData) {
             if (widget.animals.isNotEmpty) {
               print("SONO INIZIO");
-
               print("curr");
               print(widget._currentAnimal);
               print("last");
@@ -137,7 +136,6 @@ class _HomePageState extends State<HomePage> {
               return Container(
                 child: Column(children: <Widget>[
                   SizedBox(height: 5.0),
-
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                     decoration: BoxDecoration(
@@ -191,7 +189,6 @@ class _HomePageState extends State<HomePage> {
                           onPressed: () async {
                             // DA METTERE CONTROLLO CHE UTENTE SELEZIONI SIA ANIMALE CHE QUANITTA
                             // ALTRIMENTI DIALOG CHE DICE DI METTERLI
-
                             // QUANITA NEGATIVA (?)
                             print(_currentQnt);
                             print('CLICCATO EROGAZIONE PER::::');
@@ -203,7 +200,6 @@ class _HomePageState extends State<HomePage> {
                                   int.parse(_currentQnt)) {
                                 print(widget._currentAnimal.name);
                                 print(_currentQnt);
-
                                 widget._currentAnimal.availableRation -=
                                     int.parse(_currentQnt);
                                 print('Valore dell available');
@@ -216,7 +212,6 @@ class _HomePageState extends State<HomePage> {
                                     int.parse(_currentQnt),
                                     widget._currentAnimal.collarId);
                                 print(widget._currentAnimal.collarId);
-
                                 widget.last_animal = widget._currentAnimal;
                                 // _currentAnimal = null;
                                 //widget.dispenser = null;
@@ -226,7 +221,6 @@ class _HomePageState extends State<HomePage> {
                                 final snackBar = SnackBar(
                                     content: Text(
                                         'Erogazione avvenuta con successo!'));
-
                                 Scaffold.of(context).showSnackBar(snackBar);
                                 setState(() {
                                   print("DOPO EROGAZIOME");
@@ -263,8 +257,6 @@ class _HomePageState extends State<HomePage> {
                                                   //widget.dispenser.id,
                                                   int.parse(_currentQnt),
                                                   widget._currentAnimal.collarId);
-
-
                                        //_currentAnimal = null;
                                               //widget.dispenser = null;
                                               //Navigator.of(context).pop();
@@ -336,9 +328,7 @@ class _HomePageState extends State<HomePage> {
             );
           }
         })*/
-                  ErogationPage(
-                      dispenser: _currentDispenser,
-                      currentAnimal: widget._currentAnimal),
+                  ErogationPage(dispenser: _currentDispenser),
                 ],
               ));
               //}
