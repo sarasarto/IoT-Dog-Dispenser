@@ -52,10 +52,8 @@ class Client:
                 #RIMETTENDO A ZERO LA QTNRATION E RESETTANDO IL RELATIVO ANIMALE A NULL
 
                 #INOLTRE POPOLIAMO TABELLA PER LE PREDIZIONI ADDPREDICTION(?)
-                #self.add_prediction(collar_id, qtnRation, DISPENSER_ID)
-                
-
-    
+                #self.add_prediction(collar_id, qtnRation, DISPENSER_ID)         
+   
 
                 #self.db_service.resetDispenserState(dispenser_ref)
 

@@ -12,7 +12,7 @@ class DatabaseService:
     
     def __init__(self):
         self.services_path = SERVICES_PATH
-        self.cred = credentials.Certificate(self.services_path)
+        self.cred = credentials.Certificate("server_module/" + self.services_path)
         self.db_ref = None
 
     def initialize_connection(self):
@@ -28,8 +28,11 @@ class DatabaseService:
         return doc_coll
 
     def activate_erogation(self, dispenser_id, collar_id, qtn_ration):
+        print("sto attivando erogazione")
         dispenser_ref = self.db_ref.collection('Dispenser').document(dispenser_id)
         dispenser_ref.update({'collarId':collar_id, 'qtnRation': qtn_ration})
+        #doc_ref = self.db_ref.collection('Programmed Erogation').document().stream
+        #print(doc_ref)
         #a questo punto sarà compito del client ascoltare le modifiche al db per effetuare erogazione
 
     def add_fbp_prediction(self, prediction):

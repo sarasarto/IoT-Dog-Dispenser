@@ -249,16 +249,19 @@ class _ErogationPageState extends State<ErogationPage> {
         initialDate: DateTime.now(),
         firstDate: DateTime.now(),
         lastDate: DateTime(2101));
-
+        
+        
     if (datePicked != null) {
       final TimeOfDay timePicked = await showTimePicker(
           context: context,
+          
           initialTime: TimeOfDay(
               hour: TimeOfDay.now().hour, minute: TimeOfDay.now().minute));
       if (timePicked != null) {
         setState(() {
+          DateTime timePicked= DateFormat("hh:mma").parse("6:45PM");
           selectedDate = "${DateFormat("yyyy-MM-dd").format(datePicked)}";
-          selectedTime = "${timePicked.format(context)}";
+          selectedTime = (timePicked.hour.toString() + ":"+ timePicked.minute.toString());
 
           if (_currentAnimal == null || _currentQnt == null) {
             print('o animale o razione sono nulli');

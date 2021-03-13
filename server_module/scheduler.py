@@ -1,10 +1,12 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import schedule
 import time
+#from apscheduler.schedulers import BlockingSchedule 
 
 class ServerScheduler:
     def __init__(self, db_service):
         self.db_service = db_service
+        self.lista = []
 
     def connect_to_database(self):
         self.db_service.initialize_connection()
@@ -45,8 +47,10 @@ class ServerScheduler:
                 dispenser_id = document['dispenserId']
                 collar_id = document['collarId']
                 qtn_ration = document['qtnRation']
-
-                print('Prevista nuova erogazione il: ' + date + ' ' + time)
+                #self.add_schedulation(date, time)
+                #self.start_scheduler_programmate(date, time)
+                
+                #print('Prevista nuova erogazione il: ' + date + ' ' + time)
 
             elif change.type.name == 'MODIFIED':
                 print(f'Modified erogation: {change.document.id}')
@@ -63,7 +67,7 @@ class ServerScheduler:
                 time = document['predicted_hour']
                 collar_id = document['collar_id']
                 
-                print('Nuova erogazione predetta per il: ' + str(date) + ' ' + str(time))
+                #print('Nuova erogazione predetta per il: ' + str(date) + ' ' + str(time))
 
 
             elif change.type.name == 'MODIFIED':
@@ -71,14 +75,47 @@ class ServerScheduler:
             elif change.type.name == 'REMOVED':
                 print(f'Removed erogation: {change.document.id}')       
 
+
+    def caso(self):
+        print("ciao")
+    def caso2(self):
+        print("sono il due")
+
+
+    def get_date_rightFormat(self ,data):
+        d = data.split('-')
+        year = d[0]
+        month = d[1]
+        day = d[2]
+        data_corretta = day + "/" + month + "/" + year
+        return data_corretta
+    
+    def activate_erogation(self, dispenser, collare , qnt):
+        print("aono in activate di scheduler")
+        print(dispenser)
+        print(collare)
+        print(qnt)
+        self.db_service.activate_erogation(dispenser, collare, qnt)
+
+
     def start_scheduler(self):
         #self.sched.add_job(self.reset_animal_parameters, trigger='cron', hour='13', minute='58')
         #self.sched.add_job(self.do_prophet_prediction, trigger='cron', hour='14', minute='08')
         schedule.every().day.at("00:00").do(self.reset_animal_parameters)
 
-        schedule.every().day.at("15:15").do(self.do_prophet_prediction)
-        #schedule.every(5).seconds.do(self.do_prophet_prediction)
-        
+        schedule.every().day.at("00:00").do(self.do_prophet_prediction)
+        #schedule.every(5).seconds.do(self.caso2)
+
+        erog = self.db_service.db_ref.collection('Programmed Erogation').stream()
+        for e in erog:
+            cur = e.to_dict()
+            data_corretta = self.get_date_rightFormat(cur['date'])
+            if(data_corretta == datetime.today().strftime("%d/%m/%Y")):
+                print("dentro")
+                #print(cur.id)
+
+                #schedule.every(5).seconds.do(self.activate_erogation, cur['dispenserId'], cur['collarId'], cur['qtnRation'])
+                schedule.every().day.at(cur['time']).do(self.activate_erogation, cur['dispenserId'], cur['collarId'], cur['qtnRation'])
         while True:
             schedule.run_pending()
             time.sleep(1)

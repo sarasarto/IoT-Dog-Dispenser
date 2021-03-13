@@ -109,7 +109,7 @@ class Bridge:
                             self.client.add_prediction(self.collar_id, self.qtn_ration, DISPENSER_ID)
                             self.qtn_ration = 0
                             self.collar_id = None
-                            self.client.reset_dispenser_state(self.dispenser_ref)   
+                            self.client.reset_dispenser_state(self.dispenser_ref)
                        
                     else:
                         print('Attenzione, si è verificata un\' anomalia')

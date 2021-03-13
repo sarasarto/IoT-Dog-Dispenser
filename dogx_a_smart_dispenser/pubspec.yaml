@@ -28,6 +28,7 @@ dependencies:
   qr_code_scanner: ^0.3.5
   #firebase_messaging: ^7.0.3
   percent_indicator: "^2.1.7+2"
+  cron: ^0.2.4
   #numberpicker: ^2.0.0
 
 
