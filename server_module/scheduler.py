@@ -50,7 +50,7 @@ class ServerScheduler:
                 #self.add_schedulation(date, time)
                 #self.start_scheduler_programmate(date, time)
                 
-                #print('Prevista nuova erogazione il: ' + date + ' ' + time)
+                print('Prevista nuova erogazione il: ' + date + ' ' + time)
 
             elif change.type.name == 'MODIFIED':
                 print(f'Modified erogation: {change.document.id}')
@@ -69,17 +69,10 @@ class ServerScheduler:
                 
                 #print('Nuova erogazione predetta per il: ' + str(date) + ' ' + str(time))
 
-
             elif change.type.name == 'MODIFIED':
                 print(f'Modified erogation: {change.document.id}')
             elif change.type.name == 'REMOVED':
                 print(f'Removed erogation: {change.document.id}')       
-
-
-    def caso(self):
-        print("ciao")
-    def caso2(self):
-        print("sono il due")
 
 
     def get_date_rightFormat(self ,data):
@@ -90,12 +83,12 @@ class ServerScheduler:
         data_corretta = day + "/" + month + "/" + year
         return data_corretta
     
-    def activate_erogation(self, dispenser, collare , qnt):
+    def activate_erogation(self, dispenser, collare , qnt, doc_id_erogation):
         print("aono in activate di scheduler")
         print(dispenser)
         print(collare)
         print(qnt)
-        self.db_service.activate_erogation(dispenser, collare, qnt)
+        self.db_service.activate_erogation(dispenser, collare, qnt, doc_id_erogation)
 
 
     def start_scheduler(self):
@@ -115,7 +108,7 @@ class ServerScheduler:
                 #print(cur.id)
 
                 #schedule.every(5).seconds.do(self.activate_erogation, cur['dispenserId'], cur['collarId'], cur['qtnRation'])
-                schedule.every().day.at(cur['time']).do(self.activate_erogation, cur['dispenserId'], cur['collarId'], cur['qtnRation'])
+                schedule.every().day.at(cur['time']).do(self.activate_erogation, cur['dispenserId'], cur['collarId'], cur['qtnRation'], e.id)
         while True:
             schedule.run_pending()
             time.sleep(1)

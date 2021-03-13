@@ -27,11 +27,12 @@ class DatabaseService:
             print(doc.to_dict())
         return doc_coll
 
-    def activate_erogation(self, dispenser_id, collar_id, qtn_ration):
+    def activate_erogation(self, dispenser_id, collar_id, qtn_ration, doc_id_erogation):
         print("sto attivando erogazione")
         dispenser_ref = self.db_ref.collection('Dispenser').document(dispenser_id)
         dispenser_ref.update({'collarId':collar_id, 'qtnRation': qtn_ration})
-        #doc_ref = self.db_ref.collection('Programmed Erogation').document().stream
+
+        self.db_ref.collection('Programmed Erogation').document(doc_id_erogation).delete()
         #print(doc_ref)
         #a questo punto sarà compito del client ascoltare le modifiche al db per effetuare erogazione
 
