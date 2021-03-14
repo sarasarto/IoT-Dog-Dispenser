@@ -1,5 +1,3 @@
-
-  
 import 'package:dogx_a_smart_dispenser/models/Dispenser.dart';
 import 'package:dogx_a_smart_dispenser/screens/forms/scanner.dart';
 import 'package:dogx_a_smart_dispenser/screens/list_views/dispenser_list.dart';

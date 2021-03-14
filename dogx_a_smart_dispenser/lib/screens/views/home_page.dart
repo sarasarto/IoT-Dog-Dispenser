@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                           animation: true,
                           percent: (_currentDispenser.cibo_rimasto/ _currentDispenser.totale),
                           center: new Text(
-                           (_currentDispenser.cibo_rimasto/ _currentDispenser.totale).toString() + "%",
+                           ((_currentDispenser.cibo_rimasto/ _currentDispenser.totale)*100).toString() + "%",
                             style: new TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20.0),
                           ),
