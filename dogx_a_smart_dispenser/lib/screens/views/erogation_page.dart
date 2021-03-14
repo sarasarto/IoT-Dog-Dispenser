@@ -32,10 +32,10 @@ class _ErogationPageState extends State<ErogationPage> {
     Animal _currentAnimal;
     //String _currentQnt;
 
-    print('dispenseeeeer');
-    print(widget.dispenser.qtnRation);
-    print('quaaaa');
-    print(widget.isButtonClicked);
+    //print('dispenseeeeer');
+    //print(widget.dispenser.qtnRation);
+    //print('quaaaa');
+    //print(widget.isButtonClicked);
     if (widget.dispenser.qtnRation == 0) {
       if (widget.isButtonClicked != null && widget.isButtonClicked != 0) {
         final snackBar =
@@ -49,22 +49,22 @@ class _ErogationPageState extends State<ErogationPage> {
           builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
             if (asyncSnapshot.hasData) {
               if (widget.animals.isNotEmpty) {
-                print("SONO INIZIO");
+                //print("SONO INIZIO");
 
-                print("curr");
+                print("curr animale");
                 print(_currentAnimal);
-                print("last");
+                print("last animale");
                 print(widget.last_animal);
                 if (widget.last_animal != null) {
-                  print(widget.last_animal.name);
+                  //print(widget.last_animal.name);
                   for (Animal a in widget.animals) {
                     if (a.collarId == widget.last_animal.collarId) {
                       widget.last_animal = a;
                     }
                   }
                   _currentAnimal = widget.last_animal;
-                  print('****cur');
-                  print(_currentAnimal.name);
+                  //print('****cur');
+                  //print(_currentAnimal.name);
                 } else {
                   _currentAnimal = widget.animals[0];
                 }
@@ -127,6 +127,8 @@ class _ErogationPageState extends State<ErogationPage> {
                                 style: TextStyle(color: Colors.white),
                                 textAlign: TextAlign.center),
                             onPressed: () async {
+                              print("quantita corrente");
+                              print(_currentQnt);
                               // DA METTERE CONTROLLO CHE UTENTE SELEZIONI SIA ANIMALE CHE QUANITTA
                               // ALTRIMENTI DIALOG CHE DICE DI METTERLI
                               if (_currentAnimal == null ||
@@ -155,21 +157,21 @@ class _ErogationPageState extends State<ErogationPage> {
                               // QUANITA NEGATIVA (?)
                               print(_currentQnt);
                               print('CLICCATO EROGAZIONE PER::::');
-                              print(_currentAnimal.name);
-                              print('ULTIMMO ANIMALE:');
-                              print(widget.last_animal.name);
+                              //print(_currentAnimal.name);
+                              //print('ULTIMO ANIMALE:');
+                             // print(widget.last_animal.name);
                               if (_currentAnimal != null) {
                                 if (_currentAnimal.availableRation >=
                                     int.parse(_currentQnt)) {
                                   print(_currentAnimal.name);
-                                  print(_currentQnt);
+                                  //print(_currentQnt);
 
                                   _currentAnimal.availableRation -=
                                       int.parse(_currentQnt);
                                   print('Valore dell available');
                                   print(_currentAnimal.availableRation);
-                                  print('ULTIMMO ANIMALE:');
-                                  print(widget.last_animal);
+                                  //print('ULTIMMO ANIMALE:');
+                                  //print(widget.last_animal);
                                   _dbService.updateDispenser(
                                       //widget._currentDispenser.id,
                                       widget.dispenser.id,
@@ -180,9 +182,9 @@ class _ErogationPageState extends State<ErogationPage> {
                                   widget.last_animal = _currentAnimal;
                                   // _currentAnimal = null;
                                   //widget.dispenser = null;
-                                  print("QUIII");
-                                  print('ULTIMMO ANIMALE:');
-                                  print(widget.last_animal.name);
+                                  //print("QUIII");
+                                  //print('ULTIMMO ANIMALE:');
+                                  //print(widget.last_animal.name);
 
                                   widget.isButtonClicked = 1;
                                 } else {
@@ -207,7 +209,7 @@ class _ErogationPageState extends State<ErogationPage> {
                                             FlatButton(
                                               child: Text("Eroga"),
                                               onPressed: () {
-                                                //Navigator.of(context).pop();
+                                               
                                                 //cambio qntRation cosi bridge se ne accorge
                                                 _dbService.updateDispenser(
                                                     //dispenser.id,

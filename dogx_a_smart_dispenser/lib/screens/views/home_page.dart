@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
               return Container(
                   child: Column(
                 children: <Widget>[
-                  SizedBox(height: 20.0),
+                 // SizedBox(height: 20.0),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                     decoration: BoxDecoration(
@@ -79,17 +79,17 @@ class _HomePageState extends State<HomePage> {
                   Container(
                     child: Column(
                       children: <Widget>[
-                        Center(
+                        /*Center(
                           child: Text(_currentDispenser.foodState.toString()),
-                        ),
-                        SizedBox(height: 20.0),
+                        ),*/
+                        //SizedBox(height: 20.0),
                         CircularPercentIndicator(
-                          radius: 120.0,
+                          radius: 90.0,
                           lineWidth: 13.0,
                           animation: true,
-                          percent: _currentDispenser.qtnRation / 100,
+                          percent: (_currentDispenser.cibo_rimasto/ _currentDispenser.totale),
                           center: new Text(
-                            _currentDispenser.qtnRation.toString() + "%",
+                           (_currentDispenser.cibo_rimasto/ _currentDispenser.totale).toString() + "%",
                             style: new TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20.0),
                           ),
@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                           circularStrokeCap: CircularStrokeCap.round,
                           progressColor: Colors.black,
                         ),
-                        SizedBox(height: 20.0),
+                        //SizedBox(height: 20.0),
                       ],
                     ),
                   ),
@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(height: 70.0),
                     Text(
                       'Non hai ancora connesso alcun dispenser',
-                      style: TextStyle(fontSize: 20.0),
+                      style: TextStyle(fontSize: 16.0),
                     ),
                     Text(
                       'Aggiungine uno nuovo!',

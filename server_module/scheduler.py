@@ -105,8 +105,6 @@ class ServerScheduler:
             data_corretta = self.get_date_rightFormat(cur['date'])
             if(data_corretta == datetime.today().strftime("%d/%m/%Y")):
                 print("dentro")
-                #print(cur.id)
-
                 #schedule.every(5).seconds.do(self.activate_erogation, cur['dispenserId'], cur['collarId'], cur['qtnRation'])
                 schedule.every().day.at(cur['time']).do(self.activate_erogation, cur['dispenserId'], cur['collarId'], cur['qtnRation'], e.id)
         while True:

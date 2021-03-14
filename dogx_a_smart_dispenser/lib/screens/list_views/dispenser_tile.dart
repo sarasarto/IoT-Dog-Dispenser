@@ -19,18 +19,13 @@ class DispenserTile extends StatelessWidget {
         child: ListTile(
           title: Text(dispenser.id,
           style: TextStyle(fontSize: 22),),
-          subtitle: Text(dispenser.userId),
+          //subtitle: Text(dispenser.userId),
           onTap: () {
             print(dispenser.id);
             print("collare: " + dispenser.collarId.toString());
             print("qnt : " + dispenser.qtnRation.toString());
             print(dispenser.userId);
-            /*Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ErogationView(
-                        dispenser: dispenser /*, animals: animals*/))
-                        );*/
+           
           },
         ),
       ),

@@ -96,7 +96,8 @@ class DatabaseService {
         qtnRation: doc.data()['qtnRation'] ?? '',
         collarId: doc.data()['collarId'] ?? null,
         foodState: doc.data()['food_state'] ?? true,
-        //foodState: doc.data()['food_state'] ?? 0,
+        totale: doc.data()['totale'] ?? '',
+        cibo_rimasto: doc.data()['cibo_rimasto'] ?? '',
       );
     }).toList();
   }
@@ -114,16 +115,17 @@ class DatabaseService {
   }
 
   Future addDispenser(
-      String id, String userId, int qtnRation, String collarId) async {
+      String id, String userId, int qtnRation, String collarId /*, int totale, int cibo_rimasto*/) async {
     //DocumentReference docRef = await dispenserCollection
     return await dispenserCollection.doc(id).set({
       'Id': id,
       'userId': userId,
       'qtnRation': qtnRation,
       'collarId': collarId,
-      //'food_state': 0
-      'food_state': true 
-    });
+      'food_state': true , 
+      'totale': 1000, // questo lo settiamo noi per ora. successivamente ci sarà il sensore
+      'cibo_rimasto' : 1000,
+    }); 
 
     // await docRef.update({'Id': docRef.id});
   }
