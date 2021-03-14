@@ -44,7 +44,8 @@ class DatabaseService:
             available_ration = 0            
         else:
             available_ration -= ration
-            rimasto_disp -= ration 
+        
+        rimasto_disp -= ration 
     
         animal_ref.update({'availableRation':available_ration, 'foodCounter': food_counter})
         disp_ref.update({'cibo_rimasto': rimasto_disp})

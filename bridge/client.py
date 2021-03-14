@@ -34,6 +34,7 @@ class Client:
             if qtnRation != 0 and collar_id != None:
                 #da qui andrò ad inviare il comando ad arduino per erogare
                 #non so però ancora se andrà a buon fine.
+                print('FATTOOOOOO')
                 self.bridge.write('1')
                 name = self.get_nameAnimal_fromCollar(collar_id)
                 print('Erogazione in corso per ' + name)

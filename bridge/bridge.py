@@ -96,11 +96,12 @@ class Bridge:
                             self.collar_id = None
                         else:
                             print('Aggiorno in seguito a comando immediato')
+                            self.client.reset_dispenser_state(self.dispenser_ref)
                             self.client.update_available_ration(self.collar_id, self.qtn_ration, self.is_animal_detected)
                             self.client.add_prediction(self.collar_id, self.qtn_ration, DISPENSER_ID)
                             self.qtn_ration = 0
                             self.collar_id = None
-                            self.client.reset_dispenser_state(self.dispenser_ref)
+                            
                        
                     else:
                         print('Attenzione, si è verificata un\' anomalia')
