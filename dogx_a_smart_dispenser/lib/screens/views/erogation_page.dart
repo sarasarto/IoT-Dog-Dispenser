@@ -30,12 +30,13 @@ class _ErogationPageState extends State<ErogationPage> {
   Widget build(BuildContext context) {
     widget.animals = Provider.of<List<Animal>>(context);
     Animal _currentAnimal;
+    //String _currentQnt;
 
     print('dispenseeeeer');
     print(widget.dispenser.qtnRation);
     print('quaaaa');
-      print(widget.isButtonClicked);
-    if (widget.dispenser.qtnRation == 0) {    
+    print(widget.isButtonClicked);
+    if (widget.dispenser.qtnRation == 0) {
       if (widget.isButtonClicked != null && widget.isButtonClicked != 0) {
         final snackBar =
             SnackBar(content: Text('Erogazione avvenuta con successo!'));
@@ -128,6 +129,28 @@ class _ErogationPageState extends State<ErogationPage> {
                             onPressed: () async {
                               // DA METTERE CONTROLLO CHE UTENTE SELEZIONI SIA ANIMALE CHE QUANITTA
                               // ALTRIMENTI DIALOG CHE DICE DI METTERLI
+                              if (_currentAnimal == null ||
+                                  _currentQnt == null) {
+                                showDialog(
+                                    context: context,
+                                    barrierDismissible:
+                                        false, // disables popup to close if tapped outside popup (need a button to close)
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text(
+                                          "Selezionare sia l'animale che la quantità!",
+                                        ),
+                                        actions: <Widget>[
+                                          FlatButton(
+                                            child: Text("Ok, ho capito!"),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            }, //closes popup
+                                          ),
+                                        ],
+                                      );
+                                    });
+                              }
 
                               // QUANITA NEGATIVA (?)
                               print(_currentQnt);
@@ -256,8 +279,10 @@ class _ErogationPageState extends State<ErogationPage> {
           });
     } else {
       return Center(
-          child: CircularProgressIndicator(
-              valueColor: new AlwaysStoppedAnimation<Color>(Colors.black)));
+        child: Container(
+            child: CircularProgressIndicator(
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.black))),
+      );
     }
   }
 

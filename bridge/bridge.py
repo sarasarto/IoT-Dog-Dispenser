@@ -42,8 +42,6 @@ class Bridge:
 
 
     def loop(self):
-        print('bridge thread!')
-
         # infinite loop
         while (True):
             #look for a byte from serial
@@ -64,7 +62,6 @@ class Bridge:
             name = self.client.get_nameAnimal_fromCollar(self.collar_id)
             
             print("Rilevato animale vicino al dispenser!")
-            
             print('Id collare: ' + self.collar_id)
             print('Nome animale: ' + name)
             
@@ -78,33 +75,27 @@ class Bridge:
                 self.write('1')
 
             else:
-                print('Erogazione non effettuata causa soglia o razione disponibile!')
+                print('Erogazione non effettuata causa soglia o razione insufficiente!')
                         
         else:
             if command == 6:
                 #false food_state
-                print('si stanno esaurendo i croccantini!!!')
+                print('Si stanno esaurendo i croccantini!!!')
                 self.client.update_FoodStateDispenser(False)
             else:
                 if command==7:
-                    print('il dispenser è rifornito')
+                    print('Il dispenser è rifornito')
                     self.client.update_FoodStateDispenser(True)
                 else:
                     if command == 2:
-                        print('Ricevuto ACK in seguito all\' erogazione!')
+                        print('Erogazione effettuata con successo')
                         if(self.is_animal_detected is True):
-                            print('aggiorno in seguito ad avvicinamento')
-                            print(self.collar_id)
-                            print(self.qtn_ration)
-                            print(self.is_animal_detected)
+                            print('Aggiorno in seguito ad avvicinamento')
                             self.client.update_available_ration(self.collar_id, DEFAULT_RATION, self.is_animal_detected)
                             self.is_animal_detected = False
                             self.collar_id = None
                         else:
-                            print('aggiorno in seguito a comando immediato')
-                            print(self.collar_id)
-                            print(self.qtn_ration)
-                            print(self.is_animal_detected)
+                            print('Aggiorno in seguito a comando immediato')
                             self.client.update_available_ration(self.collar_id, self.qtn_ration, self.is_animal_detected)
                             self.client.add_prediction(self.collar_id, self.qtn_ration, DISPENSER_ID)
                             self.qtn_ration = 0

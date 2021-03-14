@@ -107,8 +107,6 @@ class Client:
        
     def loop(self):
         #il client rimane attivo per eventuali modifiche al db
-        
-        print('client thread')
         while(True):
             pass
     

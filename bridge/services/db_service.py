@@ -26,12 +26,10 @@ class DatabaseService:
 
     def update_available_ration(self, collar_id, ration, is_animal_detected):
         animal_ref = self.get_doc_ref('Animal', collar_id)
-        available_ration = self.get_available_ration(collar_id)
-        food_counter = self.get_food_counter(collar_id)
-        print('UPDATEEE')
-        print(collar_id)
-        #se il cane si è avvicinato
-        # else non cambiamo niente
+        animal = animal_ref.get().to_dict()
+        available_ration = animal['availableRation']
+        food_counter = animal['foodCounter']
+       
         if  is_animal_detected:
             food_counter += 1
 

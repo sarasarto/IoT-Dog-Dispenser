@@ -28,7 +28,9 @@ class AnimalTile extends StatelessWidget {
           _showUpdatePanel(animal);
         },
         child: Card(
-            color: Colors.black12,
+            shape: RoundedRectangleBorder(
+                side: BorderSide(width: 1, color: Colors.black)),
+            color: Colors.white,
             margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -38,7 +40,13 @@ class AnimalTile extends StatelessWidget {
                     Text(
                       " " + animal.name,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 22,
+                      ),
+                    ),
+                    Text(
+                      "Razione giornaliera: " + animal.dailyRation.toString(),
+                      style: TextStyle(
+                        fontSize: 15,
                       ),
                     ),
                     Text(
@@ -53,20 +61,20 @@ class AnimalTile extends StatelessWidget {
                   padding: EdgeInsets.all(15.0),
                   child: new CircularPercentIndicator(
                     radius: 80.0,
-                    lineWidth: 13.0,
+                    lineWidth: 7.0,
                     animation: true,
-                    percent: (1 - animal.availableRation / animal.dailyRation),
+                    percent: (animal.availableRation / animal.dailyRation),
                     center: Text(
-                        ((1 - animal.availableRation / animal.dailyRation) *
-                                    100)
+                        ((animal.availableRation / animal.dailyRation) * 100)
                                 .round()
                                 .toString() +
                             "%",
-                        style: TextStyle(color: Colors.white)),
+                        style: TextStyle(color: Colors.black)),
                     footer: new Text(
-                      "Cibo rimasto",
+                      "Razione rimanente",
                       style: new TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 17.0),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15.0),
                     ),
                     circularStrokeCap: CircularStrokeCap.round,
                     progressColor: Colors.black,
