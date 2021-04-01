@@ -34,7 +34,6 @@ class Client:
             if qtnRation != 0 and collar_id != None:
                 #da qui andrò ad inviare il comando ad arduino per erogare
                 #non so però ancora se andrà a buon fine.
-                print('FATTOOOOOO')
                 self.bridge.write('1')
                 name = self.get_nameAnimal_fromCollar(collar_id)
                 print('Erogazione in corso per ' + name)
@@ -90,7 +89,7 @@ class Client:
         available_ration = self.get_available_ration(collar_id)
         food_counter = self.get_food_counter(collar_id)
         if food_counter >= 3:
-            print("Si è gia raggiunta la soglia giornaliera di 3 volte!")
+            print("Spuntini giornalieri esauriti (max 3)!")
             return False
         #qua ho gia il controllo del food counter
         return True if available_ration >= DEFAULT_RATION else False

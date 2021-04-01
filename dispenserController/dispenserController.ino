@@ -21,7 +21,7 @@ const int echoPin = 12;
 long duration;
 int distance;
 
-Stepper stepper(nStep, pinOne, pinTwo, pinThree, pinFour);
+//Stepper stepper(nStep, pinOne, pinTwo, pinThree, pinFour);
 
 
 const int stepPin = 3; 
@@ -39,7 +39,7 @@ void setup() {
   Serial.begin(9600);
   
   //motore
-  stepper.setSpeed(motor_speed);
+  //stepper.setSpeed(motor_speed);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
   currentState = 0;
@@ -56,6 +56,7 @@ void setup() {
 int command;
 
 void loop() {
+  /*
   //idea: se c'è tanta luce (luce<200) non ho tanti croccantini
   //      se c'è poca luce (luce>=200) ho il sensore coperto dai croccantini
   futureStateLight = 0;
@@ -81,19 +82,19 @@ void loop() {
   currentStateLight = futureStateLight;
 
   //motore
-  futureState = 0;
+  futureState = 0;*/
   
   if(Serial.available() > 0){
     command = Serial.read();
 
     if(command == '1'){
-      stepper.step(nStep);
-      /*for(int x = 0; x < 200; x++) {
+      //stepper.step(nStep);
+      for(int x = 0; x < 200; x++) {
         digitalWrite(stepPin,HIGH); 
         delayMicroseconds(3000); 
         digitalWrite(stepPin,LOW); 
         delayMicroseconds(3000); 
-       }*/
+       }
 
       //invio ack al bridge
       Serial.write(0x02);
@@ -101,6 +102,7 @@ void loop() {
 
   }
 
+/*
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
   digitalWrite(trigPin, HIGH);
@@ -123,5 +125,5 @@ void loop() {
     Serial.write(0x01);
   }
 
-  currentState = futureState;
+  currentState = futureState;*/
 }

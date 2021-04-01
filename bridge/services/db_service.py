@@ -90,7 +90,7 @@ class DatabaseService:
 
     
     def add_prediction(self, collarId, qnt, dispenser_id):
-        print("Aggiungo nella tabella di predizione")
+        print("Raccolta dati sull' erogazione in corso...")
 
         pred = Erogazione(collar_id = collarId, qnt = qnt, dispenser_id = dispenser_id)
         self.db_ref.collection('Erogation Data').add(pred.to_dict())
@@ -98,10 +98,6 @@ class DatabaseService:
 
     def getAllCollection(self, collection_name):
         doc_coll = self.db_ref.collection(collection_name).stream()
-        #print("qua sono in db")
-        #for doc in doc_coll:
-        #    print(doc.to_dict())
-        #print("fine db")
         return doc_coll
     
     def get_Dispenser_curr_foodState(self):
@@ -133,13 +129,11 @@ class DatabaseService:
         dispenser_ref = self.get_doc_ref('Dispenser', DISPENSER_ID)
         user_id = dispenser_ref.get().to_dict()['userId']
         notifica = Notifica(dispenser_id = DISPENSER_ID, user_id =user_id )
-        print("STO AGGIUNGENDO LA NOTIFICA AL DB PER UTENTE")
-        #self.db_ref.collection('Notifiche').add(notifica.to_dict())
+        print("Invio notifica in corso...")
         self.db_ref.collection('Notifiche').document(DISPENSER_ID).set(notifica.to_dict())
 
     def delete_notifica(self):
         dispenser_ref = self.get_doc_ref('Dispenser', DISPENSER_ID)
-        #user_id = dispenser_ref.get().to_dict()['userId']
         doc_ref = self.db_ref.collection('Notifiche').document(DISPENSER_ID)
         print("STO ELIMINANDO LA NOTIFICA PER L'UTENTE")
         doc_ref.delete()

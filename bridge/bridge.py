@@ -80,30 +80,31 @@ class Bridge:
         else:
             if command == 6:
                 #false food_state
-                print('Si stanno esaurendo i croccantini!!!')
+                print('Si stanno esaurendo i croccantini!')
                 self.client.update_FoodStateDispenser(False)
             else:
                 if command==7:
-                    print('Il dispenser è rifornito')
+                    print('Il dispenser è rifornito!')
                     self.client.update_FoodStateDispenser(True)
                 else:
                     if command == 2:
-                        print('Erogazione effettuata con successo')
+                        print('Erogazione effettuata con successo!')
                         if(self.is_animal_detected is True):
-                            print('Aggiorno in seguito ad avvicinamento')
+                            print('Aggiornamento in seguito ad avvicinamento...')
                             self.client.update_available_ration(self.collar_id, DEFAULT_RATION, self.is_animal_detected)
                             self.is_animal_detected = False
                             self.collar_id = None
                         else:
-                            print('Aggiorno in seguito a comando immediato')
+                            print('Aggiornamento in seguito a comando immediato...')
                             self.client.reset_dispenser_state(self.dispenser_ref)
                             self.client.update_available_ration(self.collar_id, self.qtn_ration, self.is_animal_detected)
                             self.client.add_prediction(self.collar_id, self.qtn_ration, DISPENSER_ID)
                             self.qtn_ration = 0
                             self.collar_id = None
-                            
-                       
+
+                        print('\n\n')
+                                 
                     else:
-                        print('Attenzione, si è verificata un\' anomalia')
+                        print('Attenzione, si è verificata un\' anomalia!')
 
             

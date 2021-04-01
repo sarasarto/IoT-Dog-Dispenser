@@ -51,4 +51,3 @@ class DispenserView extends StatelessWidget {
     }
   }
 }
-
