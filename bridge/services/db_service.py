@@ -18,7 +18,7 @@ class DatabaseService:
     def initialize_connection(self):
         firebase_admin.initialize_app(self.cred)
         self.db_ref = firestore.client()
-        print('Collegamento con il database avvenuto con successo!')
+        print('Collegamento con il database avvenuto con successo!\n')
 
     def get_doc_ref(self, collection_name, doc_id):
         doc_ref = self.db_ref.collection(collection_name).document(doc_id)
@@ -90,7 +90,7 @@ class DatabaseService:
 
     
     def add_prediction(self, collarId, qnt, dispenser_id):
-        print("Raccolta dati sull' erogazione in corso...")
+        print("Raccolta dati sull' erogazione...")
 
         pred = Erogazione(collar_id = collarId, qnt = qnt, dispenser_id = dispenser_id)
         self.db_ref.collection('Erogation Data').add(pred.to_dict())

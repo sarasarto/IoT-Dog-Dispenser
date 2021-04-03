@@ -56,10 +56,10 @@ void setup() {
 int command;
 
 void loop() {
-  /*
+  
   //idea: se c'è tanta luce (luce<200) non ho tanti croccantini
   //      se c'è poca luce (luce>=200) ho il sensore coperto dai croccantini
-  futureStateLight = 0;
+  /*futureStateLight = 0;
   luce=analogRead(fotor);
 
   if (currentStateLight==0 && luce>=val_min) futureStateLight=0;
@@ -79,22 +79,23 @@ void loop() {
     digitalWrite(pinLed, LOW);
   }
 
-  currentStateLight = futureStateLight;
+  currentStateLight = futureStateLight;*/
 
   //motore
-  futureState = 0;*/
+  futureState = 0;
   
   if(Serial.available() > 0){
     command = Serial.read();
 
     if(command == '1'){
       //stepper.step(nStep);
-      for(int x = 0; x < 200; x++) {
+      /*for(int x = 0; x < 200; x++) {
         digitalWrite(stepPin,HIGH); 
-        delayMicroseconds(3000); 
+        delayMicroseconds(2000); 
         digitalWrite(stepPin,LOW); 
-        delayMicroseconds(3000); 
-       }
+        delayMicroseconds(2000); 
+       }*/
+       delay(5000);
 
       //invio ack al bridge
       Serial.write(0x02);
@@ -102,7 +103,7 @@ void loop() {
 
   }
 
-/*
+
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
   digitalWrite(trigPin, HIGH);
@@ -125,5 +126,5 @@ void loop() {
     Serial.write(0x01);
   }
 
-  currentState = futureState;*/
+  currentState = futureState;
 }

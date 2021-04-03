@@ -40,7 +40,7 @@ class _HomeViewState extends State<HomeView> {
                   )),
                 ),
               ],
-              title: Text('DogX', style: TextStyle(color: Colors.black)),
+              title: Text('Feed-X', style: TextStyle(color: Colors.black)),
               centerTitle: true,
               backgroundColor: Colors.white,
               elevation: 0.0,

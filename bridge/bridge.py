@@ -88,21 +88,21 @@ class Bridge:
                     self.client.update_FoodStateDispenser(True)
                 else:
                     if command == 2:
-                        print('Erogazione effettuata con successo!')
+                        print('Ricevuto ACK: erogazione effettuata con successo!')
                         if(self.is_animal_detected is True):
-                            print('Aggiornamento in seguito ad avvicinamento...')
+                            print('Reset dispenser in seguito ad avvicinamento...')
                             self.client.update_available_ration(self.collar_id, DEFAULT_RATION, self.is_animal_detected)
                             self.is_animal_detected = False
                             self.collar_id = None
                         else:
-                            print('Aggiornamento in seguito a comando immediato...')
+                            print('Reset dispenser in seguito a comando immediato...')
                             self.client.reset_dispenser_state(self.dispenser_ref)
                             self.client.update_available_ration(self.collar_id, self.qtn_ration, self.is_animal_detected)
                             self.client.add_prediction(self.collar_id, self.qtn_ration, DISPENSER_ID)
                             self.qtn_ration = 0
                             self.collar_id = None
 
-                        print('\n\n')
+                        print('\n')
                                  
                     else:
                         print('Attenzione, si è verificata un\' anomalia!')
