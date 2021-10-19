@@ -1,2 +1,2 @@
 # Progetto_IoT
-Realizzazione di dispenser intelligenti controllabili da remoto per gestire i tuoi animali anche quando non sei a casa.
+Remotely controllable smart dispensers to manage your pets even when you are not at home.
